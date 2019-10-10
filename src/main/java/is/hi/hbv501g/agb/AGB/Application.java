@@ -1,4 +1,4 @@
-package is.hi.hbv501g.adventuresguide.Adventure.s.Guide;
+package is.hi.hbv501g.agb.AGB;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

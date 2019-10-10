@@ -8,10 +8,10 @@
 		<version>2.1.9.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>is.hi.hbv501g.adventuresguide</groupId>
-	<artifactId>Adventure-s-Guide</artifactId>
+	<groupId>is.hi.hbv501g.agb</groupId>
+	<artifactId>AGB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Adventure-s-Guide</name>
+	<name>AGB</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
