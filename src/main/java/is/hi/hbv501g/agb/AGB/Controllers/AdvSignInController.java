@@ -1,4 +1,4 @@
-package is.hi.hbv501g.agb.AGB;
+package is.hi.hbv501g.agb.AGB.Controllers;
 /**
  * Programmers:
  * id   name            email
@@ -13,5 +13,5 @@ package is.hi.hbv501g.agb.AGB;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class AgbController {
+public class AdvSignInController {
 }

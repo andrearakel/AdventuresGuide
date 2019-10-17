@@ -8,13 +8,13 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * Changes:
  * no.  idProg  date    description
  * 1    eok     151019  Created javabean entity with fields from ERD.
+ * 2    eok     171019  Changed to use Template enum, added a basic constructor.
  */
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Guide {
@@ -30,9 +30,12 @@ public class Guide {
 
     // TODO: Must implement foreign key relation
     private long idAdventurer; // creator
-    // TODO: Can start with 1 default Template
-    private long idTemplate;
-    private String titleTemplate; // title of template
+
+    // TODO: Validate this (replicated from support session)
+    @ElementCollection(targetClass=Template.class)
+    @Column(name="template", nullable=false)
+    @CollectionTable(name="guide_templates", joinColumns= {@JoinColumn(name="guide_id")})
+    public Set<Template> templates;
 
     private String title;
     private String description;
@@ -50,10 +53,20 @@ public class Guide {
     private double latitude;
     private double longitude;
 
-    private int ratingAvg; // TODO: Average rating, kept on scale 0-100
+    private int ratingAvg; // TODO: Average rating, kept on scale 1-100
+
+
 
     private Date dateCreated;
     private boolean enabled;
 
     public Guide() { } // Java Beans: one constructor must be empty
+
+    // TODO: Consider whether guide will be created and fields added in another request, or make a constructor with more params.
+    public Guide(long id, long idAdventurer, String title, HashSet<Template> templates) {
+        this.id = id;
+        this.idAdventurer = idAdventurer;
+        this.title = title;
+        this.templates = templates;
+    }
 }

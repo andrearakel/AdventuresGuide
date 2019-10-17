@@ -1,4 +1,5 @@
-package is.hi.hbv501g.agb.AGB.Repositories;
+package is.hi.hbv501g.agb.AGB.Entities.Logs;
+
 /**
  * Programmers:
  * id   name            email
@@ -9,6 +10,5 @@ package is.hi.hbv501g.agb.AGB.Repositories;
  * no.  idProg  date    description
  */
 
-
-public interface FollowerRepository {
+public class GuideLog {
 }

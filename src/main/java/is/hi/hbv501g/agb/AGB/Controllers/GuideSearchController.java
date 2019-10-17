@@ -1,4 +1,4 @@
-package is.hi.hbv501g.agb.AGB.Entities;
+package is.hi.hbv501g.agb.AGB.Controllers;
 /**
  * Programmers:
  * id   name            email
@@ -10,5 +10,8 @@ package is.hi.hbv501g.agb.AGB.Entities;
  */
 
 
-public class SavedGuide {
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class GuideSearchController {
 }

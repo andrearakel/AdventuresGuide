@@ -1,4 +1,4 @@
-package is.hi.hbv501g.agb.AGB.Entities;
+package is.hi.hbv501g.agb.AGB.Controllers;
 /**
  * Programmers:
  * id   name            email
@@ -9,5 +9,9 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * no.  idProg  date    description
  */
 
-public class Follower {
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class GuideViewController {
 }
