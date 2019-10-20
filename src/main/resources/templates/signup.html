@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adventurer's Guidebook - Sign Up</title>
+</head>
+<body>
+
+<h1>Sign up for the Adventurer's Guidebook</h1>
+
+<form action="#" th:action="@{/signup}" th:object="${adventurer}" method="post">
+
+    <label for="displayName">DisplayName</label>
+    <input type="text" th:field="*{displayName}" id="displayName" placeholder="DisplayName">
+    <span th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></span>
+
+    <br>
+
+    <label for="email">Email</label>
+    <input type="email" th:field="*{email}" id="email" placeholder="Email">
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <br>
+
+    <!-- TODO: Change to normal password. Hash it! -->
+    <label for="passwordHashed">PasswordHashed</label>
+    <input type="password" th:field="*{passwordHashed}" id="passwordHashed" placeholder="PasswordHashed">
+    <span th:if="${#fields.hasErrors('passwordHashed')}" th:errors="*{passwordHashed}"></span>
+
+    <br>
+
+    <input type="submit" value="Sign Up!">
+</form>
+
+</body>
+</html>
