@@ -3,12 +3,13 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * Programmers:
  * id   name            email
  * eok  Erling Oskar    eok4@hi.is
- *
+ * ars  Andrea Rakel    ars59@hi.is
  *
  * Changes:
  * no.  idProg  date    description
  * 1    eok     151019  Created javabean entity with fields from ERD.
  * 2    eok     171019  Changed to use Template enum, added a basic constructor.
+ * 3    ars     221019  Added getters and setters, override toString (html).
  */
 
 import javax.persistence.*;
@@ -68,5 +69,23 @@ public class Guide {
         this.idAdventurer = idAdventurer;
         this.title = title;
         this.templates = templates;
+    }
+
+    public long getId() { return id; }
+
+    public void setId(long id) { this.id = id; }
+
+    public String getTitle() { return title; }
+
+    public void setTitle(String title) {this.title = title; }
+
+    public long getIdAdventurer() {return idAdventurer; }
+
+    public void setIdAdventurer(long idAdventurer) {this.idAdventurer = idAdventurer; }
+
+
+    @Override
+    public String toString() {
+        return this.title;
     }
 }
