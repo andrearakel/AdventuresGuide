@@ -36,7 +36,6 @@ public class AdvProfileController {
     public String viewProfile(@Valid Adventurer adventurer, BindingResult result, Model model){
         if(result.hasErrors()){
             // TODO: Deal with error
-            // I don't think this is necessary at this point.
             return "signup";
         }
         Optional<Adventurer> optAdv = adventurerService.findByEmail("test@test");
