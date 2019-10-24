@@ -9,6 +9,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * no.  idProg  date    description
  * 1    eok     151019  Created javabean entity with fields from ERD.
  * 2    eok     171019  Added constructor, setters and getters.
+ * 3    eok     241019  Made email and displayName unique. Started playing around with column nullable and length properties.
  */
 
 import javax.persistence.*;
@@ -31,7 +32,9 @@ public class Adventurer {
     private String passwordSalt;
     private String passwordHashed;
 
+    @Column(unique=true, nullable = false)
     private String email;
+    @Column(unique=true, nullable = false, length = 50) // length and nullable don't seem to be working.
     private String displayName;
     private String name;
     private String biography;

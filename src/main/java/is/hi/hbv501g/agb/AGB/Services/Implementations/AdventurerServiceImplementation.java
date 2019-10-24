@@ -3,6 +3,7 @@ package is.hi.hbv501g.agb.AGB.Services.Implementations;
 import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Repositories.AdventurerRepository;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,7 @@ public class AdventurerServiceImplementation implements AdventurerService {
         // TODO: Check that displayName is not in use, perhaps restrict its length?
 
         // TODO: Hash password .. https://stackabuse.com/password-encoding-with-spring-security/
+
 
         return repository.save(adventurer);
     }
