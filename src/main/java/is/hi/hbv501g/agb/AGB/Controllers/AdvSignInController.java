@@ -35,7 +35,7 @@ public class AdvSignInController {
     public String signInForm(Adventurer adventurer){ return "signin"; }
 
     @RequestMapping(value ="/signin", method = RequestMethod.POST)
-    public String signUp(Adventurer adventurer, @ModelAttribute("email") String email, @ModelAttribute("passwordHashed") String passwordHashed, BindingResult result, Model model){
+    public String signIn(Adventurer adventurer, @ModelAttribute("email") String email, @ModelAttribute("passwordHashed") String passwordHashed, BindingResult result, Model model){
         if(result.hasErrors()){
             // TODO: Deal with error
             return "signin";
