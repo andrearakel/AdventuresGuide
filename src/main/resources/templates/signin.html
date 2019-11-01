@@ -13,12 +13,12 @@
 <form action="#" th:action="@{/signin}" th:object="${adventurer}" method="post">
 
     <label for="email">Email</label>
-    <input type="email" th:field="*{email}" id="email" placeholder="Email" modelAttribute = "email">
+    <input type="email" th:field="*{email}" id="email" placeholder="Email">
     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 
     <br>
-    <label for="passwordHashed">PasswordHashed</label>
-    <input type="password" th:field="*{passwordHashed}" id="passwordHashed" placeholder="Password" modelAttribute = "passwordHashed">
+    <label for="passwordHashed">Password</label>
+    <input type="password" th:field="*{passwordHashed}" id="passwordHashed" placeholder="Password">
     <span th:if="${#fields.hasErrors('passwordHashed')}" th:errors="*{passwordHashed}"></span>
 
     <br>
