@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adventurer's Guidebook - Profile</title>
+</head>
+<body>
+
+<h1>Adventurer's Profile</h1>
+
+
+<div th:switch="${adventurer}">
+    <h2 th:case="null">Not signed up / logged in yet!</h2>
+    <div th:case="*">
+        <h2>Adventurer details</h2>
+
+        <dl>
+            <dt>Display Name</dt>
+            <dd th:text="${adventurer.displayName}"></dd>
+
+            <dt>Email</dt>
+            <dd th:text="${adventurer.email}"></dd>
+
+            <dt><label for="name">Name</label></dt>
+            <dd>
+                <input type="text" th:field="${adventurer.name}" id="name" th:placeholder="${adventurer.name}">
+            </dd>
+
+            <dt><label for="dateOfBirth">Date of Birth</label></dt>
+            <dd>
+                <input type="date" th:field="${adventurer.dateOfBirth}" id="dateOfBirth" th:placeholder="${adventurer.dateOfBirth}">
+            </dd>
+
+            <dt><label for="biography">Biography</label></dt>
+            <dd>
+                <input type="text" th:field="${adventurer.biography}" id="biography" th:placeholder="${adventurer.biography}">
+            </dd>
+
+            <dt><label for="country">Country</label></dt>
+            <dd>
+                <input type="text" th:field="${adventurer.country}" id="country" th:placeholder="${adventurer.country}">
+            </dd>
+
+            <dt><label for="state">State</label></dt>
+            <dd>
+                <input type="text" th:field="${adventurer.state}" id="state" th:placeholder="${adventurer.state}">
+            </dd>
+
+            <dt><label for="city">City</label></dt>
+            <dd>
+                <input type="text" th:field="${adventurer.city}" id="city" th:placeholder="${adventurer.city}">
+            </dd>
+
+            <!-- Not wise to display
+            <dt>PasswordHashed</dt>
+            <dd th:text="${adventurer.passwordHashed}"></dd>
+            -->
+
+            <dt>Registration Date</dt>
+            <dd th:text="${adventurer.dateCreated}"></dd>
+
+
+            <!-- TODO: add more tags
+            <dt></dt>
+            <dd th:text="${adventurer.}"></dd>
+            -->
+        </dl>
+
+    </div>
+</div>
+
+<form action="#" th:action="@{/saveprofile}" method="post">
+    <input type="submit" value="Save Changes">
+</form>
+
+<form action="#" th:action="@{/profile}" method="get">
+    <input type="submit" value="Cancel Changes">
+</form>
+
+</body>
+</html>

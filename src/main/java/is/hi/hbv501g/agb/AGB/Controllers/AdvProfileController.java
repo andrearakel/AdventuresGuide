@@ -16,6 +16,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
 import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Controller
 public class AdvProfileController {
@@ -38,10 +38,10 @@ public class AdvProfileController {
     @RequestMapping(value ="/profile", method = RequestMethod.GET)
     public String viewProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()){
-            // TODO: Deal with error
-            System.out.println("Error in AdvProfileController.viewProfile -> redirect to signup");
-            return "redirect:/signup";
+            // Redirect to signin
+            return "redirect:/signin";
         }
+        // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if(sessionAdventurer != null){
             model.addAttribute("adventurer", sessionAdventurer);
@@ -53,8 +53,56 @@ public class AdvProfileController {
 
     //Ends current session and redirects to signin
     @RequestMapping(value = "/signout", method = RequestMethod.POST)
-    public String viewProfile(HttpSession session){
+    public String signOut(HttpSession session){
         session.setAttribute("SignedInAdventurer", null);
         return "redirect:/signin";
+    }
+
+
+    // Shows a page where the signed in adventerer can edit his profile. Redirects to signIn if no one is signed in.
+    @RequestMapping(value ="/editprofile", method = RequestMethod.GET)
+    public String editProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
+        if(result.hasErrors()){
+            // TODO: Deal with error
+            return "redirect:/signin";
+        }
+        // Check that Adventurer is signed in
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if(sessionAdventurer != null){
+            model.addAttribute("adventurer", sessionAdventurer);
+            return "editprofile";
+        }
+
+        return "redirect:/signin";
+    }
+
+    // Shows a page where the signed in adventerer can edit his profile. Redirects to signIn if no one is signed in.
+    @RequestMapping(value ="/saveprofile", method = RequestMethod.POST)
+    public String saveProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
+        if(result.hasErrors()){
+            // TODO: Deal with error
+            return "redirect:/signin";
+        }
+        // Check that Adventurer is signed in
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if(sessionAdventurer == null){
+            return "redirect:/signin";
+        }
+
+
+        try {
+            // Save the edited adventurer
+            adventurerService.editProfile(adventurer, sessionAdventurer);
+
+        } catch (DataIntegrityViolationException e) {
+            return "redirect:/profile";
+        } catch (NullPointerException npe) {
+            System.out.println("null pointer exception caught");
+            return "redirect:/profile";
+        }
+
+
+        return "redirect:/profile";
+
     }
 }

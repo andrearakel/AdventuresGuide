@@ -15,21 +15,38 @@
         <h2>Adventurer details</h2>
 
         <dl>
-            <dt>DisplayName</dt>
+            <dt>Display Name</dt>
             <dd th:text="${adventurer.displayName}"></dd>
 
             <dt>Email</dt>
             <dd th:text="${adventurer.email}"></dd>
 
-            <dt>PasswordHashed</dt>
-            <dd th:text="${adventurer.passwordHashed}"></dd>
+            <dt>Name</dt>
+            <dd th:text="${adventurer.name}"></dd>
 
-            <dt>DateCreated</dt>
-            <dd th:text="${adventurer.dateCreated}"></dd>
+            <dt>Date of Birth</dt>
+            <dd th:text="${adventurer.dateOfBirth}"></dd>
 
             <dt>Biography</dt>
             <dd th:text="${adventurer.biography}"></dd>
-            <p>Biography á að vera tómt.</p>
+
+            <dt>Country</dt>
+            <dd th:text="${adventurer.country}"></dd>
+
+            <dt>State</dt>
+            <dd th:text="${adventurer.state}"></dd>
+
+            <dt>City</dt>
+            <dd th:text="${adventurer.city}"></dd>
+
+
+            <!-- Not wise to display
+            <dt>PasswordHashed</dt>
+            <dd th:text="${adventurer.passwordHashed}"></dd>
+            -->
+
+            <dt>Registration Date</dt>
+            <dd th:text="${adventurer.dateCreated}"></dd>
 
 
             <!-- TODO: add more tags
@@ -40,6 +57,10 @@
 
     </div>
 </div>
+
+<form action="#" th:action="@{/editprofile}" method="get">
+    <input type="submit" value="Edit Profile">
+</form>
 
 <form action="#" th:action="@{/signout}" method="post">
     <input type="submit" value="Sign Out">

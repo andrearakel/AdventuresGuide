@@ -84,6 +84,18 @@ public class AdventurerServiceImplementation implements AdventurerService {
         return null;
     }
 
+    @Override
+    public Adventurer editProfile(Adventurer adventurer, Adventurer adventurerToUpdate) {
+        adventurerToUpdate.setBiography(adventurer.getBiography());
+        adventurerToUpdate.setDateOfBirth(adventurer.getDateOfBirth());
+        adventurerToUpdate.setCity(adventurer.getCity());
+        adventurerToUpdate.setState(adventurer.getState());
+        adventurerToUpdate.setCountry(adventurer.getCountry());
+        adventurerToUpdate.setName(adventurer.getName());
+
+        return repository.save(adventurerToUpdate);
+    }
+
 
 
 }
