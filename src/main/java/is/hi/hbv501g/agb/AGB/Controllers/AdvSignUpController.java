@@ -2,8 +2,8 @@ package is.hi.hbv501g.agb.AGB.Controllers;
 
 import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +21,7 @@ import javax.validation.Valid;
  * Changes:
  * no.  idProg  date    description
  * 1    eok     171019  Initialized controller. Created signUpForm and signUp methods.
+ * 2    eok     311019  Caught DataIntegrityViolationException upon illegal signup. Added "redirect:/".
  */
 
 @Controller
@@ -36,16 +37,20 @@ public class AdvSignUpController {
 
 
     @RequestMapping(value ="/signup", method = RequestMethod.POST)
-    public String signUp(@Valid Adventurer adventurer, BindingResult result, Model model){
-        if(result.hasErrors()){
-            // TODO: Deal with error
+    public String signUp(@Valid Adventurer adventurer, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             return "signup";
         }
-        // Save the new adventurer
-        adventurerService.save(adventurer);
+        try {
+            // Save the new adventurer
+            adventurerService.save(adventurer);
 
-        // Direct to his profile
-        return "profile";
+        } catch (DataIntegrityViolationException e) {
+            return "redirect:/signup";
+        }
+
+        // Direct to sign in page
+        return "redirect:/signin";
     }
 
 }

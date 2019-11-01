@@ -3,14 +3,12 @@ package is.hi.hbv501g.agb.AGB.Services.Implementations;
 import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Repositories.AdventurerRepository;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,12 +20,15 @@ import java.util.Optional;
  * Changes:
  * no.  idProg  date    description
  * 1    eok     171019  Added save, delete and findByEmail methods.
+ * 2    eok     311019  Finished implementing save() with password hashing and dateCreated.
+ *                      Implemented findAll and signIn methods. SignIn may need some rework.
  */
 
 @Service // Service is an extra layer between controller and repository(database) which can do more than the Repository itself.
 public class AdventurerServiceImplementation implements AdventurerService {
 
     AdventurerRepository repository;
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // Constructor
     @Autowired
@@ -37,12 +38,18 @@ public class AdventurerServiceImplementation implements AdventurerService {
     @Override
     public Adventurer save(Adventurer adventurer) {
 
-        // TODO: Check that email is not in use
+        // HTML id="email" verifies email format
+        // Entity attribute: @Column(unique=true) verifies that the email is unique.
 
-        // TODO: Check that displayName is not in use, perhaps restrict its length?
+        // Entity attribute: @Column(unique=true) verifies that the displayName is unique.
+        // Check that displayName length is between 3 and 50
+        if (adventurer.getDisplayName().length() < 3 || adventurer.getDisplayName().length() > 50) {
+            throw new IllegalArgumentException("DisplayName length must be between 3 and 50 characters.");
+        }
 
-        // TODO: Hash password .. https://stackabuse.com/password-encoding-with-spring-security/
+        adventurer.setPasswordHashed(passwordEncoder.encode(adventurer.getPasswordHashed()));
 
+        adventurer.setDateCreated(new Date(System.currentTimeMillis()));
 
         return repository.save(adventurer);
     }
@@ -56,5 +63,27 @@ public class AdventurerServiceImplementation implements AdventurerService {
     public Optional<Adventurer> findByEmail(String email) {
         return repository.findByEmail(email);
     }
+
+    @Override
+    public List<Adventurer> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Adventurer signIn(Adventurer adventurer) {
+        Optional<Adventurer> exists = findByEmail(adventurer.getEmail());
+
+        if(exists.isPresent()) {
+            // Adventurer with this email exists, compare the password to the hashed one
+            if( passwordEncoder.matches(adventurer.getPasswordHashed(), exists.get().getPasswordHashed())){
+                return exists.get();
+            }
+            // Else can throw error to show that email was correct, but username was wrong.
+        }
+        // Can throw error to show that email was wrong, or display error in different manner.
+        return null;
+    }
+
+
 
 }

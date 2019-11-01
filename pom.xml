@@ -69,6 +69,12 @@
 			<version>4.0.0.RELEASE</version>
 		</dependency>
 
+		<!--311019 eok added following dependency for password hashing.-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

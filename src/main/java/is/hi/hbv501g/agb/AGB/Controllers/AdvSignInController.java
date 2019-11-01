@@ -9,6 +9,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * Changes:
  * no.  idProg  date    description
  * 1    boj     211019  Gerði grunn að sign in.
+ * 2    eok     311019  Fixed typo. Added "redirect:" in front of return statement on successful signin.
  */
 
 
@@ -21,7 +22,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import java.util.Optional;
 
 @Controller
 public class AdvSignInController {
@@ -35,19 +35,26 @@ public class AdvSignInController {
     public String signInForm(Adventurer adventurer){ return "signin"; }
 
     @RequestMapping(value ="/signin", method = RequestMethod.POST)
-    public String signIn(Adventurer adventurer, @ModelAttribute("email") String email, @ModelAttribute("passwordHashed") String passwordHashed, BindingResult result, Model model){
+    public String signIn(Adventurer adventurer, @ModelAttribute("email") String email, @ModelAttribute("password") String password, BindingResult result, Model model){
         if(result.hasErrors()){
-            // TODO: Deal with error
             return "signin";
         }
 
+        Adventurer exists = adventurerService.signIn(adventurer);
+        if (exists == null) {
+            model.addAttribute("error", "Wrong email or password");
+            return "signin";
+        }
+        return "redirect:/profile";
+
+        /*
         Optional<Adventurer> optAdv = adventurerService.findByEmail(email);
 
         if(optAdv.isPresent()){
-            if(optAdv.get().getPasswordHashed().equals(passwordHashed)){
+            if(optAdv.get().getPasswordHashed().equals(password)){
                 //Successful login
                 //TODO: Start session
-                return "profile";
+                return "redirect:/profile";
             }
             else {
                 model.addAttribute("error", "Wrong password");
@@ -58,5 +65,6 @@ public class AdvSignInController {
             model.addAttribute("error","Wrong email");
             return "signin";
         }
+        */
     }
 }

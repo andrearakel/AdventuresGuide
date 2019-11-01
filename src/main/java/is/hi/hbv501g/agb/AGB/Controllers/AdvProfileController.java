@@ -31,24 +31,23 @@ public class AdvProfileController {
     @Autowired
     public AdvProfileController(AdventurerService adventurerService){ this.adventurerService = adventurerService; }
 
-    // TODO: Change so the method takes the email as parameter, or uses current session id or something.
+    // Currently only shows the information of whatever adventurer has the email "test@test"
+    // or else redirects the user to the "/adventurers" page.
+    // TODO: Change so the method takes the email as parameter, or uses current session or something.
     @RequestMapping(value ="/profile", method = RequestMethod.GET)
     public String viewProfile(@Valid Adventurer adventurer, BindingResult result, Model model){
         if(result.hasErrors()){
             // TODO: Deal with error
-            return "signup";
+            System.out.println("Error in AdvProfileController.viewProfile -> redirect to signup");
+            return "redirect:/signup";
         }
         Optional<Adventurer> optAdv = adventurerService.findByEmail("test@test");
         if(optAdv.isPresent()){
             System.out.println("opt adv is present: " + optAdv.toString());
             model.addAttribute("adventurer", optAdv.get());
-        }
-        else {
-            // Following 2 lines are actually just equivalent to "return "signup" (at least for now)
-            AdvSignUpController advSignUpController = new AdvSignUpController(adventurerService);
-            return advSignUpController.signUpForm(adventurer);
+            return "profile";
         }
 
-        return "profile";
+        return "redirect:/adventurers";
     }
 }
