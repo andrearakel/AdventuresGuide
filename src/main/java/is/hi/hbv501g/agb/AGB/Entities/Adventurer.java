@@ -9,7 +9,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * no.  idProg  date    description
  * 1    eok     151019  Created javabean entity with fields from ERD.
  * 2    eok     171019  Added constructor, setters and getters.
- * 4    eok     311019  Removed passwordSalt. Set restrictions on input values.
+ * 3    eok     311019  Removed passwordSalt. Set restrictions on input values.
  */
 
 import javax.persistence.*;
