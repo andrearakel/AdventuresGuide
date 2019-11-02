@@ -12,6 +12,8 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * 3    eok     311019  Removed passwordSalt. Set restrictions on input values.
  */
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -29,7 +31,7 @@ public class Adventurer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Size(min=4)
+    @Size(min=4, max=80)
     private String passwordHashed;
 
     @Size(min=4, max=80)
@@ -42,6 +44,8 @@ public class Adventurer {
 
     private String name;
     private String biography;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     private String country;

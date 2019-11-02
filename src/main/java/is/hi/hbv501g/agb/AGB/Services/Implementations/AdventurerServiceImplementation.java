@@ -22,6 +22,8 @@ import java.util.Optional;
  * 1    eok     171019  Added save, delete and findByEmail methods.
  * 2    eok     311019  Finished implementing save() with password hashing and dateCreated.
  *                      Implemented findAll and signIn methods. SignIn may need some rework.
+ * 3    eok     020119  Renamed save(..) to signUp(..), added default save(..) instead.
+ *                      Implemented updateProfile(..)
  */
 
 @Service // Service is an extra layer between controller and repository(database) which can do more than the Repository itself.
@@ -34,23 +36,8 @@ public class AdventurerServiceImplementation implements AdventurerService {
     @Autowired
     public AdventurerServiceImplementation(AdventurerRepository adventurerRepository){ this.repository = adventurerRepository; }
 
-    // TODO: Add DateCreated
     @Override
     public Adventurer save(Adventurer adventurer) {
-
-        // HTML id="email" verifies email format
-        // Entity attribute: @Column(unique=true) verifies that the email is unique.
-
-        // Entity attribute: @Column(unique=true) verifies that the displayName is unique.
-        // Check that displayName length is between 3 and 50
-        if (adventurer.getDisplayName().length() < 3 || adventurer.getDisplayName().length() > 50) {
-            throw new IllegalArgumentException("DisplayName length must be between 3 and 50 characters.");
-        }
-
-        adventurer.setPasswordHashed(passwordEncoder.encode(adventurer.getPasswordHashed()));
-
-        adventurer.setDateCreated(new Date(System.currentTimeMillis()));
-
         return repository.save(adventurer);
     }
 
@@ -69,6 +56,28 @@ public class AdventurerServiceImplementation implements AdventurerService {
         return repository.findAll();
     }
 
+    /**
+     * Verifies the user input, hashes the password, sets dateCreated and invokes a method to save the new adventurer to the database.
+     * @param adventurer
+     * @return the adventurer, having been saved to the database.
+     */
+    @Override
+    public Adventurer signUp(Adventurer adventurer) {
+
+        // HTML id="email" verifies email format
+        // Entity attribute: @Column(unique=true) verifies that the email is unique.
+
+        // Entity attribute: @Column(unique=true) verifies that the displayName is unique.
+
+        // Entity attribute: @Size(..) verifies lengths of displayName, email and password.
+
+        adventurer.setPasswordHashed(passwordEncoder.encode(adventurer.getPasswordHashed()));
+
+        adventurer.setDateCreated(new Date(System.currentTimeMillis()));
+
+        return save(adventurer);
+    }
+
     @Override
     public Adventurer signIn(Adventurer adventurer) {
         Optional<Adventurer> exists = findByEmail(adventurer.getEmail());
@@ -84,16 +93,23 @@ public class AdventurerServiceImplementation implements AdventurerService {
         return null;
     }
 
+    /**
+     * Copies the attribute values that can be edited on the editprofile page from the adventurer to the sessionAdventurer.
+     * @param adventurer
+     * @param sessionAdventurer
+     * @return The sessionAdventurer updated with the values from the adventurer.
+     */
     @Override
-    public Adventurer editProfile(Adventurer adventurer, Adventurer adventurerToUpdate) {
-        adventurerToUpdate.setBiography(adventurer.getBiography());
-        adventurerToUpdate.setDateOfBirth(adventurer.getDateOfBirth());
-        adventurerToUpdate.setCity(adventurer.getCity());
-        adventurerToUpdate.setState(adventurer.getState());
-        adventurerToUpdate.setCountry(adventurer.getCountry());
-        adventurerToUpdate.setName(adventurer.getName());
+    public Adventurer updateProfile(Adventurer adventurer, Adventurer sessionAdventurer) {
+        // TODO: validate input.
+        sessionAdventurer.setName(adventurer.getName());
+        sessionAdventurer.setBiography(adventurer.getBiography());
+        sessionAdventurer.setDateOfBirth(adventurer.getDateOfBirth());
+        sessionAdventurer.setCity(adventurer.getCity());
+        sessionAdventurer.setState(adventurer.getState());
+        sessionAdventurer.setCountry(adventurer.getCountry());
 
-        return repository.save(adventurerToUpdate);
+        return save(sessionAdventurer);
     }
 
 

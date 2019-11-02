@@ -25,6 +25,7 @@ import javax.validation.Valid;
  * 1    eok     171019  Initialized controller. Created signUpForm and signUp methods.
  * 2    eok     311019  Caught DataIntegrityViolationException upon illegal signup. Added "redirect:/".
  * 3    boj     011119  Changed signUpForm method to redirect to profile if user is signed in.
+ * 4    eok     021119  Improved error messages on failed signUp. Added javadoc.
  */
 
 @Controller
@@ -35,6 +36,12 @@ public class AdvSignUpController {
     @Autowired
     public AdvSignUpController(AdventurerService adventurerService){ this.adventurerService = adventurerService; }
 
+    /**
+     * Displays a SignUp Form for the user.
+     * @param adventurer
+     * @param session
+     * @return a SignUp Form for the platform. Redirects the user to their profile if they are already logged in.
+     */
     @RequestMapping(value ="/signup", method = RequestMethod.GET)
     public String signUpForm(Adventurer adventurer, HttpSession session){
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
@@ -46,6 +53,13 @@ public class AdvSignUpController {
     }
 
 
+    /**
+     * Invokes the AdventurerService SignUp method in order to create a adventurer in the system, using the user input.
+     * @param adventurer being created from user supplied displayName, email and password.
+     * @param result of model validation.
+     * @param model
+     * @return Directs the user to the signin page if signUp is successful, otherwise refreshes this page.
+     */
     @RequestMapping(value ="/signup", method = RequestMethod.POST)
     public String signUp(@Valid Adventurer adventurer, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -53,10 +67,16 @@ public class AdvSignUpController {
         }
         try {
             // Save the new adventurer
-            adventurerService.save(adventurer);
-
+            adventurerService.signUp(adventurer);
         } catch (DataIntegrityViolationException e) {
-            return "redirect:/signup";
+            // Check what constraint was violated, display error message.
+            if (adventurerService.findByEmail(adventurer.getEmail()).isPresent()) {
+                model.addAttribute("error", "An adventurer already exists with the Email: " + adventurer.getEmail() );
+            }
+            else {
+                model.addAttribute("error", "An adventurer already exists with the DisplayName: " + adventurer.getDisplayName() );
+            }
+            return "signup";
         }
 
         // Direct to sign in page

@@ -8,6 +8,9 @@
 
 <h1>Sign up for the Adventurer's Guidebook</h1>
 
+<p th:text="${error}"></p>
+<p th:text="${error1}"></p>
+
 <form action="#" th:action="@{/signup}" th:object="${adventurer}" method="post">
 
     <label for="displayName">DisplayName</label>

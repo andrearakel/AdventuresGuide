@@ -25,5 +25,6 @@ public interface AdventurerService {
     Optional<Adventurer> findByEmail(String email);
     List<Adventurer> findAll();
     Adventurer signIn(Adventurer adventurer);
-    Adventurer editProfile(Adventurer adventurer, Adventurer adventurerToUpdate);
+    Adventurer signUp(Adventurer adventurer);
+    Adventurer updateProfile(Adventurer adventurer, Adventurer adventurerToUpdate);
 }

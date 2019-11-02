@@ -9,9 +9,7 @@
 <h1>Adventurer's Profile</h1>
 
 
-<div th:switch="${adventurer}">
-    <h2 th:case="null">Not signed up / logged in yet!</h2>
-    <div th:case="*">
+    <div th:object="${adventurer}" >
         <h2>Adventurer details</h2>
 
         <dl>
@@ -25,7 +23,7 @@
             <dd th:text="${adventurer.name}"></dd>
 
             <dt>Date of Birth</dt>
-            <dd th:text="${adventurer.dateOfBirth}"></dd>
+            <dd th:text="${#dates.format(adventurer.dateOfBirth, 'dd-MMM-yyyy')}"></dd>
 
             <dt>Biography</dt>
             <dd th:text="${adventurer.biography}"></dd>
@@ -46,7 +44,7 @@
             -->
 
             <dt>Registration Date</dt>
-            <dd th:text="${adventurer.dateCreated}"></dd>
+            <dd th:text="${#dates.format(adventurer.dateCreated, 'dd-MMM-yyyy')}"></dd>
 
 
             <!-- TODO: add more tags
@@ -54,9 +52,7 @@
             <dd th:text="${adventurer.}"></dd>
             -->
         </dl>
-
     </div>
-</div>
 
 <form action="#" th:action="@{/editprofile}" method="get">
     <input type="submit" value="Edit Profile">

@@ -10,6 +10,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * no.  idProg  date    description
  * 1    eok     171019  Created controller with a basic viewProfile method. Will be changed.
  * 2    boj     011119  Changed viewProfile method to show the profile of the user that's signed in and added signout button
+ * 3    eok     021119  Added editProfile and updateProfile methods.
  */
 
 
@@ -34,7 +35,13 @@ public class AdvProfileController {
     @Autowired
     public AdvProfileController(AdventurerService adventurerService){ this.adventurerService = adventurerService; }
 
-    //Shows the profile of the user that's signed in, redirects to signin if no one is signed in.
+    /**
+     * @param adventurer
+     * @param result
+     * @param model
+     * @param session
+     * @return the profile page of the adventurer who is signed in. Redirects to signIn if no one is signed in.
+     */
     @RequestMapping(value ="/profile", method = RequestMethod.GET)
     public String viewProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()){
@@ -59,28 +66,17 @@ public class AdvProfileController {
     }
 
 
-    // Shows a page where the signed in adventerer can edit his profile. Redirects to signIn if no one is signed in.
+
+    /**
+     * @param adventurer
+     * @param result
+     * @param model
+     * @param session
+     * @return A page where the signed in adventurer can edit his profile. Redirects to signIn if no one is signed in.
+     */
     @RequestMapping(value ="/editprofile", method = RequestMethod.GET)
     public String editProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()){
-            // TODO: Deal with error
-            return "redirect:/signin";
-        }
-        // Check that Adventurer is signed in
-        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
-        if(sessionAdventurer != null){
-            model.addAttribute("adventurer", sessionAdventurer);
-            return "editprofile";
-        }
-
-        return "redirect:/signin";
-    }
-
-    // Shows a page where the signed in adventerer can edit his profile. Redirects to signIn if no one is signed in.
-    @RequestMapping(value ="/saveprofile", method = RequestMethod.POST)
-    public String saveProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
-        if(result.hasErrors()){
-            // TODO: Deal with error
             return "redirect:/signin";
         }
         // Check that Adventurer is signed in
@@ -89,18 +85,38 @@ public class AdvProfileController {
             return "redirect:/signin";
         }
 
+        model.addAttribute("adventurer", sessionAdventurer);
+        return "editprofile";
+    }
 
-        try {
-            // Save the edited adventurer
-            adventurerService.editProfile(adventurer, sessionAdventurer);
-
-        } catch (DataIntegrityViolationException e) {
-            return "redirect:/profile";
-        } catch (NullPointerException npe) {
-            System.out.println("null pointer exception caught");
-            return "redirect:/profile";
+    /**
+     * @param adventurer
+     * @param result
+     * @param model
+     * @param session
+     * @return A page where the signed in adventerer can edit his profile.
+     * Redirects to signIn if no one is signed in.
+     * Redirect to profile page is exceptions are caught.
+     */
+    @RequestMapping(value ="/updateprofile", method = RequestMethod.POST)
+    public String updateProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
+        if(result.hasErrors()){
+            return "redirect:/signin";
+        }
+        // Check that Adventurer is signed in
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if(sessionAdventurer == null){
+            return "redirect:/signin";
         }
 
+        // Save the edited adventurer
+        try {
+            adventurerService.updateProfile(adventurer, sessionAdventurer);
+        // Redirect to profile page is exceptions are caught. Changes are not saved.
+            // TODO: Deal with errors/exceptions in adventurerService.updateProfile(..)
+        } catch (DataIntegrityViolationException e) {
+        } catch (NullPointerException npe) {
+        }
 
         return "redirect:/profile";
 
