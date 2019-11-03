@@ -13,14 +13,14 @@
 
 <form action="#" th:action="@{/createguide}" th:object="${guide}" method="post">
 
-    <label for="guideName">Guide name</label>
-    <input type="text" th:field="*{guideName}" id="guideName" placeholder="GuideName">
-    <span th:if="${#fields.hasErrors('guideName')}" th:errors="*{guideName}"></span>
+    <label for="title">Guide title</label>
+    <input type="text" th:field="*{title}" id="title" placeholder="Title of the Guide">
+    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
 
     <br>
 
     <label for="description">Description</label>
-    <input type="text" th:field="*{description}" id="description" placeholder="Describe your guide">
+    <input type="text" th:field="*{description}" id="description" size="100" placeholder="Write a description for your guide.">
     <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
 
     <br>
