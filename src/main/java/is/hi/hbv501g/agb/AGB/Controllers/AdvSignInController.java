@@ -1,4 +1,16 @@
 package is.hi.hbv501g.agb.AGB.Controllers;
+
+import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
+import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
+
 /**
  * Programmers:
  * id   name            email
@@ -12,18 +24,6 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 2    eok     311019  Fixed typo. Added "redirect:" in front of return statement on successful signin. Created quick-fix for signIn after hashing password on signUp.
  * 3    boj     011119  Changed signIn method to start a session and signInForm method to redirect to profile if user is signed in.
  */
-
-
-import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
-import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class AdvSignInController {

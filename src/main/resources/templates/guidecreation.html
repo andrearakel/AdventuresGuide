@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adventurer's Guidebook - Create Guide</title>
+</head>
+<body>
+
+<h1>Create a new Guide!</h1>
+
+<p th:text="${error}"></p>
+<p th:text="${error1}"></p>
+
+<form action="#" th:action="@{/createguide}" th:object="${guide}" method="post">
+
+    <label for="guideName">Guide name</label>
+    <input type="text" th:field="*{guideName}" id="guideName" placeholder="GuideName">
+    <span th:if="${#fields.hasErrors('guideName')}" th:errors="*{guideName}"></span>
+
+    <br>
+
+    <label for="description">Description</label>
+    <input type="text" th:field="*{description}" id="description" placeholder="Describe your guide">
+    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+
+    <br>
+
+    <input type="submit" value="Create">
+</form>
+</body>
+</html>
