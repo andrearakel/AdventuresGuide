@@ -11,6 +11,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 1    eok     171019  Created controller with a basic viewProfile method. Will be changed.
  * 2    boj     011119  Changed viewProfile method to show the profile of the user that's signed in and added signout button
  * 3    eok     021119  Added editProfile and updateProfile methods.
+ * 4    eok     031119  Moved signOut from here to AdvSignInController.
  */
 
 
@@ -55,13 +56,6 @@ public class AdvProfileController {
             return "profile";
         }
 
-        return "redirect:/signin";
-    }
-
-    //Ends current session and redirects to signin
-    @RequestMapping(value = "/signout", method = RequestMethod.POST)
-    public String signOut(HttpSession session){
-        session.setAttribute("SignedInAdventurer", null);
         return "redirect:/signin";
     }
 

@@ -23,6 +23,8 @@ import javax.servlet.http.HttpSession;
  * 1    boj     211019  Gerði grunn að sign in.
  * 2    eok     311019  Fixed typo. Added "redirect:" in front of return statement on successful signin. Created quick-fix for signIn after hashing password on signUp.
  * 3    boj     011119  Changed signIn method to start a session and signInForm method to redirect to profile if user is signed in.
+ * 4    eok     031119  Moved signOut to here from AdvProfileController.
+ *
  */
 
 @Controller
@@ -60,5 +62,13 @@ public class AdvSignInController {
             session.setAttribute("SignedInAdventurer", exists);
             return "redirect:/profile";
         }
+    }
+
+
+    //Ends current session and redirects to signin
+    @RequestMapping(value = "/signout", method = RequestMethod.POST)
+    public String signOut(HttpSession session){
+        session.setAttribute("SignedInAdventurer", null);
+        return "redirect:/signin";
     }
 }
