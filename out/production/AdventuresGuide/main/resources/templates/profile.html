@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adventurer's Guidebook - Profile</title>
+</head>
+<body>
+
+<h1>Adventurer's Profile</h1>
+
+
+<div th:switch="${adventurer}">
+    <h2 th:case="null">Not signed up / logged in yet!</h2>
+    <div th:case="*">
+        <h2>Adventurer details</h2>
+
+        <dl>
+            <dt>DisplayName</dt>
+            <dd th:text="${adventurer.displayName}"></dd>
+
+            <dt>Email</dt>
+            <dd th:text="${adventurer.email}"></dd>
+
+            <dt>PasswordHashed</dt>
+            <dd th:text="${adventurer.passwordHashed}"></dd>
+
+            <dt>Biography</dt>
+            <dd th:text="${adventurer.biography}"></dd>
+            <p>Biography á að vera tómt.</p>
+
+
+            <!-- TODO: add more tags
+            <dt></dt>
+            <dd th:text="${adventurer.}"></dd>
+            -->
+        </dl>
+
+    </div>
+</div>
+
+</body>
+</html>
