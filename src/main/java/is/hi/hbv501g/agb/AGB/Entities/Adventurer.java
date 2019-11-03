@@ -9,10 +9,13 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * no.  idProg  date    description
  * 1    eok     151019  Created javabean entity with fields from ERD.
  * 2    eok     171019  Added constructor, setters and getters.
- * 3    eok     241019  Made email and displayName unique. Started playing around with column nullable and length properties.
+ * 3    eok     311019  Removed passwordSalt. Set restrictions on input values.
  */
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -28,16 +31,21 @@ public class Adventurer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // TODO: Look into password protection.
-    private String passwordSalt;
+    @Size(min=4, max=80)
     private String passwordHashed;
 
-    @Column(unique=true, nullable = false)
+    @Size(min=4, max=80)
+    @Column(unique=true)
     private String email;
-    @Column(unique=true, nullable = false, length = 50) // length and nullable don't seem to be working.
+
+    @Size(min=3, max=30)
+    @Column(unique=true)
     private String displayName;
+
     private String name;
     private String biography;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
     private String country;
@@ -68,15 +76,6 @@ public class Adventurer {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    // TODO: Reconsider public password and salt.
-    public String getPasswordSalt() {
-        return passwordSalt;
-    }
-
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt;
     }
 
     public String getPasswordHashed() {

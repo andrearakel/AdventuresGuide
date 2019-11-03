@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adventurer's Guidebook - Profile</title>
+</head>
+<body>
+
+<h1>Adventurer's Profile</h1>
+
+<dl>
+    <dt>Display Name</dt>
+    <dd th:text="${adventurer.displayName}"></dd>
+
+    <dt>Email</dt>
+    <dd th:text="${adventurer.email}"></dd>
+</dl>
+
+<form action="#" th:action="@{/updateprofile}" th:object="${adventurer}" method="post">
+
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" th:placeholder="${name}">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+    <br>
+
+    <label for="biography">Biography</label>
+    <input type="text" th:field="*{biography}" id="biography" th:placeholder="${biography}">
+    <span th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></span>
+
+    <br>
+
+    <label for="dateOfBirth">Date Of Birth</label>
+    <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" th:placeholder="${dateOfBirth}">
+    <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+
+    <br>
+
+
+    <label for="country">Country</label>
+    <input type="text" th:field="*{country}" id="country" th:placeholder="${country}">
+    <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
+
+    <br>
+
+    <label for="state">State</label>
+    <input type="text" th:field="*{state}" id="state" th:placeholder="${state}">
+    <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
+
+    <br>
+
+    <label for="city">City</label>
+    <input type="text" th:field="*{city}" id="city" th:placeholder="${city}">
+    <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+
+    <br>
+
+
+    <input type="submit" value="Save Changes">
+</form>
+
+<form action="#" th:action="@{/profile}" method="get">
+    <input type="submit" value="Cancel Changes">
+</form>
+
+</body>
+</html>
