@@ -42,7 +42,7 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
 
     //Case insensitive, looks for everything matching something from the string
     @Query(value = "SELECT g FROM Guide g where lower(g.title) LIKE lower(concat('%', :title, '%'))")
-    List<Guide> findByTitle( @Param("title") String title);
+    List<Guide> findByTitle(@Param("title") String title);
 
     Optional<Guide> findById(long id);
 
@@ -50,5 +50,5 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
 
     //Case insensitive, looks for country
     @Query(value = "SELECT g FROM Guide g where lower(g.country) LIKE lower(concat('%', :country, '%'))")
-    List<Guide> findByLocation(String country);
+    List<Guide> findByLocation(@Param("country") String country);
 }
