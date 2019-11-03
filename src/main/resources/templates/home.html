@@ -6,7 +6,10 @@
 </head>
 <body>
     <h2>Search for Adventure Guide's</h2>
-    <form class="searchform" role="form" method="POST" th:action="@{/}" th:object="${guide}">
+    <form class="searchform" role="form" method="POST" th:action="@{/searchGuide}" th:object="${guide}">
+        <ul>
+            <li th:errors="*{title}" />
+        </ul>
         <div class="searchform__group">
             <label>Title:</label>
             <input class="searchform__input" name="title" type="searchGuide" th:field="*{title}" />
@@ -15,6 +18,7 @@
             <label>Country:</label>
             <input class="searchform__input" name="location" type="text" th:field="*{country}" />
         </div>
+        <!--
         <div class="searchform__group">
             <label>Template:</label>
             <select class="searchform__select" name="template" th:field="*{template}">
@@ -22,8 +26,8 @@
                 <option value="CITY" th:value="CITY"> City Guide </option>
             </select>
         </div>
-
-        <button type="submit" value="search"> Search </button>
+        -->
+        <button type="submit" value="Search"> Search </button>
     </form>
 </body>
 </html>

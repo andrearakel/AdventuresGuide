@@ -47,8 +47,8 @@ public class GuideServiceImplementation implements GuideService {
         return repository.findByTitle(title);
     }
 
-    @Override
-    public List<Guide> findByTemplate(EnumSet templates) { return repository.findByTemplate(templates); }
+    //@Override
+    //public List<Guide> findByTemplate(EnumSet templates) { return repository.findByTemplate(templates); }
 
     @Override
     public List<Guide> findByLocation(String location) { return repository.findByLocation(location); }

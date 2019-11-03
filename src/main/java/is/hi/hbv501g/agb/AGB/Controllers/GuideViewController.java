@@ -30,11 +30,12 @@ public class GuideViewController {
     @Autowired
     GuideService guideService;
 
+    //View a chosen guide from search results
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     public String info(@RequestParam(value = "title", required = true) String title, ModelMap model) {
         ArrayList<Guide> chosenGuide;
         chosenGuide = (ArrayList<Guide>) guideService.findByTitle(title);
         model.addAttribute("chosenGuide", chosenGuide);
-        return "informationPage";
+        return "infopage";
     }
 }
