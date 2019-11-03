@@ -13,6 +13,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
 
 import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
+import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +26,13 @@ import javax.servlet.http.HttpSession;
 public class AgbController {
 
     private AdventurerService adventurerService;
+    private GuideService guideService;
 
     @Autowired
-    public AgbController(AdventurerService adventurerService){ this.adventurerService = adventurerService; }
+    public AgbController(AdventurerService adventurerService, GuideService guideService){
+        this.adventurerService = adventurerService;
+        this.guideService = guideService;
+    }
 
     @RequestMapping(value = "/adventurers", method = RequestMethod.GET)
     public String adventurers(Model model){
@@ -65,6 +70,13 @@ public class AgbController {
 
 
         return "redirect:/profile";
+    }
+
+
+    @RequestMapping(value = "/guides", method = RequestMethod.GET)
+    public String guides(Model model){
+        model.addAttribute("guides", guideService.findAll());
+        return "guides";
     }
 
 }

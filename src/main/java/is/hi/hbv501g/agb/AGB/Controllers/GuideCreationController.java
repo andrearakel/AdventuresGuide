@@ -57,7 +57,8 @@ public class GuideCreationController {
             model.addAttribute("error", "Must be signed in to create a guide.");
             return "signin";
         }
-        return "createguide";
-    }
 
+        guideService.createGuide(guide);
+        return "redirect:/guides";
+    }
 }

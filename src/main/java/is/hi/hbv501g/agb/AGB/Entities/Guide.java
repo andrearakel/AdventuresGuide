@@ -18,7 +18,6 @@ package is.hi.hbv501g.agb.AGB.Entities;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -208,6 +207,13 @@ public class Guide {
         this.idAdventurer = idAdventurer;
         this.title = title;
         this.templates = templates;
+    }
+
+    // Simple BETA constructor
+    public Guide(long id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
     }
 
     @Override
