@@ -14,6 +14,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -82,6 +83,15 @@ public class Guide {
     public long getIdAdventurer() {return idAdventurer; }
 
     public void setIdAdventurer(long idAdventurer) {this.idAdventurer = idAdventurer; }
+
+    public String getCountry() { return country; }
+
+    public void setCountry(String country) {this.country = country; }
+
+
+
+
+
 
 
     @Override

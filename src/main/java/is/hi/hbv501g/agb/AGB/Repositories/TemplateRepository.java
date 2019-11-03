@@ -11,4 +11,5 @@ package is.hi.hbv501g.agb.AGB.Repositories;
 
 
 public interface TemplateRepository {
+
 }
