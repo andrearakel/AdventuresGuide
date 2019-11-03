@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Adventurer's Guidebook</title>
 </head>
 <body>
-    <h2>No Guides yet!</h2>
+    <h2>Search for Adventure Guide's</h2>
+    <form class="searchform" role="form" method="POST" th:action="@{/}" th:object="${guide}">
+        <div class="searchform__group">
+            <label>Title:</label>
+            <input class="searchform__input" name="title" type="searchGuide" th:field="*{title}" />
+        </div>
+        <div class="searchform__group">
+            <label>Country:</label>
+            <input class="searchform__input" name="location" type="text" th:field="*{country}" />
+        </div>
+        <div class="searchform__group">
+            <label>Template:</label>
+            <select class="searchform__select" name="template" th:field="*{template}">
+                <option value="NATURE" th:value="NATURE"> Nature Guide </option>
+                <option value="CITY" th:value="CITY"> City Guide </option>
+            </select>
+        </div>
+
+        <button type="submit" value="search"> Search </button>
+    </form>
 </body>
 </html>

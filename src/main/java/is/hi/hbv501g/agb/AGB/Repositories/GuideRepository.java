@@ -36,9 +36,9 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
 
     Optional<Guide> findById(long id);
 
-    List<Guide> findByTemplate(EnumSet template);
+    List<Guide> findByTemplate(EnumSet templates);
 
     //Case insensitive, looks for country
-    @Query(value = "SELECT g FROM Guide g where lower(g.country)")
+    @Query(value = "SELECT g FROM Guide g where lower(g.country) LIKE lower(concat('%', :country, '%'))")
     List<Guide> findByLocation(String location);
 }

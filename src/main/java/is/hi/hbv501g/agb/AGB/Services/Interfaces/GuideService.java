@@ -26,7 +26,7 @@ public interface GuideService {
     List<Guide> findAll();
     Optional<Guide> findById(long id);
     List<Guide> findByTitle(String title);
-    List<Guide> findByTemplate(EnumSet template);
+    List<Guide> findByTemplate(EnumSet templates);
     List<Guide> findByLocation(String location);
     List<Guide> findByMatches(Guide guide);
 
