@@ -13,7 +13,16 @@
     <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
     <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
     <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
+    <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
 </ul>
+<div>
+    <form class="menu-item" action="#" th:action="@{/signout}" method="post">
+        <input type="submit" value="Sign Out">
+    </form>
+    <form class="menu-item" action="#" th:action="@{/betasignin}" method="post">
+        <input type="submit" value="BETA Sign In">
+    </form>
+</div>
 
 <h1>Adventurer's Profile</h1>
 

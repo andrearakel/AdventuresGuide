@@ -5,41 +5,6 @@
     <title>Users</title>
     <link th:href="@{/styles.css}" rel="stylesheet">
 </head>
-<style>
-    ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-    li {
-      float: left;
-    }
-
-    a {
-      display: block;
-      padding: 8px;
-      background-color: #dddddd;
-    }
-</style>
-<nav>
-    <ul>
-        <li><a href="/createguide">Create Guide</a></li>
-        <li><a href="/profile">View Profile</a></li>
-        <li><a href="/signup">Sign Up</a></li>
-        <li><a href="/signin">Sign In</a></li>
-        <li><a>
-            <form action="#" th:action="@{/signout}" method="post">
-                <input type="submit" value="Sign Out">
-            </form></a>
-        </li>
-        <li><a>
-            <form action="#" th:action="@{/betasignin}" method="post">
-                <input type="submit" value="BETA Sign In">
-            </form></a>
-        </li>
-    </ul>
-</nav>
 
 <body>
 
@@ -49,7 +14,17 @@
     <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
     <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
     <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
+    <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
 </ul>
+<div>
+    <form class="menu-item" action="#" th:action="@{/signout}" method="post">
+        <input type="submit" value="Sign Out">
+    </form>
+    <form class="menu-item" action="#" th:action="@{/betasignin}" method="post">
+        <input type="submit" value="BETA Sign In">
+    </form>
+</div>
+
 
 <div th:switch="${adventurers}">
     <h2 th:case="null">No adventurers yet!</h2>
