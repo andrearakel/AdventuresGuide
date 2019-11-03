@@ -5,6 +5,7 @@
     <link th:href="@{/styles.css}" rel="stylesheet">
 </head>
 <body>
+<<<<<<< HEAD
 
 <ul class="menu-bar">
     <li class="menu-item"><a th:href="@{/}">Home</a></li>
@@ -23,7 +24,29 @@
     </form>
 </div>
 
-<h2>No Guides yet!</h2>
-
+    <h2>Search for Adventure Guide's</h2>
+    <form class="searchform" role="form" method="GET" th:action="@{/home}" th:object="${guide}">
+        <ul>
+            <li th:errors="*{title}" />
+        </ul>
+        <div class="searchform__group">
+            <label>Title:</label>
+            <input class="searchform__input" name="title" type="searchGuide" th:field="*{title}" />
+        </div>
+        <div class="searchform__group">
+            <label>Country:</label>
+            <input class="searchform__input" name="location" type="text" th:field="*{country}" />
+        </div>
+        <!--
+        <div class="searchform__group">
+            <label>Template:</label>
+            <select class="searchform__select" name="template" th:field="*{template}">
+                <option value="NATURE" th:value="NATURE"> Nature Guide </option>
+                <option value="CITY" th:value="CITY"> City Guide </option>
+            </select>
+        </div>
+        -->
+        <button type="submit" value="Search"> Search </button>
+    </form>
 </body>
 </html>
