@@ -8,6 +8,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * Changes:
  * no.  idProg  date    description
  * 1    eok     031119  Created adventurers list and beta sign in options.
+ * 2    eok     031119  Added a simple guides.html page that shows all the guides in the system. "/" maps to it
  */
 
 
@@ -75,6 +76,12 @@ public class AgbController {
 
     @RequestMapping(value = "/guides", method = RequestMethod.GET)
     public String guides(Model model){
+        model.addAttribute("guides", guideService.findAll());
+        return "guides";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String betaHome(Model model){
         model.addAttribute("guides", guideService.findAll());
         return "guides";
     }

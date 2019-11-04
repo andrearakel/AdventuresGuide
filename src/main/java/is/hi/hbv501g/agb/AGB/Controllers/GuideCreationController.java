@@ -41,7 +41,7 @@ public class GuideCreationController {
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if (sessionAdventurer == null) {
             model.addAttribute("error", "Must be signed in to create a guide.");
-            return "signin";
+            return "redirect:/signin";
         } else {
             return "createguide";
         }
@@ -50,12 +50,12 @@ public class GuideCreationController {
     @RequestMapping(value = "/createguide", method = RequestMethod.POST)
     public String createGuide(@Valid Guide guide, BindingResult result, Model model, HttpSession session) {
         if (result.hasErrors()) {
-            return "signin";
+            return "redirect:/signin";
         }
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if (sessionAdventurer == null) {
             model.addAttribute("error", "Must be signed in to create a guide.");
-            return "signin";
+            return "redirect:/signin";
         }
 
         guideService.createGuide(guide);
