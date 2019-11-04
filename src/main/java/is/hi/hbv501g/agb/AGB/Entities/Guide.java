@@ -4,6 +4,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * id   name            email
  * eok  Erling Oskar    eok4@hi.is
  * ars  Andrea Rakel    ars59@hi.is
+ * jgs  Jónas G.        jgs7@hi.is
  *
  * Changes:
  * no.  idProg  date    description
@@ -14,6 +15,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
 =======
  * 3    ars     221019  Added getters and setters, override toString (html).
 >>>>>>> 29e5be3d768bfcd8a0c558824ea0996f3a7f3ff7
+ * 4    jgs     041119  Added a new constructor that takes in all arguments for guide creation
  */
 
 import javax.persistence.*;
@@ -214,6 +216,19 @@ public class Guide {
         this.id = id;
         this.title = title;
         this.description = description;
+    }
+
+    // Hopefully the full constructor
+    public Guide(long id, String title, String descriotion, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country){
+        this.id = id;
+        this.title = title;
+        this.description = descriotion;
+        this.childFriendly = childFriendly;
+        this.wheelchairAccessible = wheelchairAccessible;
+        this.difficulty = difficulty;
+        this.directions = directions;
+        this.dateCreated = new Date();
+        this.country = country;
     }
 
     @Override

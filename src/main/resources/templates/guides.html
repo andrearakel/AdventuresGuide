@@ -14,6 +14,7 @@
     <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
     <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
     <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
+    <li class="menu-item"><a th:href="@{/guides}">List of Guides</a></li>
     <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
 </ul>
 <div>
@@ -35,12 +36,22 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Child Friendly</th>
+                <th>Wheelchair Accessible</th>
+                <th>Difficulty</th>
+                <th>Directions</th>
+                <th>Date created</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="guide : ${guides}">
                 <td th:text="${guide.title}"></td>
                 <td th:text="${guide.description}"></td>
+                <td th:text="${guide.childFriendly}"></td>
+                <td th:text="${guide.wheelchairAccessible}"></td>
+                <td th:text="${guide.difficulty}"></td>
+                <td th:text="${guide.directions}"></td>
+                <td th:text="${guide.dateCreated}"></td>
             </tr>
             </tbody>
         </table>
