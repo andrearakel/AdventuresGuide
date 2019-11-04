@@ -2,7 +2,7 @@
 <html xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Adventure Guides</title>
     <link th:href="@{/styles.css}" rel="stylesheet">
 </head>
 
@@ -30,7 +30,7 @@
 <div th:switch="${guides}">
     <h1 th:case="null">No guides yet!</h1>
     <div th:case="*">
-        <h2>List of Guides</h2>
+        <h1>List of Adventure Guides</h1>
         <table>
             <thead>
             <tr>
