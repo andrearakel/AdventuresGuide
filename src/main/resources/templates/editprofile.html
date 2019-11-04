@@ -2,85 +2,68 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Adventurer's Guidebook - Profile</title>
     <link th:href="@{/styles.css}" rel="stylesheet">
+    <title>Adventurer's Guidebook - Edit Profile</title>
 </head>
 <body>
+    <div th:replace="menubar :: menubar"></div>
+    <div class="page-wrap">
+        <h1>Adventurer's Profile</h1>
 
-<ul class="menu-bar">
-    <li class="menu-item"><a th:href="@{/}">Home</a></li>
-    <li class="menu-item"><a th:href="@{/signup}">Sign Up</a></li>
-    <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
-    <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
-    <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
-    <li class="menu-item"><a th:href="@{/guides}">List of Guides</a></li>
-    <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
-</ul>
-<div>
-    <form class="menu-item" action="#" th:action="@{/signout}" method="post">
-        <input type="submit" value="Sign Out">
-    </form>
-    <form class="menu-item" action="#" th:action="@{/betasignin}" method="post">
-        <input type="submit" value="BETA Sign In">
-    </form>
-</div>
+        <dl>
+            <dt>Display Name</dt>
+            <dd th:text="${adventurer.displayName}"></dd>
 
-<h1>Adventurer's Profile</h1>
+            <dt>Email</dt>
+            <dd th:text="${adventurer.email}"></dd>
+        </dl>
 
-<dl>
-    <dt>Display Name</dt>
-    <dd th:text="${adventurer.displayName}"></dd>
+        <form action="#" th:action="@{/updateprofile}" th:object="${adventurer}" method="post">
 
-    <dt>Email</dt>
-    <dd th:text="${adventurer.email}"></dd>
-</dl>
+            <label for="name">Name</label>
+            <input type="text" th:field="*{name}" id="name" th:placeholder="${name}">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
-<form action="#" th:action="@{/updateprofile}" th:object="${adventurer}" method="post">
+            <br>
 
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" th:placeholder="${name}">
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            <label for="biography">Biography</label>
+            <input type="text" th:field="*{biography}" id="biography" th:placeholder="${biography}">
+            <span th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></span>
 
-    <br>
+            <br>
 
-    <label for="biography">Biography</label>
-    <input type="text" th:field="*{biography}" id="biography" th:placeholder="${biography}">
-    <span th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></span>
+            <label for="dateOfBirth">Date Of Birth</label>
+            <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" th:placeholder="${dateOfBirth}">
+            <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
 
-    <br>
-
-    <label for="dateOfBirth">Date Of Birth</label>
-    <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" th:placeholder="${dateOfBirth}">
-    <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
-
-    <br>
+            <br>
 
 
-    <label for="country">Country</label>
-    <input type="text" th:field="*{country}" id="country" th:placeholder="${country}">
-    <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
+            <label for="country">Country</label>
+            <input type="text" th:field="*{country}" id="country" th:placeholder="${country}">
+            <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
 
-    <br>
+            <br>
 
-    <label for="state">State</label>
-    <input type="text" th:field="*{state}" id="state" th:placeholder="${state}">
-    <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
+            <label for="state">State</label>
+            <input type="text" th:field="*{state}" id="state" th:placeholder="${state}">
+            <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
 
-    <br>
+            <br>
 
-    <label for="city">City</label>
-    <input type="text" th:field="*{city}" id="city" th:placeholder="${city}">
-    <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+            <label for="city">City</label>
+            <input type="text" th:field="*{city}" id="city" th:placeholder="${city}">
+            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
 
-    <br>
+            <br>
 
 
-    <input type="submit" value="Save Changes">
-</form>
+            <input type="submit" value="Save Changes">
+        </form>
 
-<form action="#" th:action="@{/profile}" method="get">
-    <input type="submit" value="Cancel Changes">
-</form>
-
+        <form action="#" th:action="@{/profile}" method="get">
+            <input type="submit" value="Cancel Changes">
+        </form>
+    </div>
 </body>
 </html>

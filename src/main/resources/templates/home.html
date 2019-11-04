@@ -3,51 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/styles.css}" rel="stylesheet">
+    <title>Adventure's Guidebook - Home</title>
 </head>
 <body>
-<<<<<<< HEAD
-
-<ul class="menu-bar">
-    <li class="menu-item"><a th:href="@{/}">Home</a></li>
-    <li class="menu-item"><a th:href="@{/signup}">Sign Up</a></li>
-    <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
-    <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
-    <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
-    <li class="menu-item"><a th:href="@{/guides}">List of Guides</a></li>
-    <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
-</ul>
-<div>
-    <form class="menu-item" action="#" th:action="@{/signout}" method="post">
-        <input type="submit" value="Sign Out">
-    </form>
-    <form class="menu-item" action="#" th:action="@{/betasignin}" method="post">
-        <input type="submit" value="BETA Sign In">
-    </form>
-</div>
-
-    <h2>Search for Adventure Guide's</h2>
-    <form class="searchform" role="form" method="GET" th:action="@{/home}" th:object="${guide}">
-        <ul>
-            <li th:errors="*{title}" />
-        </ul>
-        <div class="searchform__group">
-            <label>Title:</label>
-            <input class="searchform__input" name="title" type="searchGuide" th:field="*{title}" />
-        </div>
-        <div class="searchform__group">
-            <label>Country:</label>
-            <input class="searchform__input" name="location" type="text" th:field="*{country}" />
-        </div>
-        <!--
-        <div class="searchform__group">
-            <label>Template:</label>
-            <select class="searchform__select" name="template" th:field="*{template}">
-                <option value="NATURE" th:value="NATURE"> Nature Guide </option>
-                <option value="CITY" th:value="CITY"> City Guide </option>
-            </select>
-        </div>
-        -->
-        <button type="submit" value="Search"> Search </button>
-    </form>
+    <div th:replace="menubar :: menubar"></div>
+    <div class="page-wrap">
+        <h2>Search for Adventure Guide's</h2>
+        <form class="searchform" role="form" method="GET" th:action="@{/home}" th:object="${guide}">
+            <ul>
+                <!--<li th:errors="*{title}" />-->
+            </ul>
+            <div class="searchform__group">
+                <label>Title:</label>
+                <!--<input class="searchform__input" name="title" type="searchGuide" th:field="*{title}" />-->
+            </div>
+            <div class="searchform__group">
+                <label>Country:</label>
+                <!--<input class="searchform__input" name="location" type="text" th:field="*{country}" />-->
+            </div>
+            <!--
+            <div class="searchform__group">
+                <label>Template:</label>
+                <select class="searchform__select" name="template" th:field="*{template}">
+                    <option value="NATURE" th:value="NATURE"> Nature Guide </option>
+                    <option value="CITY" th:value="CITY"> City Guide </option>
+                </select>
+            </div>
+            -->
+            <button type="submit" value="Search"> Search </button>
+        </form>
+    </div>
 </body>
 </html>

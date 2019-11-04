@@ -3,82 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/styles.css}" rel="stylesheet">
+    <title>Adventure's Guidebook - Profile</title>
 </head>
 <body>
+    <div th:replace="menubar :: menubar"></div>
+    <div class="page-wrap">
+        <h1>Adventurer's Profile</h1>
 
-<ul class="menu-bar">
-    <li class="menu-item"><a th:href="@{/}">Home</a></li>
-    <li class="menu-item"><a th:href="@{/signup}">Sign Up</a></li>
-    <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
-    <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
-    <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
-    <li class="menu-item"><a th:href="@{/guides}">List of Guides</a></li>
-    <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
-</ul>
-<div>
-    <form class="menu-item" action="#" th:action="@{/signout}" method="post">
-        <input type="submit" value="Sign Out">
-    </form>
-    <form class="menu-item" action="#" th:action="@{/betasignin}" method="post">
-        <input type="submit" value="BETA Sign In">
-    </form>
-</div>
+            <div th:object="${adventurer}" >
+                <h2>Adventurer details</h2>
 
-<h1>Adventurer's Profile</h1>
+                <dl>
+                    <dt>Display Name</dt>
+                    <dd th:text="${adventurer.displayName}"></dd>
 
+                    <dt>Email</dt>
+                    <dd th:text="${adventurer.email}"></dd>
 
-    <div th:object="${adventurer}" >
-        <h2>Adventurer details</h2>
+                    <dt>Name</dt>
+                    <dd th:text="${adventurer.name}"></dd>
 
-        <dl>
-            <dt>Display Name</dt>
-            <dd th:text="${adventurer.displayName}"></dd>
+                    <dt>Date of Birth</dt>
+                    <dd th:text="${#dates.format(adventurer.dateOfBirth, 'dd-MMM-yyyy')}"></dd>
 
-            <dt>Email</dt>
-            <dd th:text="${adventurer.email}"></dd>
+                    <dt>Biography</dt>
+                    <dd th:text="${adventurer.biography}"></dd>
 
-            <dt>Name</dt>
-            <dd th:text="${adventurer.name}"></dd>
+                    <dt>Country</dt>
+                    <dd th:text="${adventurer.country}"></dd>
 
-            <dt>Date of Birth</dt>
-            <dd th:text="${#dates.format(adventurer.dateOfBirth, 'dd-MMM-yyyy')}"></dd>
+                    <dt>State</dt>
+                    <dd th:text="${adventurer.state}"></dd>
 
-            <dt>Biography</dt>
-            <dd th:text="${adventurer.biography}"></dd>
-
-            <dt>Country</dt>
-            <dd th:text="${adventurer.country}"></dd>
-
-            <dt>State</dt>
-            <dd th:text="${adventurer.state}"></dd>
-
-            <dt>City</dt>
-            <dd th:text="${adventurer.city}"></dd>
+                    <dt>City</dt>
+                    <dd th:text="${adventurer.city}"></dd>
 
 
-            <!-- Not wise to display
-            <dt>PasswordHashed</dt>
-            <dd th:text="${adventurer.passwordHashed}"></dd>
-            -->
+                    <!-- Not wise to display
+                    <dt>PasswordHashed</dt>
+                    <dd th:text="${adventurer.passwordHashed}"></dd>
+                    -->
 
-            <dt>Registration Date</dt>
-            <dd th:text="${#dates.format(adventurer.dateCreated, 'dd-MMM-yyyy')}"></dd>
+                    <dt>Registration Date</dt>
+                    <dd th:text="${#dates.format(adventurer.dateCreated, 'dd-MMM-yyyy')}"></dd>
 
 
-            <!-- TODO: add more tags
-            <dt></dt>
-            <dd th:text="${adventurer.}"></dd>
-            -->
-        </dl>
+                    <!-- TODO: add more tags
+                    <dt></dt>
+                    <dd th:text="${adventurer.}"></dd>
+                    -->
+                </dl>
+            </div>
+
+        <form action="#" th:action="@{/editprofile}" method="get">
+            <input type="submit" value="Edit Profile">
+        </form>
+
+        <form action="#" th:action="@{/signout}" method="post">
+            <input type="submit" value="Sign Out">
+        </form>
     </div>
-
-<form action="#" th:action="@{/editprofile}" method="get">
-    <input type="submit" value="Edit Profile">
-</form>
-
-<form action="#" th:action="@{/signout}" method="post">
-    <input type="submit" value="Sign Out">
-</form>
-
 </body>
 </html>

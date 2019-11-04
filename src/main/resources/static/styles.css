@@ -1,3 +1,21 @@
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: 'Lato', sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.test {
+    background: #8b0000;
+    padding: 2em;
+}
+
 .menu-bar {
     list-style-type: none;
     margin: 0;
@@ -7,4 +25,22 @@
 .menu-item {
     display: inline;
     margin-right: 2px;
+}
+
+.menu-item a {
+    color: black;
+    text-decoration: none;
+    padding: 1em 2em;
+    border-radius: 5px;
+    transition: 0.6s;
+
+}
+
+.menu-item a:hover {
+    background: #8b3300;
+}
+
+.page-wrap {
+    margin: 0 auto;
+    max-width: 1200px;
 }

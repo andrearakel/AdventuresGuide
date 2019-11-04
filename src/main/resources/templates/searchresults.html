@@ -2,37 +2,29 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/styles.css}" rel="stylesheet">
     <title>Adventure's Guidebook</title>
 </head>
 <body>
-
-<ul class="menu-bar">
-    <li class="menu-item"><a th:href="@{/}">Home</a></li>
-    <li class="menu-item"><a th:href="@{/signup}">Sign Up</a></li>
-    <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
-    <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
-    <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
-    <li class="menu-item"><a th:href="@{/guides}">List of Guides</a></li>
-    <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
-</ul>
-
-    <h1>Search results</h1>
-    <div class="searchresult" th:each="listItem: ${guideList}">
-        <div class="searchresult__thumbnail">
-            <div class="searchresult__caption">
-                <form class="searchresult__form" role="form" method="POST" th:action="@{/info}">
-                    <h2 th:text = "${listItem.title}"></h2>
-                    <p th:text = "${listItem.country}"></p>
-                    <p th:text = "${listItem.templates}"></p>
-                    <p th:text = "${listItem.ratingAvg}"></p>
-                 <input class="searchresult__getMore" name="title" type="hidden" th:value = "${listItem.title}" />
-                <div class="searchresult__button">
-                    <button type="submit">More information</button>
+    <div th:replace="menubar :: menubar"></div>
+    <div class="page-wrap">
+        <h1>Search results</h1>
+        <div class="searchresult" th:each="listItem: ${guideList}">
+            <div class="searchresult__thumbnail">
+                <div class="searchresult__caption">
+                    <form class="searchresult__form" role="form" method="POST" th:action="@{/info}">
+                        <h2 th:text = "${listItem.title}"></h2>
+                        <p th:text = "${listItem.country}"></p>
+                        <p th:text = "${listItem.templates}"></p>
+                        <p th:text = "${listItem.ratingAvg}"></p>
+                     <input class="searchresult__getMore" name="title" type="hidden" th:value = "${listItem.title}" />
+                    <div class="searchresult__button">
+                        <button type="submit">More information</button>
+                    </div>
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
     </div>
-
 </body>
 </html>

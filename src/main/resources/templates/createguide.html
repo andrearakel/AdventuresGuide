@@ -2,85 +2,69 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Adventurer's Guidebook - Create Guide</title>
     <link th:href="@{/styles.css}" rel="stylesheet">
+    <title>Adventurer's Guidebook - Create Guide</title>
 </head>
 <body>
+    <div th:replace="menubar :: menubar"></div>
+    <div class="page-wrap">
+        <h1>Create a new Guide!</h1>
 
-<ul class="menu-bar">
-    <li class="menu-item"><a th:href="@{/}">Home</a></li>
-    <li class="menu-item"><a th:href="@{/signup}">Sign Up</a></li>
-    <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
-    <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
-    <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
-    <li class="menu-item"><a th:href="@{/guides}">List of Guides</a></li>
-    <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
-</ul>
-<div>
-    <form class="menu-item" action="#" th:action="@{/signout}" method="post">
-        <input type="submit" value="Sign Out">
-    </form>
-    <form class="menu-item" action="#" th:action="@{/betasignin}" method="post">
-        <input type="submit" value="BETA Sign In">
-    </form>
-</div>
+        <p th:text="${error}"></p>
+        <p th:text="${error1}"></p>
 
-<h1>Create a new Guide!</h1>
+        <form action="#" th:action="@{/createguide}" th:object="${guide}" method="post">
 
-<p th:text="${error}"></p>
-<p th:text="${error1}"></p>
+            <label for="title">Guide title</label>
+            <input type="text" th:field="*{title}" id="title" placeholder="Title of the Guide">
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
 
-<form action="#" th:action="@{/createguide}" th:object="${guide}" method="post">
+            <br>
 
-    <label for="title">Guide title</label>
-    <input type="text" th:field="*{title}" id="title" placeholder="Title of the Guide">
-    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            <label for="description">Description</label>
+            <input type="text" th:field="*{description}" id="description" size="100" placeholder="Write a description for your guide.">
+            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
 
-    <br>
+            <br>
 
-    <label for="description">Description</label>
-    <input type="text" th:field="*{description}" id="description" size="100" placeholder="Write a description for your guide.">
-    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+            <label for="childFriendly">Child Friendly</label>
+            <input type="radio" th:field="*{childFriendly}" id="childFriendly" value="True">Yes
+            <input type="radio" th:field="*{childFriendly}" id="childFriendly" value="false">No
+            <span th:if="${#fields.hasErrors('childFriendly')}" th:errors="*{childFriendly}"></span>
 
-    <br>
+            <br>
 
-    <label for="childFriendly">Child Friendly</label>
-    <input type="radio" th:field="*{childFriendly}" id="childFriendly" value="True">Yes
-    <input type="radio" th:field="*{childFriendly}" id="childFriendly" value="false">No
-    <span th:if="${#fields.hasErrors('childFriendly')}" th:errors="*{childFriendly}"></span>
+            <label for="wheelchairAccessible">Wheelchair Accessible</label>
+            <input type="radio" th:field="*{wheelchairAccessible}" id="wheelchairAccessible" value="True">Yes
+            <input type="radio" th:field="*{wheelchairAccessible}" id="wheelchairAccessible" value="false">No
+            <span th:if="${#fields.hasErrors('wheelchairAccessible')}" th:errors="*{wheelchairAccessible}"></span>
 
-    <br>
+            <br>
 
-    <label for="wheelchairAccessible">Wheelchair Accessible</label>
-    <input type="radio" th:field="*{wheelchairAccessible}" id="wheelchairAccessible" value="True">Yes
-    <input type="radio" th:field="*{wheelchairAccessible}" id="wheelchairAccessible" value="false">No
-    <span th:if="${#fields.hasErrors('wheelchairAccessible')}" th:errors="*{wheelchairAccessible}"></span>
+            <label for="difficulty">Difficulty</label>
+            <input type="radio" th:field="*{difficulty}" id="difficulty" value="1">1
+            <input type="radio" th:field="*{difficulty}" id="difficulty" value="2">2
+            <input type="radio" th:field="*{difficulty}" id="difficulty" value="3">3
+            <input type="radio" th:field="*{difficulty}" id="difficulty" value="4">4
+            <input type="radio" th:field="*{difficulty}" id="difficulty" value="5">5
+            <span th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}"></span>
 
-    <br>
+            <br>
 
-    <label for="difficulty">Difficulty</label>
-    <input type="radio" th:field="*{difficulty}" id="difficulty" value="1">1
-    <input type="radio" th:field="*{difficulty}" id="difficulty" value="2">2
-    <input type="radio" th:field="*{difficulty}" id="difficulty" value="3">3
-    <input type="radio" th:field="*{difficulty}" id="difficulty" value="4">4
-    <input type="radio" th:field="*{difficulty}" id="difficulty" value="5">5
-    <span th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}"></span>
+            <label for="directions">Directions</label>
+            <input type="text" th:field="*{directions}" id="directions" size="100" placeholder="How to get to your guide">
+            <span th:if="${#fields.hasErrors('directions')}" th:errors="*{directions}"></span>
 
-    <br>
+            <br>
 
-    <label for="directions">Directions</label>
-    <input type="text" th:field="*{directions}" id="directions" size="100" placeholder="How to get to your guide">
-    <span th:if="${#fields.hasErrors('directions')}" th:errors="*{directions}"></span>
+            <label for="country">Country</label>
+            <input type="text" th:field="*{country}" id="country" value="Iceland">
+            <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
 
-    <br>
+            <br>
 
-    <label for="country">Country</label>
-    <input type="text" th:field="*{country}" id="country" value="Iceland">
-    <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
-
-    <br>
-
-    <input type="submit" value="Create">
-</form>
+            <input type="submit" value="Create">
+        </form>
+    </div>
 </body>
 </html>
