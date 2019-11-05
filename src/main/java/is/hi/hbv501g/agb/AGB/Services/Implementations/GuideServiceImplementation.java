@@ -75,17 +75,17 @@ public class GuideServiceImplementation implements GuideService {
     public List<Guide> findByMatches(Guide guide) {
 
         //New list made, all guides with title match added to the list.
-        ArrayList<Guide> gList, allList;
-        gList = (ArrayList<Guide>) repository.findByTitle(guide.getTitle());
+        ArrayList<Guide> guideList, allList;
+        guideList = (ArrayList<Guide>) repository.findByTitle(guide.getTitle());
 
         //Guides that don't match the country taken out
         allList = (ArrayList<Guide>) repository.findByLocation(guide.getCountry());
-        gList.retainAll(allList);
+        guideList.retainAll(allList);
 
         //Guides that don't match the template taken out
         //No idea how to do that...
 
-        return gList;
+        return guideList;
 
 
     }

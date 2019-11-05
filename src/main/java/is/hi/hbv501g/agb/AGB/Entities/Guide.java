@@ -219,10 +219,10 @@ public class Guide {
     }
 
     // Hopefully the full constructor
-    public Guide(long id, String title, String descriotion, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country){
+    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country){
         this.id = id;
         this.title = title;
-        this.description = descriotion;
+        this.description = description;
         this.childFriendly = childFriendly;
         this.wheelchairAccessible = wheelchairAccessible;
         this.difficulty = difficulty;
