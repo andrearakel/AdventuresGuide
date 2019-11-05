@@ -50,5 +50,5 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
 
     //Case insensitive, looks for country
     @Query(value = "SELECT g FROM Guide g where lower(g.country) LIKE lower(concat('%', :country, '%'))")
-    List<Guide> findByLocation(String country);
+    List<Guide> findByLocation(@Param("country") String country);
 }
