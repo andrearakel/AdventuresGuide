@@ -1,15 +1,13 @@
 package is.hi.hbv501g.agb.AGB.Services.Implementations;
 
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
+import is.hi.hbv501g.agb.AGB.Entities.Template;
 import is.hi.hbv501g.agb.AGB.Repositories.GuideRepository;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Programmers:
@@ -66,10 +64,11 @@ public class GuideServiceImplementation implements GuideService {
         return repository.findByTitle(title);
     }
 
-    //@Override
-    //public List<Guide> findByTemplate(EnumSet templates) { return repository.findByTemplate(templates); }
     @Override
-    public List<Guide> findByLocation(String country) { return repository.findByLocation(country); }
+    public List<Guide> findByTemplates(Set<Template> template) { return repository.findByTemplates(template); }
+
+    @Override
+    public List<Guide> findByCountry(String country) { return repository.findByCountry(country); }
 
     @Override
     public List<Guide> findByMatches(Guide guide) {
@@ -79,11 +78,12 @@ public class GuideServiceImplementation implements GuideService {
         guideList = (ArrayList<Guide>) repository.findByTitle(guide.getTitle());
 
         //Guides that don't match the country taken out
-        allList = (ArrayList<Guide>) repository.findByLocation(guide.getCountry());
+        allList = (ArrayList<Guide>) repository.findByCountry(guide.getCountry());
         guideList.retainAll(allList);
 
         //Guides that don't match the template taken out
-        //No idea how to do that...
+        /*allList = (ArrayList<Guide>) repository.findByTemplates(guide.getTemplates());
+        guideList.retainAll(allList);*/
 
         return guideList;
 

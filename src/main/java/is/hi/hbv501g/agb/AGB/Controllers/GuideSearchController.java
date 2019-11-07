@@ -9,6 +9,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * Changes:
  * no.  idProg  date    description
  * 1     ars    021119  Added a search method for the search bar.
+ * 2     ars    071119  More efficient way of search method
  */
 
 
@@ -47,16 +48,19 @@ public class GuideSearchController {
     /*Search that makes a list of guides depending on what the user searches for.*/
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String searchGuide(@Valid @ModelAttribute(name = "guide") Guide guide,
-                              BindingResult error, ModelMap model) {
+                              BindingResult error, Model model) {
 
-        if(!error.hasErrors()) {
+        if(error.hasErrors()) {
+            return "home";
+        } else {
             ArrayList<Guide> guideList;
             guideList = (ArrayList<Guide>) guideService.findByMatches(guide);
             lastSearch = guideList;
             model.addAttribute("guideList", guideList);
+
+            return "searchresults";
         }
 
-        return (error.hasErrors() ) ? "home":  "searchresults";
     }
 
     /* Back to last search results */

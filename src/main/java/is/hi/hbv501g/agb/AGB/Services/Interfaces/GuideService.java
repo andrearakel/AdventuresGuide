@@ -1,10 +1,12 @@
 package is.hi.hbv501g.agb.AGB.Services.Interfaces;
 
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
+import is.hi.hbv501g.agb.AGB.Entities.Template;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Programmers:
@@ -36,8 +38,8 @@ public interface GuideService {
     Guide createGuide(Guide guide);
     Optional<Guide> findById(long id);
     List<Guide> findByTitle(String title);
-    //List<Guide> findByTemplate(EnumSet templates);
-    List<Guide> findByLocation(String country);
+    List<Guide> findByTemplates(Set<Template> templates);
+    List<Guide> findByCountry(String country);
     List<Guide> findByMatches(Guide guide);
 
 }
