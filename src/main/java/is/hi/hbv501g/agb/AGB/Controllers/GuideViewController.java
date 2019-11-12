@@ -17,6 +17,7 @@ import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,11 +31,10 @@ public class GuideViewController {
     GuideService guideService;
 
     //View a chosen guide from search results
-    @RequestMapping(value = "/info", method = RequestMethod.POST)
-    public String info(@RequestParam(value = "title", required = true) String title, Model model) {
-        ArrayList<Guide> chosenGuide;
-        chosenGuide = (ArrayList<Guide>) guideService.findByTitle(title);
-        model.addAttribute("chosenGuide", chosenGuide);
-        return "infopage";
+    @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
+    public String info(@PathVariable("id") long id,  Model model) {
+     Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
+     model.addAttribute("guides", guide);
+     return "guides";
     }
 }

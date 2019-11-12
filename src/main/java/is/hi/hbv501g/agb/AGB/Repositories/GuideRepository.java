@@ -38,22 +38,20 @@ import java.util.List;
 public interface GuideRepository extends JpaRepository<Guide, Long> {
 
     Guide save(Guide guide);
+
     void delete(Guide guide);
+
     List<Guide> findAll();
 
-    //Case insensitive, looks for everything matching something from the string
-    /*@Query(value = "SELECT g FROM Guide g where lower(g.title) LIKE lower(concat('%', :title, '%'))")
-    List<Guide> findByTitle(@Param("title") String title);*/
-
-    List<Guide> findByTitle(String title);
+    List<Guide> findByTitleContainingIgnoreCase(String title);
 
     Optional<Guide> findById(long id);
 
     List<Guide> findByTemplates(Set<Template> templates);
 
-    //Case insensitive, looks for country
-    /*@Query(value = "SELECT g FROM Guide g where lower(g.country) LIKE lower(concat('%', :country, '%'))")
-    List<Guide> findByCountry(@Param("country") String country);*/
+    List<Guide> findByCountryContainingIgnoreCase(String country);
 
-    List<Guide> findByCountry(String country);
-}
+    List<Guide> findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining(String title, String country);
+
+
+    }

@@ -18,57 +18,45 @@ import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
+
+import java.util.List;
 
 @Controller
 public class GuideSearchController {
 
     private GuideService guideService;
 
-    private ArrayList<Guide> lastSearch = new ArrayList<Guide>();
-
     @Autowired
     public GuideSearchController(GuideService guideService) { this.guideService = guideService; }
 
 
-    //New guide object that the search method uses.
-    @ModelAttribute("guide")
-    public Guide defaultInstance() {
-        Guide guide = new Guide();
-        return guide;
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String SearchGET(){
+        return "home";
     }
+
 
     /*Search that makes a list of guides depending on what the user searches for.*/
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String searchGuide(@Valid @ModelAttribute(name = "guide") Guide guide,
-                              BindingResult error, Model model) {
+    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    public String searchGuide(@RequestParam(value = "title") String title,
+                              @RequestParam(value = "country") String country, Model model) {
 
-        if(error.hasErrors()) {
-            return "home";
-        } else {
-            ArrayList<Guide> guideList;
-            guideList = (ArrayList<Guide>) guideService.findByMatches(guide);
-            lastSearch = guideList;
-            model.addAttribute("guideList", guideList);
+            List<Guide> searchList =
+                    guideService.findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining
+                            (title, country);
 
-            return "searchresults";
-        }
+            model.addAttribute("guides", searchList);
+            return "results";
 
     }
 
-    /* Back to last search results */
-    @RequestMapping("/backSearchResults")
-    public String backSearchResults(Model model) {
-        model.addAttribute("guideList", lastSearch);
-        return "searchresults";
-    }
+
 
 
 }

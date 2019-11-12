@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/styles.css}" rel="stylesheet">
+    <title>Adventure's Guidebook - Search Results</title>
+</head>
+<body>
+<div th:replace="menubar :: menubar"></div>
+<div class="page-wrap">
+    <div th:switch="${guides}">
+        <h2 th:case="null">No guides yet!</h2>
+        <div th:case="*">
+            <h2>Search Results</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Country</th>
+                    <th>Template</th>
+                    <th>Rating</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="guide : ${guides}">
+                    <td th:text="${guide.title}"></td>
+                    <td th:text="${guide.country}"></td>
+                    <td th:text="${guide.templates}"></td>
+                    <td th:text="${guide.ratingAvg}"></td>
+                    <td><a th:href="@{/info/{id} (id=${guide.id})}">View more info</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

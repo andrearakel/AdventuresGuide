@@ -60,33 +60,24 @@ public class GuideServiceImplementation implements GuideService {
     }
 
     @Override
-    public List<Guide> findByTitle(String title) {
-        return repository.findByTitle(title);
+    public List<Guide> findByTitleContainingIgnoreCase(String title) {
+        return repository.findByTitleContainingIgnoreCase(title);
     }
 
     @Override
     public List<Guide> findByTemplates(Set<Template> template) { return repository.findByTemplates(template); }
 
     @Override
-    public List<Guide> findByCountry(String country) { return repository.findByCountry(country); }
+    public List<Guide> findByCountryContainingIgnoreCase(String country) {
+        return repository.findByCountryContainingIgnoreCase(country);
+    }
 
     @Override
-    public List<Guide> findByMatches(Guide guide) {
-
-        //New list made, all guides with title match added to the list.
-        ArrayList<Guide> guideList, allList;
-        guideList = (ArrayList<Guide>) repository.findByTitle(guide.getTitle());
-
-        //Guides that don't match the country taken out
-        allList = (ArrayList<Guide>) repository.findByCountry(guide.getCountry());
-        guideList.retainAll(allList);
-
-        //Guides that don't match the template taken out
-        /*allList = (ArrayList<Guide>) repository.findByTemplates(guide.getTemplates());
-        guideList.retainAll(allList);*/
-
-        return guideList;
-
-
+    public List<Guide> findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining(String title, String country) {
+        return repository.findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining(title, country);
     }
+
+
+
+
 }

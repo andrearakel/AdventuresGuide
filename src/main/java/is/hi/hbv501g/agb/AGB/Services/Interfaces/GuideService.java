@@ -37,9 +37,11 @@ public interface GuideService {
     List<Guide> findAll();
     Guide createGuide(Guide guide);
     Optional<Guide> findById(long id);
-    List<Guide> findByTitle(String title);
+    List<Guide> findByTitleContainingIgnoreCase(String title);
     List<Guide> findByTemplates(Set<Template> templates);
-    List<Guide> findByCountry(String country);
-    List<Guide> findByMatches(Guide guide);
+    List<Guide> findByCountryContainingIgnoreCase(String country);
+    List<Guide> findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining(String title, String country);
 
-}
+
+
+    }

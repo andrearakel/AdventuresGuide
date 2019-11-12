@@ -9,29 +9,15 @@
     <div th:replace="menubar :: menubar"></div>
     <div class="page-wrap">
         <h2>Search for Adventure Guide's</h2>
-        <form class="searchform" role="form" method="GET" th:action="@{/home}" th:object="${guide}">
-            <ul>
-                <!--<li th:errors="*{title}" />-->
-            </ul>
-            <div class="searchform__group">
-                <label>Title:</label>
-                <!--<input class="searchform__input" name="title" type="searchGuide" th:field="*{title}" />-->
-            </div>
-            <div class="searchform__group">
-                <label>Country:</label>
-                <!--<input class="searchform__input" name="location" type="text" th:field="*{country}" />-->
-            </div>
-            <!--
-            <div class="searchform__group">
-                <label>Template:</label>
-                <select class="searchform__select" name="template" th:field="*{template}">
-                    <option value="NATURE" th:value="NATURE"> Nature Guide </option>
-                    <option value="CITY" th:value="CITY"> City Guide </option>
-                </select>
-            </div>
-            -->
-            <button type="submit" value="Search"> Search </button>
+        <form action="#" th:action="@{/home}" th:objebt="${guide}" method="post">
+            <label>Title:</label>
+            <input type="text" name="title" id="title" th:value="${title}" />
+            <label>Country:</label>
+            <input type="text" name="country" id="country" th:value="${country}" />
+            <input type="submit" value="Search" />
         </form>
+
+
     </div>
 </body>
 </html>
