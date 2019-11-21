@@ -54,3 +54,14 @@ Password: DepZxzJc9TZhbQs3jPo6-oWtERyL0sES
 
 ## Notes for users (adventurers)
 To SignUp for the Adventurer's Guidebook you need to enter a username and password, both of which must be longer than 2 characters. You also need to enter a valid email address.
+
+### Bootstrap
+
+You can click an example, right-click the background and select *View Page Source* and follow the example HTML and CSS at
+https://getbootstrap.com/docs/4.3/examples/
+
+https://getbootstrap.com/docs/4.3/getting-started/introduction/
+
+This page shows a lot: https://getbootstrap.com/docs/4.3/layout/overview/
+
+How the navbar was created: https://getbootstrap.com/docs/4.3/components/navbar/

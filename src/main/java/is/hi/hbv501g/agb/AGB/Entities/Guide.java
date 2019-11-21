@@ -38,7 +38,6 @@ public class Guide {
     // TODO: Must implement foreign key relation
     private long idAdventurer; // creator
 
-    // TODO: Validate this (replicated from support session)
     @ElementCollection(targetClass=Template.class)
     @Column(name="template", nullable=false)
     @CollectionTable(name="guide_templates", joinColumns= {@JoinColumn(name="guide_id")})

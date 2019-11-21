@@ -2,67 +2,72 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/styles.css}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Adventurer's Guidebook - Edit Profile</title>
 </head>
+<nav th:replace="menubar :: menubar"></nav>
+
 <body>
-    <div th:replace="menubar :: menubar"></div>
-    <div class="page-wrap">
-        <h1>Adventurer's Profile</h1>
+    <div class="container" th:object="${adventurer}">
+        <h2>Adventurer Profile</h2>
 
-        <dl>
-            <dt>Display Name</dt>
-            <dd th:text="${adventurer.displayName}"></dd>
-
-            <dt>Email</dt>
-            <dd th:text="${adventurer.email}"></dd>
-        </dl>
 
         <form action="#" th:action="@{/updateprofile}" th:object="${adventurer}" method="post">
 
-            <label for="name">Name</label>
-            <input type="text" th:field="*{name}" id="name" th:placeholder="${name}">
-            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            <dl class="row">
+                <dt class="col-sm-3">Display Name</dt>
+                <dd class="col-sm-9" th:text="${adventurer.displayName}"></dd>
 
-            <br>
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9" th:text="${adventurer.email}"></dd>
 
-            <label for="biography">Biography</label>
-            <input type="text" th:field="*{biography}" id="biography" th:placeholder="${biography}">
-            <span th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></span>
+                <dt class="col-sm-3"><label for="name">Name</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{name}" id="name" th:placeholder="${name}">
+                </dd>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
-            <br>
+                <dt class="col-sm-3"><label for="biography">Biography</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{biography}" id="biography" th:placeholder="${biography}">
+                </dd>
+                <span th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></span>
 
-            <label for="dateOfBirth">Date Of Birth</label>
-            <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" th:placeholder="${dateOfBirth}">
-            <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+                <dt class="col-sm-3"><label for="dateOfBirth">Date Of Birth</label></dt>
+                <dd class="col-sm-9">
+                    <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" th:placeholder="${dateOfBirth}">
+                </dd>
+                <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
 
-            <br>
+                <dt class="col-sm-3"><label for="country">Country</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{country}" id="country" th:placeholder="${country}">
+                </dd>
+                <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
+
+                <dt class="col-sm-3"><label for="state">State</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{state}" id="state" th:placeholder="${state}">
+                </dd>
+                <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
+
+                <dt class="col-sm-3"><label for="city">City</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{city}" id="city" th:placeholder="${city}">
+                </dd>
+                <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+
+            </dl>
 
 
-            <label for="country">Country</label>
-            <input type="text" th:field="*{country}" id="country" th:placeholder="${country}">
-            <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
-
-            <br>
-
-            <label for="state">State</label>
-            <input type="text" th:field="*{state}" id="state" th:placeholder="${state}">
-            <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
-
-            <br>
-
-            <label for="city">City</label>
-            <input type="text" th:field="*{city}" id="city" th:placeholder="${city}">
-            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
-
-            <br>
-
-
-            <input type="submit" value="Save Changes">
+            <button class="btn btn-lg btn-primary btn-lg" type="submit">Save Changes</button>
         </form>
 
         <form action="#" th:action="@{/profile}" method="get">
-            <input type="submit" value="Cancel Changes">
+            <button class="btn btn-lg btn-secondary  btn-sm" type="submit">Cancel Changes</button>
         </form>
     </div>
 </body>

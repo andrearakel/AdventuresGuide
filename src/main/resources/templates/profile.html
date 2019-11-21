@@ -2,67 +2,67 @@
 <html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Adventurer's Guidebook - Create Guide</title>
-    <link th:href="@{/styles.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Adventure's Guidebook - Profile</title>
 </head>
+<nav th:replace="menubar :: menubar"></nav>
+
 <body>
-    <div th:replace="menubar :: menubar"></div>
-    <div class="page-wrap">
-        <h1>Adventurer's Profile</h1>
 
-            <div th:object="${adventurer}" >
-                <h2>Adventurer details</h2>
+            <div class="container" th:object="${adventurer}">
+                <h2>Adventurer Profile</h2>
 
-                <dl>
-                    <dt>Display Name</dt>
-                    <dd th:text="${adventurer.displayName}"></dd>
+                <dl class="row">
+                    <dt class="col-sm-3">Display Name</dt>
+                    <dd class="col-sm-9" th:text="${adventurer.displayName}"></dd>
 
-                    <dt>Email</dt>
-                    <dd th:text="${adventurer.email}"></dd>
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9" th:text="${adventurer.email}"></dd>
 
-                    <dt>Name</dt>
-                    <dd th:text="${adventurer.name}"></dd>
+                    <dt class="col-sm-3">Name</dt>
+                    <dd class="col-sm-9" th:text="${adventurer.name}"></dd>
 
-                    <dt>Date of Birth</dt>
-                    <dd th:text="${#dates.format(adventurer.dateOfBirth, 'dd-MMM-yyyy')}"></dd>
+                    <dt class="col-sm-3">Date of Birth</dt>
+                    <dd class="col-sm-9" th:text="${#dates.format(adventurer.dateOfBirth, 'dd-MMM-yyyy')}"></dd>
 
-                    <dt>Biography</dt>
-                    <dd th:text="${adventurer.biography}"></dd>
+                    <dt class="col-sm-3">Biography</dt>
+                    <dd class="col-sm-9" th:text="${adventurer.biography}"></dd>
 
-                    <dt>Country</dt>
-                    <dd th:text="${adventurer.country}"></dd>
+                    <dt class="col-sm-3">Country</dt>
+                    <dd class="col-sm-9" th:text="${adventurer.country}"></dd>
 
-                    <dt>State</dt>
-                    <dd th:text="${adventurer.state}"></dd>
+                    <dt class="col-sm-3">State</dt>
+                    <dd class="col-sm-9" th:text="${adventurer.state}"></dd>
 
-                    <dt>City</dt>
-                    <dd th:text="${adventurer.city}"></dd>
+                    <dt class="col-sm-3">City</dt>
+                    <dd class="col-sm-9" th:text="${adventurer.city}"></dd>
 
+                    <dt class="col-sm-3">Registration Date</dt>
+                    <dd class="col-sm-9" th:text="${#dates.format(adventurer.dateCreated, 'dd-MMM-yyyy')}"></dd>
 
                     <!-- Not wise to display
                     <dt>PasswordHashed</dt>
                     <dd th:text="${adventurer.passwordHashed}"></dd>
                     -->
-
-                    <dt>Registration Date</dt>
-                    <dd th:text="${#dates.format(adventurer.dateCreated, 'dd-MMM-yyyy')}"></dd>
-
-
                     <!-- TODO: add more tags
                     <dt></dt>
                     <dd th:text="${adventurer.}"></dd>
                     -->
                 </dl>
+
+                <form action="#" th:action="@{/editprofile}" method="get">
+                    <button class="btn btn-lg btn-primary btn-lg" type="submit">Edit Profile</button>
+                </form>
+
+                <form action="#" th:action="@{/signout}" method="post">
+                    <button class="btn btn-lg btn-secondary btn-sm" type="submit">Sign Out</button>
+                </form>
+
             </div>
 
-        <form action="#" th:action="@{/editprofile}" method="get">
-            <input type="submit" value="Edit Profile">
-        </form>
-
-        <form action="#" th:action="@{/signout}" method="post">
-            <input type="submit" value="Sign Out">
-        </form>
-    </div>
 </body>
 </html>
