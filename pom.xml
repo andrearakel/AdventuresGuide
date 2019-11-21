@@ -89,6 +89,12 @@
 			<version>2.3.0</version>
 		</dependency>
 
+		<!-- 211119 eok added for bootstrap. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
 
 	</dependencies>
 

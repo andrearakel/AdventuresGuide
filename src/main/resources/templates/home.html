@@ -7,17 +7,17 @@
 </head>
 <body>
     <div th:replace="menubar :: menubar"></div>
+
+
     <div class="page-wrap">
         <h2>Search for Adventure Guide's</h2>
-        <form action="#" th:action="@{/home}" th:objebt="${guide}" method="post">
+        <form action="#" th:action="@{/home}" th:object="${guide}" method="post">
             <label>Title:</label>
             <input type="text" name="title" id="title" th:value="${title}" />
             <label>Country:</label>
             <input type="text" name="country" id="country" th:value="${country}" />
             <input type="submit" value="Search" />
         </form>
-
-
     </div>
 </body>
 </html>

@@ -63,6 +63,13 @@
 
             <br>
 
+            <label for="templates">Guide Template</label>
+            <input type="radio" th:field="*{templates}" id="templates" value="NATURE">Nature
+            <input type="radio" th:field="*{templates}" id="templates" value="CITY">City
+            <span th:if="${#fields.hasErrors('templates')}" th:errors="*{templates}"></span>
+
+            <br>
+
             <input type="submit" value="Create">
         </form>
     </div>

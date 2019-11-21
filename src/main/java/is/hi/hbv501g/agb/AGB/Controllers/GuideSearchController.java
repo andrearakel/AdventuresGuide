@@ -18,12 +18,9 @@ import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 import java.util.List;
 
@@ -37,15 +34,22 @@ public class GuideSearchController {
 
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String SearchGET(){
+    public String SearchGet(){
         return "home";
     }
 
 
-    /*Search that makes a list of guides depending on what the user searches for.*/
+    /**
+     * A search method that makes a list of guides depending on what the user searches for.
+     * @param title
+     * @param country
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     public String searchGuide(@RequestParam(value = "title") String title,
-                              @RequestParam(value = "country") String country, Model model) {
+                              @RequestParam(value = "country") String country,
+                              Model model) {
 
             List<Guide> searchList =
                     guideService.findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining

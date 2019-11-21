@@ -25,7 +25,15 @@
                 <tr th:each="guide : ${guides}">
                     <td th:text="${guide.title}"></td>
                     <td th:text="${guide.country}"></td>
-                    <td th:text="${guide.templates}"></td>
+                    <!--
+                    <div th:switch=${guide.templates}">
+                        <td th:case="null"></td>
+                        <td th:case="*" th:text="${guide.templates[0]}"></td>
+                    </div>
+
+                    -->
+                    <td th:text="${guide.templates[0]}"></td>
+
                     <td th:text="${guide.ratingAvg}"></td>
                     <td><a th:href="@{/info/{id} (id=${guide.id})}">View more info</a></td>
                 </tr>
