@@ -10,12 +10,9 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * no.  idProg  date    description
  * 1    eok     151019  Created javabean entity with fields from ERD.
  * 2    eok     171019  Changed to use Template enum, added a basic constructor.
-<<<<<<< HEAD
  * 3    eok     031119  Added getters and setters.
-=======
- * 3    ars     221019  Added getters and setters, override toString (html).
->>>>>>> 29e5be3d768bfcd8a0c558824ea0996f3a7f3ff7
- * 4    jgs     041119  Added a new constructor that takes in all arguments for guide creation
+ * 4    ars     221019  Added getters and setters, override toString (html).
+ * 5    jgs     041119  Added a new constructor that takes in all arguments for guide creation
  */
 
 import javax.persistence.*;
