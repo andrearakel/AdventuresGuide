@@ -10,6 +10,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * no.  idProg  date    description
  * 1     ars    021119  Added a search method for the search bar.
  * 2     ars    071119  More efficient way of search method
+ * 3     ars    221119  Added back to last search
  */
 
 
@@ -28,6 +29,8 @@ import java.util.List;
 public class GuideSearchController {
 
     private GuideService guideService;
+
+    private List<Guide> lastSearch;
 
     @Autowired
     public GuideSearchController(GuideService guideService) { this.guideService = guideService; }
@@ -55,11 +58,18 @@ public class GuideSearchController {
                     guideService.findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining
                             (title, country);
 
+            lastSearch = searchList;
+
             model.addAttribute("guides", searchList);
             return "results";
 
     }
 
+    @RequestMapping(value = "/backToLastSearch")
+    public String backToLastSearch(Model model) {
+        model.addAttribute("guides", lastSearch);
+        return "results";
+    }
 
 
 
