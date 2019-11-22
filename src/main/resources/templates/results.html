@@ -9,7 +9,8 @@
     <title>Adventure's Guidebook - Search Results</title>
 </head>
 <body>
-<div th:replace="menubar :: menubar"></div>
+<nav th:replace="menubar :: menubar"></nav>
+
 <div>
     <div th:switch="${guides}">
         <h2 th:case="null">No guides yet!</h2>
@@ -33,8 +34,8 @@
                         <td th:case="null"></td>
                         <td th:case="*" th:text="${guide.templates[0]}"></td>
                     </div>
-
                     -->
+
                     <td th:text="${guide.templates[0]}"></td>
 
                     <td th:text="${guide.ratingAvg}"></td>

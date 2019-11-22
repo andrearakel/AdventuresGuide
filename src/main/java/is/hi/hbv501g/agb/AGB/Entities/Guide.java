@@ -13,6 +13,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * 3    eok     031119  Added getters and setters.
  * 4    ars     221019  Added getters and setters, override toString (html).
  * 5    jgs     041119  Added a new constructor that takes in all arguments for guide creation
+ * 6    eok     221119  Set default value for difficulty.
  */
 
 import javax.persistence.*;
@@ -38,14 +39,15 @@ public class Guide {
     @ElementCollection(targetClass=Template.class)
     @Column(name="template", nullable=false)
     @CollectionTable(name="guide_templates", joinColumns= {@JoinColumn(name="guide_id")})
-    public Set<Template> templates;
+    public Set<Template> templates; // TODO: Set a default value?
 
+    // TODO: Make title unique? Suggest alternative title?
     private String title;
     private String description;
 
     private boolean childFriendly;
     private boolean wheelchairAccessible;
-    private int difficulty;
+    private int difficulty = 3; // default value
 
     private String country;
     private String state;
@@ -215,7 +217,7 @@ public class Guide {
     }
 
     // Hopefully the full constructor
-    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country){
+    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country,  String state,  String city, HashSet<Template> templates){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -225,6 +227,9 @@ public class Guide {
         this.directions = directions;
         this.dateCreated = new Date();
         this.country = country;
+        this.state = state;
+        this.city = city;
+        this.templates = templates;
     }
 
     @Override
