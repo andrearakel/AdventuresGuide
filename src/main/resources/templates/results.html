@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://thymeleaf.org">
+<html lang="en" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -8,39 +8,42 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Adventure's Guidebook - Search Results</title>
 </head>
-<body>
+
 <nav th:replace="menubar :: menubar"></nav>
 
-<div>
+<body>
+
+<div class="container" th:object="${results}">
+
     <div th:switch="${guides}">
         <h2 th:case="null">No guides yet!</h2>
         <div th:case="*">
-            <h2>Search Results</h2>
-            <table>
+            <h2 class="h2 mb-3 font-weight-normal">Search Results</h2>
+            <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Country</th>
-                    <th>Template</th>
-                    <th>Rating</th>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Template</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">More info</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="guide : ${guides}">
+                    <th scope="row"></th>
                     <td th:text="${guide.title}"></td>
+
                     <td th:text="${guide.country}"></td>
-                    <!--
-                    <div th:switch=${guide.templates}">
-                        <td th:case="null"></td>
-                        <td th:case="*" th:text="${guide.templates[0]}"></td>
-                    </div>
-                    -->
 
                     <td th:text="${guide.templates[0]}"></td>
 
                     <td th:text="${guide.ratingAvg}"></td>
 
-                    <td><a th:href="@{/guide/{id} (id=${guide.id})}">View more info</a></td>
+                    <td><a class="btn btn-primary" role="button"  th:href="@{/guide/{id} (id=${guide.id})}">View more info</a></td>
+
+
                 </tr>
                 </tbody>
             </table>
