@@ -8,6 +8,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * Changes:
  * no.  idProg  date    description
  * 1    eok     171019  Created Template with 2 options: NATURE and CITY.
+ * 2    eok     221119  Added option NONE to serve as default value.
  */
 
 /**
@@ -28,5 +29,6 @@ package is.hi.hbv501g.agb.AGB.Entities;
 
 public enum Template {
     NATURE,
-    CITY
+    CITY,
+    NONE
 }
