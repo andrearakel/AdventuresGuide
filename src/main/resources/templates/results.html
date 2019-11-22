@@ -39,7 +39,8 @@
                     <td th:text="${guide.templates[0]}"></td>
 
                     <td th:text="${guide.ratingAvg}"></td>
-                    <td><a th:href="@{/info/{id} (id=${guide.id})}">View more info</a></td>
+
+                    <td><a th:href="@{/guide/{id} (id=${guide.id})}">View more info</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -14,7 +14,7 @@
 
     <div>
         <h2>Search for Adventure Guide's</h2>
-        <form action="#" th:action="@{/home}" th:object="${guide}" method="post">
+        <form th:action="@{/home}" th:object="${guide}" method="post">
             <label>Title:</label>
             <input type="text" name="title" id="title" th:value="${title}" />
             <label>Country:</label>
