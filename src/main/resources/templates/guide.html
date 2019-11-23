@@ -55,37 +55,24 @@
         <p><a class="btn btn-primary" role="button" th:href="@{/backToLastSearch}">Back to last search results</a></p>
     </div>
 
-    <div th:switch="${reviews}">
-        <h2 th:case="null">No reviews on this Guide yet!</h2>
+    <div class="container" th:switch="${reviews}">
+        <h3 th:case="null">This Guide has not been reviewed yet!</h3>
         <div th:case="*">
-            <h2>List of Reviews</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Rating</th>
-                    <th>idGuide</th>
-                    <th>idAdventurer</th>
-                    <th>Adventurer Display name</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="review : ${reviews}">
-                    <td th:text="${review.id}"></td>
-                    <td th:text="${review.title}"></td>
-                    <td th:text="${review.description}"></td>
-                    <td th:text="${review.rating}"></td>
-                    <td th:text="${review.idGuide}"></td>
-                    <td th:text="${review.idAdventurer}"></td>
-                    <td th:text="${review.adventurerDisplayName}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <h3 class="h3 mb-3 font-weight-normal">List of Reviews</h3>
+            <div class="row" th:each="review : ${reviews}">
+                <div class="form-group col-sm-2">
+                    <h5 th:text="${review.adventurerDisplayName}"></h5>
+                </div>
+                <div class="form-group col-sm-8">
+                    <h6 th:text="${review.title}"></h6>
+                    <p th:text="${review.description}"></p>
+                </div>
+                <div class="form-group col-sm-2">
+                    <h6 th:text="${review.rating}"></h6>
+                </div>
+            </div>
         </div>
         <p><a class="btn btn-primary" role="button" th:href="@{'/createreview/'+${guide.id}}">Write a Review for this Guide</a></p>
-
     </div>
 
 </body>

@@ -13,39 +13,35 @@
 
 <!--DISPLAYS ALL GUIDES. FOR DEVELOPMENT ONLY -->
 <body>
-    <div>
+    <div class="container">
         <div th:switch="${guides}">
             <h3 class="h3 mb-3 font-weight-normal" th:case="null">No guides yet!</h3>
             <div th:case="*">
                 <h3 class="h3 mb-3 font-weight-normal">List of Guides</h3>
-                <table>
+                <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Child Friendly</th>
-                        <th>Wheelchair Accessible</th>
-                        <th>Difficulty</th>
-                        <th>Country</th>
-                        <th>Directions</th>
-                        <th>Date created</th>
+                        <th scope="col"></th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">More info</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="guide : ${guides}">
+                        <th scope="row"></th>
                         <td th:text="${guide.title}"></td>
-                        <td th:text="${guide.description}"></td>
-                        <td th:text="${guide.childFriendly}"></td>
-                        <td th:text="${guide.wheelchairAccessible}"></td>
-                        <td th:text="${guide.difficulty}"></td>
                         <td th:text="${guide.country}"></td>
-                        <td th:text="${guide.directions}"></td>
-                        <td th:text="${guide.dateCreated}"></td>
+                        <td th:text="${guide.templates[0]}"></td>
+                        <td th:text="${guide.ratingAvg}"></td>
+                        <td><a class="btn btn-primary" role="button" th:href="@{/guide/{id} (id=${guide.id})}">View more info</a></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <p><a th:href="@{/createguide}">Create a new guide</a></p>
+            <p><a class="btn btn-primary" th:href="@{/createguide}">Create a new guide</a></p>
         </div>
     </div>
 </body>
