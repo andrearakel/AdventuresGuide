@@ -14,8 +14,9 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 3    jgs     231119  Connecting guides to its reviews
  * 4    eok     231119  Added adventurer to singleGuideView. This is the adventurer that created the guide.
  */
-import is.hi.hbv501g.agb.AGB.Entities.Review;
+import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
+import is.hi.hbv501g.agb.AGB.Entities.Review;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.ReviewService;
@@ -33,6 +34,8 @@ public class GuideViewController {
 
     @Autowired
     GuideService guideService;
+
+    @Autowired
     AdventurerService adventurerService;
 
     @Autowired
@@ -42,19 +45,19 @@ public class GuideViewController {
     @RequestMapping(value = "/guide/{id}", method = RequestMethod.GET)
     public String singleGuideView(@PathVariable("id") long id,  Model model) {
 
+         // Find the guide and the reviews
          Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
          List<Review> reviews = reviewService.findByIdGuide(id);
          model.addAttribute("guide", guide);
          model.addAttribute("reviews", reviews);
 
-         /*
-         // Get the adventurer that created this guide.
-         // findById always seems to return null pointer exception for some reason
+
+         // eok - Get the adventurer that created this guide.
          Adventurer adventurer = adventurerService.
                  findById(guide.getIdAdventurer()).orElseThrow(
-                 () -> new NullPointerException("Invalid adventurer ID"));
+                 () -> new IllegalArgumentException("Invalid adventurer ID"));
          model.addAttribute("adventurer", adventurer);
-         */
+
 
          return "guide";
 

@@ -44,10 +44,13 @@
             <dt class="col-sm-3">Type of adventure</dt>
             <dd class="col-sm-9" th:text="*{templates[0]}"></dd>
 
-            <!--
-            <dt class="col-sm-3">Id Adventurer</dt>
-            <dd class="col-sm-9" th:text="*{idAdventurer}"></dd>
-            -->
+            <dt class="col-sm-3">Date created</dt>
+            <dd class="col-sm-9" th:text="${#dates.format(guide.dateCreated, 'dd-MMM-yyyy')}"></dd>
+
+            <!-- eok - Display Name retrieved from adventurer -->
+            <dt class="col-sm-3">Created by</dt>
+            <dd class="col-sm-9" th:text="${adventurer.displayName}"></dd>
+
         </dl>
         <div class="row"><!-- Review -->
 
@@ -74,6 +77,11 @@
         </div>
         <p><a class="btn btn-primary" role="button" th:href="@{'/createreview/'+${guide.id}}">Write a Review for this Guide</a></p>
     </div>
+
+    </div>
+
+
+
 
 </body>
 </html>
