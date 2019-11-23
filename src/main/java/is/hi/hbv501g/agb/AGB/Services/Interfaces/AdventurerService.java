@@ -24,6 +24,7 @@ public interface AdventurerService {
     void delete(Adventurer adventurer);
     Optional<Adventurer> findByEmail(String email);
     List<Adventurer> findAll();
+    Optional<Adventurer> findById(long id);
     Adventurer signIn(Adventurer adventurer);
     Adventurer signUp(Adventurer adventurer);
     Adventurer updateProfile(Adventurer adventurer, Adventurer adventurerToUpdate);

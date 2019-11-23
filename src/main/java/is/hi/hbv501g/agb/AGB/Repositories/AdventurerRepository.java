@@ -22,6 +22,7 @@ public interface AdventurerRepository extends JpaRepository<Adventurer, Long> {
 
     Adventurer save(Adventurer adventurer);
     void delete(Adventurer adventurer);
+    Optional<Adventurer> findById(long id);
     Optional<Adventurer> findByEmail(String email);
     List<Adventurer> findAll();
 }

@@ -66,14 +66,15 @@ public class GuideSearchController {
 
     }
 
-    @RequestMapping(value = "/backToLastSearch")
+    @RequestMapping(value = "/backToLastSearch", method = RequestMethod.GET)
     public String backToLastSearch(Model model) {
-        if (lastSearch.isEmpty()) {
+        if ((lastSearch == null) || lastSearch.isEmpty()) {
             model.addAttribute("guides", guideService.findAll());
         }
-        else{
+        else {
             model.addAttribute("guides", lastSearch);
         }
+
         return "redirect:/";
     }
 
