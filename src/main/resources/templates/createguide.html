@@ -12,8 +12,10 @@
 
 <body>
     <div class="container" th:object="${guide}">
-        <h3 class="h3 mb-3 font-weight-normal">Create a new and exciting Adventure Guide!</h3>
 
+        <div th:replace="menubar :: advert2"></div>
+
+        <h3 class="h3 mb-3 font-weight-normal">Create a new and exciting Adventure Guide!</h3>
 
         <form th:action="@{/createguide}" th:object="${guide}" method="post">
 

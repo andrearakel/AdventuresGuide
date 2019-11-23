@@ -14,6 +14,8 @@
 <body>
     <div class="container">
 
+        <div th:replace="menubar :: advert1"></div>
+
         <h3 class="h3 mb-3 font-weight-normal">Search for Adventure Guides</h3>
         <form th:action="@{/}" th:object="${guide}" method="post">
             <div class="row">
@@ -34,9 +36,9 @@
 
 
         <h3 class="h3 mb-3 font-weight-normal">Search Results</h3>
-        <div th:switch="${guides}">
+        <div th:switch="${guides}" class="row">
             <h4 class="h4 mb-4 font-weight-normal" th:case="null">No guides found</h4>
-            <div th:case="*">
+            <div th:case="*" class="col">
                 <table class="table table-striped">
                     <thead>
                     <tr>

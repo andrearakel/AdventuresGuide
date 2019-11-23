@@ -12,9 +12,10 @@
 
 <body>
     <div class="container">
+        <div th:replace="menubar :: advert1"></div>
 
+        <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
         <form class="form-signin" th:action="@{/signup}" th:object="${adventurer}" method="post">
-            <h3 class="h3 mb-3 font-weight-normal">Please sign up</h3>
 
             <dl class="row">
                 <dt class="col-sm-3">
