@@ -11,7 +11,6 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 1.    ars    031119  Viewing info about chosen guide.
  */
 
-
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
