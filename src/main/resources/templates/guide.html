@@ -11,11 +11,11 @@
 <nav th:replace="menubar :: menubar"></nav>
 <body>
 
-    <div class="container" th:object="${guide}">
+    <div class="container">
 
-        <dl class="row">
-            <dt class="col-sm-3">Adventure Title </dt>
-            <dd class="col-sm-9" th:text="*{title}"></dd>
+        <h3 class="h3 mb-3 font-weight-normal" th:text="${guide.title}"></h3>
+
+        <dl class="row" th:object="${guide}">
 
             <dt class="col-sm-3">Description</dt>
             <dd class="col-sm-9" th:text="*{description}"></dd>
@@ -52,12 +52,10 @@
             <dd class="col-sm-9" th:text="${adventurer.displayName}"></dd>
 
         </dl>
-        <div class="row"><!-- Review -->
 
-        </div>
         <p><a class="btn btn-primary" role="button" th:href="@{/backToLastSearch}">Back to last search results</a></p>
-    </div>
 
+    <!-- old reviews
     <div class="container" th:switch="${reviews}">
         <h3 th:case="null">This Guide has not been reviewed yet!</h3>
         <div th:case="*">
@@ -75,12 +73,49 @@
                 </div>
             </div>
         </div>
-        <p><a class="btn btn-primary" role="button" th:href="@{'/createreview/'+${guide.id}}">Write a Review for this Guide</a></p>
-    </div>
+    -->
+
+        <!-- eok - review -->
+
+
+        <div class="row"><!-- puts the review button inline with the review header -->
+            <div class="col">
+                <h3 class="h3 mb-3 font-weight-normal">Reviews</h3>
+            </div>
+            <div class="col">
+                <a class="btn btn-primary" role="button" th:href="@{'/createreview/'+${guide.id}}">Write a Review for this Guide</a>
+            </div>
+        </div>
+
+        <div th:switch="${reviews}" class="row">
+            <h4 class="h4 mb-4 font-weight-normal" th:case="null">There are no reviews for this guide. Be the first to add one!</h4>
+            <div th:case="*" class="col">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Created by</th>
+                        <th scope="col">Date of review</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="review : ${reviews}">
+                        <th scope="row"></th>
+                        <td th:text="${review.rating}"></td>
+                        <td th:text="${review.title}"></td>
+                        <td th:text="${review.description}"></td>
+                        <td th:text="${review.adventurerDisplayName}"></td>
+                        <td th:text="${review.dateCreated}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
-
-
 
 
 </body>
