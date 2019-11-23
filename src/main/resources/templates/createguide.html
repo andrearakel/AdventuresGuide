@@ -8,73 +8,114 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Adventurer's Guidebook - Create Guide</title>
 </head>
+<nav th:replace="menubar :: menubar"></nav>
+
 <body>
-    <div th:replace="menubar :: menubar"></div>
-    <div>
-        <h1>Create a new Adventure Guide!</h1>
+    <div class="container" th:object="${guide}">
+        <h2>Create a new and exciting Adventure Guide!</h2>
+
+
+        <form th:action="@{/createguide}" th:object="${guide}" method="post">
+
+            <dl class="row">
+
+                <dt class="col-sm-3">
+                    <label for="title">Adventure Title</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{title}" id="title" placeholder="Title of the adventure">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="description">Description</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <textarea style="min-width: 100%" rows="3" th:field="*{description}" id="description" placeholder="Write a description for your adventure."></textarea>
+                    <span style="color:red;" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                </dd>
+
+
+                <dt class="col-sm-3">
+                    <label for="childFriendly">Child Friendly</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="radio" th:field="*{childFriendly}" id="childFriendly" value="True">Yes
+                    <input type="radio" th:field="*{childFriendly}" id="childFriendly" value="false">No
+                    <span style="color:red;" th:if="${#fields.hasErrors('childFriendly')}" th:errors="*{childFriendly}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="wheelchairAccessible">Wheelchair Accessible</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="radio" th:field="*{wheelchairAccessible}" id="wheelchairAccessible" value="True">Yes
+                    <input type="radio" th:field="*{wheelchairAccessible}" id="wheelchairAccessible" value="false">No
+                    <span style="color:red;" th:if="${#fields.hasErrors('wheelchairAccessible')}" th:errors="*{wheelchairAccessible}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="difficulty">Difficulty</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="radio" th:field="*{difficulty}" id="difficulty" value="1">1
+                    <input type="radio" th:field="*{difficulty}" id="difficulty" value="2">2
+                    <input type="radio" th:field="*{difficulty}" id="difficulty" value="3">3
+                    <input type="radio" th:field="*{difficulty}" id="difficulty" value="4">4
+                    <input type="radio" th:field="*{difficulty}" id="difficulty" value="5">5
+                    <span style="color:red;" th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="directions">Directions</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <textarea style="min-width: 100%" rows="3" th:field="*{directions}" id="directions" placeholder="Write a description of how someone can get to the location of your adventure."></textarea>
+                    <span style="color:red;" th:if="${#fields.hasErrors('directions')}" th:errors="*{directions}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="country">Country</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{country}" id="country" placeholder="Iceland">
+                    <span style="color:red;" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="state">State</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{state}" id="state" placeholder="Gullbringusýsla">
+                    <span style="color:red;" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="city">City</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{city}" id="city" placeholder="Reykjavík">
+                    <span style="color:red;" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="templates">Type of adventure</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="radio" th:field="*{templates}" id="templates" value="NATURE">Nature
+                    <input type="radio" th:field="*{templates}" id="templates" value="CITY">City
+                    <span style="color:red;" th:if="${#fields.hasErrors('templates')}" th:errors="*{templates}"></span>
+                </dd>
+            </dl>
+
+            <button class="btn btn-lg btn-primary btn-lg" type="submit">Post Adventure Guide</button>
+        </form>
+
+        <form th:action="@{/home}" method="get">
+            <button class="btn btn-lg btn-secondary btn-sm" type="submit">Cancel Changes</button>
+        </form>
 
         <p th:text="${error}"></p>
-        <p th:text="${error1}"></p>
-
-        <form action="#" th:action="@{/createguide}" th:object="${guide}" method="post">
-
-            <label for="title">Guide title</label>
-            <input type="text" th:field="*{title}" id="title" placeholder="Title of the Guide">
-            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-
-            <br>
-
-            <label for="description">Description</label>
-            <input type="text" th:field="*{description}" id="description" size="100" placeholder="Write a description for your guide.">
-            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
-
-            <br>
-
-            <label for="childFriendly">Child Friendly</label>
-            <input type="radio" th:field="*{childFriendly}" id="childFriendly" value="True">Yes
-            <input type="radio" th:field="*{childFriendly}" id="childFriendly" value="false">No
-            <span th:if="${#fields.hasErrors('childFriendly')}" th:errors="*{childFriendly}"></span>
-
-            <br>
-
-            <label for="wheelchairAccessible">Wheelchair Accessible</label>
-            <input type="radio" th:field="*{wheelchairAccessible}" id="wheelchairAccessible" value="True">Yes
-            <input type="radio" th:field="*{wheelchairAccessible}" id="wheelchairAccessible" value="false">No
-            <span th:if="${#fields.hasErrors('wheelchairAccessible')}" th:errors="*{wheelchairAccessible}"></span>
-
-            <br>
-
-            <label for="difficulty">Difficulty</label>
-            <input type="radio" th:field="*{difficulty}" id="difficulty" value="1">1
-            <input type="radio" th:field="*{difficulty}" id="difficulty" value="2">2
-            <input type="radio" th:field="*{difficulty}" id="difficulty" value="3">3
-            <input type="radio" th:field="*{difficulty}" id="difficulty" value="4">4
-            <input type="radio" th:field="*{difficulty}" id="difficulty" value="5">5
-            <span th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}"></span>
-
-            <br>
-
-            <label for="directions">Directions</label>
-            <input type="text" th:field="*{directions}" id="directions" size="100" placeholder="How to get to your guide">
-            <span th:if="${#fields.hasErrors('directions')}" th:errors="*{directions}"></span>
-
-            <br>
-
-            <label for="country">Country</label>
-            <input type="text" th:field="*{country}" id="country" value="Iceland">
-            <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
-
-            <br>
-
-            <label for="templates">Guide Template</label>
-            <input type="radio" th:field="*{templates}" id="templates" value="NATURE">Nature
-            <input type="radio" th:field="*{templates}" id="templates" value="CITY">City
-            <span th:if="${#fields.hasErrors('templates')}" th:errors="*{templates}"></span>
-
-            <br>
-
-            <input type="submit" value="Create">
-        </form>
     </div>
 </body>
 </html>

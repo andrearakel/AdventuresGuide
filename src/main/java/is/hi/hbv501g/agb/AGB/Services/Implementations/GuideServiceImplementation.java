@@ -17,8 +17,9 @@ import java.util.*;
  *
  * Changes:
  * no.  idProg  date    description
- * 1.   jgs     031119  Connecting save, delete and findAll to GuideRepository
- * 2.   jgs     031119  createGuide method
+ * 1    jgs     031119  Connecting save, delete and findAll to GuideRepository
+ * 2    jgs     031119  createGuide method
+ * 3    eok     221119  Added default template
  */
 
 @Service // Service is an extra layer between controller and repository(database) which can do more than the Repository itself.
@@ -49,6 +50,11 @@ public class GuideServiceImplementation implements GuideService {
     public Guide createGuide(Guide guide) {
 
         /**guide.setDateCreated(new Date(System.currentTimeMillis()));**/
+
+        if (guide.templates == null) {
+            guide.templates = new HashSet<Template>();
+            guide.templates.add(Template.NONE);
+        }
 
         return save(guide);
     }

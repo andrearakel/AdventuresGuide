@@ -8,7 +8,8 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  *
  * Changes:
  * no.  idProg  date    description
- * 1.    ars    031119  Viewing info about chosen guide.
+ * 1    ars    031119  Viewing info about chosen guide.
+ * 2    eok    221119  Updated singleGuideView method to redirect to new page called "guide"
  */
 
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
@@ -19,9 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
 
 @Controller
 public class GuideViewController {
@@ -30,10 +28,10 @@ public class GuideViewController {
     GuideService guideService;
 
     //View a chosen guide from search results
-    @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
-    public String info(@PathVariable("id") long id,  Model model) {
-     Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
-     model.addAttribute("guides", guide);
-     return "guides";
+    @RequestMapping(value = "/guide/{id}", method = RequestMethod.GET)
+    public String singleGuideView(@PathVariable("id") long id,  Model model) {
+         Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
+         model.addAttribute("guide", guide);
+         return "guide";
     }
 }

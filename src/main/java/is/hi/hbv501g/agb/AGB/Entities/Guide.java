@@ -13,9 +13,11 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * 3    eok     031119  Added getters and setters.
  * 4    ars     221019  Added getters and setters, override toString (html).
  * 5    jgs     041119  Added a new constructor that takes in all arguments for guide creation
+ * 6    eok     221119  Set default value for difficulty. Added length restrictions for strings.
  */
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,18 +40,27 @@ public class Guide {
     @ElementCollection(targetClass=Template.class)
     @Column(name="template", nullable=false)
     @CollectionTable(name="guide_templates", joinColumns= {@JoinColumn(name="guide_id")})
-    public Set<Template> templates;
+    public Set<Template> templates; // TODO: Set a default value?
 
+    // TODO: Make title unique? Suggest alternative title?
+
+    @Size(min=4, max=50)
     private String title;
+    @Size(max=255)
     private String description;
 
     private boolean childFriendly;
     private boolean wheelchairAccessible;
-    private int difficulty;
+    private int difficulty = 3; // default value
 
+    @Size(max=50)
     private String country;
+    @Size(max=50)
     private String state;
+    @Size(max=50)
     private String city;
+
+    @Size(max=255)
     private String directions; // how to get there
 
     // TODO: Could use some Location variable, but that's probably not supported by postgres.
@@ -215,7 +226,7 @@ public class Guide {
     }
 
     // Hopefully the full constructor
-    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country){
+    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country,  String state,  String city, HashSet<Template> templates){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -225,6 +236,9 @@ public class Guide {
         this.directions = directions;
         this.dateCreated = new Date();
         this.country = country;
+        this.state = state;
+        this.city = city;
+        this.templates = templates;
     }
 
     @Override

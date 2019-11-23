@@ -4,6 +4,7 @@ import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,7 +51,7 @@ public class GuideCreationController {
     @RequestMapping(value = "/createguide", method = RequestMethod.POST)
     public String createGuide(@Valid Guide guide, BindingResult result, Model model, HttpSession session) {
         if (result.hasErrors()) {
-            return "redirect:/signin";
+            return "createguide";
         }
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if (sessionAdventurer == null) {
@@ -58,7 +59,14 @@ public class GuideCreationController {
             return "redirect:/signin";
         }
 
-        guideService.createGuide(guide);
-        return "redirect:/guides";
+        try {
+            // Save the new guide
+            guideService.createGuide(guide);
+        } catch (DataIntegrityViolationException e) {
+            // Check what constraint was violated, display error message.
+            return "createguide";
+        }
+
+        return "redirect:/guide/" + guide.getId();
     }
 }
