@@ -46,4 +46,8 @@ public class ReviewServiceImplementation implements ReviewService {
     @Override
     public  Optional<Review> findById(long id) { return  repository.findById(id); }
 
+    @Override
+    public List<Review> findByIdGuide(long idGuide) {
+        return repository.findByIdGuide(idGuide);
+    }
 }

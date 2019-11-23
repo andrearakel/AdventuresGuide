@@ -14,7 +14,7 @@
     <div class="container" th:object="${guide}">
 
         <dl class="row">
-            <dt class="col-sm-3">Adventure Title</dt>
+            <dt class="col-sm-3">Adventure Title </dt>
             <dd class="col-sm-9" th:text="*{title}"></dd>
 
             <dt class="col-sm-3">Description</dt>
@@ -45,13 +45,44 @@
             <dd class="col-sm-9" th:text="*{templates[0]}"></dd>
 
         </dl>
-
         <div class="row"><!-- Review -->
 
         </div>
         <p><a class="btn btn-primary" role="button" th:href="@{/backToLastSearch}">Back to last search results</a></p>
     </div>
 
+    <div th:switch="${reviews}">
+        <h2 th:case="null">No reviews on this Guide yet!</h2>
+        <div th:case="*">
+            <h2>List of Reviews</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Rating</th>
+                    <th>idGuide</th>
+                    <th>idAdventurer</th>
+                    <th>Adventurer Display name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="review : ${reviews}">
+                    <td th:text="${review.id}"></td>
+                    <td th:text="${review.title}"></td>
+                    <td th:text="${review.description}"></td>
+                    <td th:text="${review.rating}"></td>
+                    <td th:text="${review.idGuide}"></td>
+                    <td th:text="${review.idAdventurer}"></td>
+                    <td th:text="${review.adventurerDisplayName}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><a class="btn btn-primary" role="button" th:href="@{'/createreview/'+${guide.id}}">Write a Review for this Guide</a></p>
+
+    </div>
 
 </body>
 </html>

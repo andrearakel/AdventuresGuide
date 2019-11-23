@@ -16,6 +16,7 @@ import java.util.List;
  * Changes:
  * no.  idProg  date    description
  * 1.   jgs     221119  Innitial connection to the ReviewServiceImplementation
+ * 2.   jgs     231119  Added findByIdGuide
  *
  */
 
@@ -29,5 +30,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findAll();
 
     Optional<Review> findById(long id);
+
+    List<Review> findByIdGuide(long idGuide);
 
 }

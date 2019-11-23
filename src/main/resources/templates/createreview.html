@@ -11,12 +11,12 @@
 <body>
     <div th:replace="menubar :: menubar"></div>
     <div>
-        <h1>Create a new Guide Review!</h1>
+        <h1>Create a new Review for XXX!</h1>
 
         <p th:text="${error}"></p>
         <p th:text="${error1}"></p>
 
-        <form action="#" th:action="@{/createreview}" th:object="${review}" method="post">
+        <form action="#" th:action="@{'/createreview/'+${guide.id}}" th:object="${review}" method="post">
 
             <label for="title">Review title</label>
             <input type="text" th:field="*{title}" id="title" placeholder="Title of your review">

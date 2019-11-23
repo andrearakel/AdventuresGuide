@@ -22,5 +22,5 @@ public interface ReviewService {
     List<Review> findAll();
     Review createReview(Review review);
     Optional<Review> findById(long id); //Þetta verður sennilega leit eftir guideId
-
+    List<Review> findByIdGuide(long idGuide);
 }
