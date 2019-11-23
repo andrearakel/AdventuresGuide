@@ -28,6 +28,7 @@ import javax.validation.Valid;
  * no.  idProg  date    description
  * 1    jgs     221119  Making the subsite "/createreview"
  * 2    jgs     231119  Adding "createreview/{id}", review goes to the database with a correct idGuide
+ * 3    eok     231119  Moved createReview business logic to service.
  */
 
 
@@ -42,7 +43,10 @@ public class ReviewCreationController {
     GuideService guideService;
 
     @Autowired
-    public ReviewCreationController(ReviewService reviewService) { this.reviewService = reviewService; }
+    public ReviewCreationController(ReviewService reviewService, GuideService guideService) {
+        this.reviewService = reviewService;
+        this.guideService = guideService;
+    }
 
     @RequestMapping(value = "/createreview/{id}", method = RequestMethod.GET)
     public String createReviewForm(@PathVariable("id") long id, Review review, Model model, HttpSession session) {
@@ -68,10 +72,8 @@ public class ReviewCreationController {
             model.addAttribute("error", "Must be signed in to create a review.");
             return "redirect:/signin";
         }
-        review.setIdGuide(id);
-        review.setIdAdventurer(sessionAdventurer.getId());
-        review.setAdventurerDisplayName(sessionAdventurer.getDisplayName());
-        reviewService.createReview(review);
+
+        reviewService.createReview(review, sessionAdventurer, id);
         String referer = request.getHeader("Referer");
         return "redirect:"+ referer;
     }

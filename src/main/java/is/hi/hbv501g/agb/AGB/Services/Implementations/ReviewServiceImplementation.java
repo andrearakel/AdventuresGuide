@@ -1,13 +1,15 @@
 package is.hi.hbv501g.agb.AGB.Services.Implementations;
 
-import is.hi.hbv501g.agb.AGB.Entities.Guide;
+import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Review;
 import is.hi.hbv501g.agb.AGB.Repositories.ReviewRepository;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Programmers:
@@ -38,8 +40,22 @@ public class ReviewServiceImplementation implements ReviewService {
     @Override
     public  List<Review> findAll() { return repository.findAll(); }
 
+    /***
+     *
+     * @param review The review being created
+     * @param adventurer The adventurer who is making the review
+     * @param guideId The id of the guide that the review belongs to
+     * @return the new review
+     */
     @Override
-    public Review createReview(Review review) {
+    public Review createReview(Review review, Adventurer adventurer, long guideId) {
+
+        review.setDateCreated(new Date(System.currentTimeMillis()));
+
+        review.setIdGuide(guideId);
+        review.setIdAdventurer(adventurer.getId());
+        review.setAdventurerDisplayName(adventurer.getDisplayName());
+
         return save(review);
     }
 

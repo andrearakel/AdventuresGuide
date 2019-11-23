@@ -88,7 +88,9 @@
         </div>
 
         <div th:switch="${reviews}" class="row">
-            <h4 class="h4 mb-4 font-weight-normal" th:case="null">There are no reviews for this guide. Be the first to add one!</h4>
+            <div th:case="null" class="col">
+                <h4 class="h4 mb-4 font-weight-normal">There are no reviews for this guide. Be the first to add one!</h4>
+            </div>
             <div th:case="*" class="col">
                 <table class="table table-striped">
                     <thead>
@@ -108,7 +110,7 @@
                         <td th:text="${review.title}"></td>
                         <td th:text="${review.description}"></td>
                         <td th:text="${review.adventurerDisplayName}"></td>
-                        <td th:text="${review.dateCreated}"></td>
+                        <td th:text="${#dates.format(review.dateCreated, 'dd-MMM-yyyy')}"></td>
                     </tr>
                     </tbody>
                 </table>

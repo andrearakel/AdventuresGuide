@@ -1,5 +1,6 @@
 package is.hi.hbv501g.agb.AGB.Services.Interfaces;
 
+import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Review;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface ReviewService {
     Review save(Review review);
     void delete(Review review);
     List<Review> findAll();
-    Review createReview(Review review);
+    Review createReview(Review review, Adventurer adventurer, long guideId);
     Optional<Review> findById(long id); //Þetta verður sennilega leit eftir guideId
     List<Review> findByIdGuide(long idGuide);
 }
