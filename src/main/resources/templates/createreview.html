@@ -11,7 +11,7 @@
 <body>
     <div th:replace="menubar :: menubar"></div>
     <div>
-        <h1>Create a new Review for XXX!</h1>
+        <h1>Create a new Review for [[${guide.title}]]!</h1>
 
         <p th:text="${error}"></p>
         <p th:text="${error1}"></p>

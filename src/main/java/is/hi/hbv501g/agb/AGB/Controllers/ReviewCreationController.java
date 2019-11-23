@@ -69,6 +69,8 @@ public class ReviewCreationController {
             return "redirect:/signin";
         }
         review.setIdGuide(id);
+        review.setIdAdventurer(sessionAdventurer.getId());
+        review.setAdventurerDisplayName(sessionAdventurer.getDisplayName());
         reviewService.createReview(review);
         String referer = request.getHeader("Referer");
         return "redirect:"+ referer;
