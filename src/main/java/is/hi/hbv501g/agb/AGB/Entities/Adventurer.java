@@ -42,14 +42,19 @@ public class Adventurer {
     @Column(unique=true)
     private String displayName;
 
+    @Size(max=255)
     private String name;
+    @Size(max=255)
     private String biography;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
+    @Size(max=255)
     private String country;
+    @Size(max=255)
     private String state;
+    @Size(max=255)
     private String city;
 
     private Date dateCreated;

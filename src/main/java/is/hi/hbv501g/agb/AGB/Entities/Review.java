@@ -11,12 +11,14 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * 1    eok     171019  Created JavaBean entity. Contains fields from first ERD + rating.
  *                      Rating must be mandatory, but title and description optional.
  * 2    jgs     221119  Connecting to the Repository
+ * 2    jgs     221119  Connecting to the Repository
  */
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -37,9 +39,11 @@ public class Review {
     private long idAdventurer;
     private String adventurerDisplayName;
 
+    @Size(max=255)
     private String title; // optional
+    @Size(max=255)
     private String description; // mandatory if title is not empty?
-    private int rating; // 1-100
+    private int rating = 3;
 
     private Date dateCreated;
     private boolean enabled;
@@ -121,7 +125,7 @@ public class Review {
 
     public Review() { } // Java Beans: one constructor must be empty
 
-    public Review(long id, String title,String desctiption, int rating) {
+    public Review(long id, String title, String description, int rating) {
         this.id = id;
 
         long idG = 1;
@@ -130,7 +134,7 @@ public class Review {
         this.adventurerDisplayName = "Test";
 
         this.title = title;
-        this.description = desctiption;
+        this.description = description;
         this.rating = rating;
 
         this.dateCreated = new Date();

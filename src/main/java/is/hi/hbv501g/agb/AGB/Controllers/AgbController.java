@@ -56,18 +56,19 @@ public class AgbController {
 
         Adventurer sessionAdventurer = new Adventurer();
 
-
-        if (adventurerService.findByEmail(testEmail).isPresent()) {
-            // delete tester if exists
-            System.out.println("deleting tester");
-            adventurerService.delete(adventurerService.findByEmail(testEmail).get());
+        if (!adventurerService.findByEmail(testEmail).isPresent()) {
+            // create tester if he does not exists
+            System.out.println("creating tester");
+            sessionAdventurer.setEmail(testEmail);
+            sessionAdventurer.setDisplayName(testDisplayName);
+            sessionAdventurer.setPasswordHashed(testPassword);
+            adventurerService.signUp(sessionAdventurer);
         }
-         // create tester and sign him in
-         System.out.println("creating tester");
-         sessionAdventurer.setEmail(testEmail);
-         sessionAdventurer.setDisplayName(testDisplayName);
-         sessionAdventurer.setPasswordHashed(testPassword);
-         adventurerService.signUp(sessionAdventurer);
+        else {
+            sessionAdventurer = adventurerService.findByEmail(testEmail).get();
+        }
+
+         // sign tester in
          adventurerService.signIn(sessionAdventurer);
          session.setAttribute("SignedInAdventurer", sessionAdventurer);
 
