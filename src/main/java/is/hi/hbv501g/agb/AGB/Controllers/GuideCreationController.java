@@ -61,7 +61,7 @@ public class GuideCreationController {
 
         try {
             // Save the new guide
-            guideService.createGuide(guide);
+            guideService.createGuide(guide, sessionAdventurer);
         } catch (DataIntegrityViolationException e) {
             // Check what constraint was violated, display error message.
             return "createguide";

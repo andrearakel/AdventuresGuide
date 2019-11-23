@@ -56,6 +56,11 @@ public class AdventurerServiceImplementation implements AdventurerService {
         return repository.findAll();
     }
 
+    @Override
+    public Optional<Adventurer> findById(long id) {
+        return repository.findById(id);
+    }
+
     /**
      * Verifies the user input, hashes the password, sets dateCreated and invokes a method to save the new adventurer to the database.
      * @param adventurer

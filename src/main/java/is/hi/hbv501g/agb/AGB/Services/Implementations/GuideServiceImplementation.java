@@ -1,5 +1,6 @@
 package is.hi.hbv501g.agb.AGB.Services.Implementations;
 
+import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
 import is.hi.hbv501g.agb.AGB.Entities.Template;
 import is.hi.hbv501g.agb.AGB.Repositories.GuideRepository;
@@ -7,7 +8,10 @@ import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Programmers:
@@ -19,7 +23,7 @@ import java.util.*;
  * no.  idProg  date    description
  * 1    jgs     031119  Connecting save, delete and findAll to GuideRepository
  * 2    jgs     031119  createGuide method
- * 3    eok     221119  Added default template
+ * 3    eok     221119  Added default template. Added idAdventurer to createGuide.
  */
 
 @Service // Service is an extra layer between controller and repository(database) which can do more than the Repository itself.
@@ -47,10 +51,13 @@ public class GuideServiceImplementation implements GuideService {
      * @return the guide, having been saved to the database
      */
     @Override
-    public Guide createGuide(Guide guide) {
+    public Guide createGuide(Guide guide, Adventurer adventurer) {
 
         /**guide.setDateCreated(new Date(System.currentTimeMillis()));**/
 
+        guide.setIdAdventurer(adventurer.getId());
+
+        // Set a default template
         if (guide.templates == null) {
             guide.templates = new HashSet<Template>();
             guide.templates.add(Template.NONE);

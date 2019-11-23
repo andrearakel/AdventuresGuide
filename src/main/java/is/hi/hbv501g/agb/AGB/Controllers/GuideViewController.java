@@ -12,10 +12,11 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 1    ars     031119  Viewing info about chosen guide.
  * 2    eok     221119  Updated singleGuideView method to redirect to new page called "guide"
  * 3    jgs     231119  Connecting guides to its reviews
+ * 4    eok     231119  Added adventurer to singleGuideView. This is the adventurer that created the guide.
  */
-
-import is.hi.hbv501g.agb.AGB.Entities.Guide;
 import is.hi.hbv501g.agb.AGB.Entities.Review;
+import is.hi.hbv501g.agb.AGB.Entities.Guide;
+import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class GuideViewController {
 
     @Autowired
     GuideService guideService;
+    AdventurerService adventurerService;
 
     @Autowired
     ReviewService reviewService;
@@ -39,10 +41,22 @@ public class GuideViewController {
     //View a chosen guide from search results
     @RequestMapping(value = "/guide/{id}", method = RequestMethod.GET)
     public String singleGuideView(@PathVariable("id") long id,  Model model) {
+
          Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
          List<Review> reviews = reviewService.findByIdGuide(id);
          model.addAttribute("guide", guide);
          model.addAttribute("reviews", reviews);
+
+         /*
+         // Get the adventurer that created this guide.
+         // findById always seems to return null pointer exception for some reason
+         Adventurer adventurer = adventurerService.
+                 findById(guide.getIdAdventurer()).orElseThrow(
+                 () -> new NullPointerException("Invalid adventurer ID"));
+         model.addAttribute("adventurer", adventurer);
+         */
+
          return "guide";
+
     }
 }

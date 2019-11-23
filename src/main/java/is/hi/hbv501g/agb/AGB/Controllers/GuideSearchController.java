@@ -36,8 +36,9 @@ public class GuideSearchController {
     public GuideSearchController(GuideService guideService) { this.guideService = guideService; }
 
 
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String SearchGet(){
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String SearchGet(Model model){
+        model.addAttribute("guides", guideService.findAll());
         return "home";
     }
 
@@ -49,7 +50,7 @@ public class GuideSearchController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public String searchGuide(@RequestParam(value = "title") String title,
                               @RequestParam(value = "country") String country,
                               Model model) {
@@ -61,16 +62,20 @@ public class GuideSearchController {
             lastSearch = searchList;
 
             model.addAttribute("guides", searchList);
-            return "results";
+            return "home";
 
     }
 
-    @RequestMapping(value = "/backToLastSearch")
+    @RequestMapping(value = "/backToLastSearch", method = RequestMethod.GET)
     public String backToLastSearch(Model model) {
-        model.addAttribute("guides", lastSearch);
-        return "results";
+        if ((lastSearch == null) || lastSearch.isEmpty()) {
+            model.addAttribute("guides", guideService.findAll());
+        }
+        else {
+            model.addAttribute("guides", lastSearch);
+        }
+
+        return "redirect:/";
     }
-
-
 
 }

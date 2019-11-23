@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Adventure's Guidebook - Guides</title>
 </head>
+<nav th:replace="menubar :: menubar"></nav>
+
+
+<!--DISPLAYS ALL GUIDES. FOR DEVELOPMENT ONLY -->
 <body>
-    <div th:replace="menubar :: menubar"></div>
     <div>
         <div th:switch="${guides}">
-            <h2 th:case="null">No guides yet!</h2>
+            <h3 class="h3 mb-3 font-weight-normal" th:case="null">No guides yet!</h3>
             <div th:case="*">
-                <h2>List of Guides</h2>
+                <h3 class="h3 mb-3 font-weight-normal">List of Guides</h3>
                 <table>
                     <thead>
                     <tr>

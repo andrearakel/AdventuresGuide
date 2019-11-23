@@ -11,6 +11,8 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 2    eok     031119  Added a simple guides.html page that shows all the guides in the system. "/" maps to it
  */
 
+// TODO: Delete BETA functions
+
 
 import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
@@ -69,8 +71,7 @@ public class AgbController {
          adventurerService.signIn(sessionAdventurer);
          session.setAttribute("SignedInAdventurer", sessionAdventurer);
 
-
-        return "redirect:/profile";
+         return "redirect:/profile";
     }
 
 
@@ -79,11 +80,4 @@ public class AgbController {
         model.addAttribute("guides", guideService.findAll());
         return "guides";
     }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String betaHome(Model model){
-        model.addAttribute("guides", guideService.findAll());
-        return "guides";
-    }
-
 }

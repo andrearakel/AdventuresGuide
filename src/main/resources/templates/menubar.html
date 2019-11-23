@@ -10,22 +10,22 @@
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="menubar">
-    <a class="navbar-brand" th:href="@{/home}">Adventurer's Guidebook</a>
+    <a class="navbar-brand" th:href="@{/}">Adventurer's Guidebook</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> --> <!-- Getum bætt við class="active" kannski á þá síðu sem er active -->
-            <a class="nav-item nav-link" th:href="@{/signup}">Sign Up</a>
-            <a class="nav-item nav-link" th:href="@{/signin}">Sign In</a>
+            <nobr><a class="nav-item nav-link" th:href="@{/signup}">Sign Up</a></nobr>
+            <nobr><a class="nav-item nav-link" th:href="@{/signin}">Sign In</a></nobr>
             <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
             <a class="nav-item nav-link" th:href="@{/createguide}">Create Guide</a>
             <a class="nav-item nav-link" th:href="@{/guides}">List of Guides</a>
             <a class="nav-item nav-link" th:href="@{/adventurers}">List of Adventurers</a>
             <!-- <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> --> <!-- Getum bætt við class="disabled" kannski á þær síður sem eru ekki aðgengilegar. -->
             <form class="form-inline" th:action="@{/signout}" method="post">
-                <input class="btn nav-item nav-link" type="submit" value="Sign Out">
+                <nobr><input class="btn nav-item nav-link" type="submit" value="Sign Out"></nobr>
             </form>
             <form class="form-inline" th:action="@{/betasignin}" method="post">
                 <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
@@ -36,7 +36,29 @@
 </nav>
 
 <body>
-<!--
+<div class="container">
+    <div style="width:100%;" th:fragment="advert1">
+        <a style="width:100%;"  target="_blank" href="https://www.ggsport.is/">
+            <img style="width:100%;"  src="https://www.ggsport.is/images/logos/nr%20banner%20gg%20sport.jpg" class="img-fluid" alt="Responsive image">
+        </a>
+    </div>
+
+
+    <div class="row" th:fragment="advert2">
+        <div class="col-sm-5">
+            <a target="_blank" href="https://www.flyplay.com/">
+                <img src="https://aeronauticsonline.com/wp-content/uploads/2019/11/74612490_117867269648515_2451478134675996672_o-1170x530.png" class="img-fluid" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-sm-7">
+            <a target="_blank" href="https://www.icelandair.com/">
+                <img src="https://keldan.is/themes/keldanpremium/images/augl/iceair/des2018/1018x360gold.jpg" class="img-fluid" alt="Responsive image">
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- The old menu bar
 <div class="test" th:fragment="menubar">
 
     <ul class="menu-bar" >

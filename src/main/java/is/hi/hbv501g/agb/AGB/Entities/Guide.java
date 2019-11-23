@@ -226,7 +226,7 @@ public class Guide {
     }
 
     // Hopefully the full constructor
-    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country,  String state,  String city, HashSet<Template> templates){
+    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country,  String state,  String city, HashSet<Template> templates, long idAdventurer){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -239,6 +239,7 @@ public class Guide {
         this.state = state;
         this.city = city;
         this.templates = templates;
+        this.idAdventurer = idAdventurer;
     }
 
     @Override
