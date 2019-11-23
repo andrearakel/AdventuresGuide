@@ -14,7 +14,7 @@
 <body>
     <div class="container">
 
-        <h2 class="h2 mb-2 font-weight-normal">Search for Adventure Guides</h2>
+        <h3 class="h3 mb-3 font-weight-normal">Search for Adventure Guides</h3>
         <form th:action="@{/}" th:object="${guide}" method="post">
             <div class="row">
                 <div class="form-group col-sm">
@@ -33,7 +33,7 @@
         </form>
 
 
-        <h3 class="h3 mb-3 font-weight-normal">Search Results:</h3>
+        <h3 class="h3 mb-3 font-weight-normal">Search Results</h3>
         <div th:switch="${guides}">
             <h4 class="h4 mb-4 font-weight-normal" th:case="null">No guides found</h4>
             <div th:case="*">
@@ -59,7 +59,7 @@
 
                             <td th:text="${guide.ratingAvg}"></td>
 
-                            <td><a class="btn btn-primary" role="button"  th:href="@{/guide/{id} (id=${guide.id})}">View more info</a></td>
+                            <td><a class="btn btn-primary" role="button" th:href="@{/guide/{id} (id=${guide.id})}">View more info</a></td>
 
                         </tr>
                     </tbody>

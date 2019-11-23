@@ -13,9 +13,9 @@
 <body>
     <div>
         <div th:switch="${guides}">
-            <h2 th:case="null">No guides yet!</h2>
+            <h3 class="h3 mb-3 font-weight-normal" th:case="null">No guides yet!</h3>
             <div th:case="*">
-                <h2>List of Guides</h2>
+                <h3 class="h3 mb-3 font-weight-normal">List of Guides</h3>
                 <table>
                     <thead>
                     <tr>
