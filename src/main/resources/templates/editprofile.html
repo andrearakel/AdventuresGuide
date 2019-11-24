@@ -65,12 +65,16 @@
 
             <p style="color:red;" th:text="${error}"></p>
 
-            <button class="btn btn-lg btn-primary btn-lg" type="submit">Save Changes</button>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-lg btn-primary btn-lg" type="submit">Save Changes</button>
+                </div>
+                <div class="col">
+                    <p><a class="btn btn-primary btn-secondary btn-sm" th:href="@{/profile}">Cancel Changes</a></p>
+                </div>
+            </div>
         </form>
 
-        <form th:action="@{/profile}" method="get">
-            <button class="btn btn-lg btn-secondary  btn-sm" type="submit">Cancel Changes</button>
-        </form>
     </div>
 </body>
 </html>

@@ -54,13 +54,23 @@
                     -->
          </dl>
 
-         <form action="#" th:action="@{/editprofile}" method="get">
-             <button class="btn btn-lg btn-primary btn-lg" type="submit">Edit Profile</button>
-         </form>
 
-         <form action="#" th:action="@{/signout}" method="post">
-             <button class="btn btn-lg btn-secondary btn-sm" type="submit">Sign Out</button>
-         </form>
+         <div class="row">
+             <div class="col">
+                 <form action="#" th:action="@{/editprofile}" method="get">
+                     <button class="btn btn-lg btn-primary btn-lg" type="submit">Edit Profile</button>
+                 </form>
+             </div>
+             <div class="col">
+                 <form action="#" th:action="@{/signout}" method="post">
+                     <button class="btn btn-lg btn-secondary btn-sm" type="submit">Sign Out</button>
+                 </form>
+             </div>
+         </div>
+
+
+
+
      </div>
 
 </body>

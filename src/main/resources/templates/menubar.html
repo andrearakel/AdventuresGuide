@@ -16,21 +16,21 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav w-100">
-            <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> --> <!-- Getum bætt við class="active" kannski á þá síðu sem er active -->
+            <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> --> <!-- Getum bætt við class="active", kannski á þá síðu sem er active -->
             <!-- <a class="nav-item nav-link" th:href="@{/guides}">Guides</a> -->
-            <a class="nav-item nav-link" th:href="@{/adventurers}">Adventurers</a>
-            <!-- <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> --> <!-- Getum bætt við class="disabled" kannski á þær síður sem eru ekki aðgengilegar. -->
-            <form class="form-inline" th:action="@{/betasignin}" method="post">
-                <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
-            </form>
-            <nobr><a class="nav-item nav-link" th:unless="${sessionAdventurer}" th:href="@{/signup}">Sign Up</a></nobr>
+            <!-- <a class="nav-item nav-link" th:href="@{/adventurers}">Adventurers</a> -->
+            <!-- <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> --> <!-- Getum bætt við class="disabled", kannski á þær síður sem eru ekki aðgengilegar. -->
+            <!-- <nobr><a class="nav-item nav-link" th:unless="${sessionAdventurer}" th:href="@{/signup}">Sign Up</a></nobr> -->
             <nobr><a class="nav-item nav-link" th:unless="${sessionAdventurer}" th:href="@{/signin}">Sign In</a></nobr>
-            <div class="navbar-brand">
-            </div>
             <a class="nav-item nav-link" th:if="${sessionAdventurer}" th:href="@{/profile}">Profile</a>
             <form class="form-inline" th:if="${sessionAdventurer}" th:action="@{/signout}" method="post">
                 <nobr><input class="btn nav-item nav-link" type="submit" value="Sign Out"></nobr>
             </form>
+            <!--
+            <form class="form-inline" th:action="@{/betasignin}" method="post">
+                <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
+            </form>
+            -->
         </div>
     </div>
 </nav>

@@ -100,26 +100,32 @@ public class AdvProfileController {
      */
     @RequestMapping(value ="/updateprofile", method = RequestMethod.POST)
     public String updateProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
-        if(result.hasErrors()){
-            System.out.println("error in updateProfile");
-            return "editprofile";
-        }
+
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if(sessionAdventurer == null){
             return "redirect:/signin";
         }
+        model.addAttribute("sessionAdventurer", sessionAdventurer);
 
-        // Save the edited adventurer
+        if(result.hasErrors()){
+            System.out.println("result.hasErrors()");
+            adventurer.setDisplayName(sessionAdventurer.getDisplayName());
+            adventurer.setEmail(sessionAdventurer.getEmail());
+            return "editprofile";
+        }
+
         try {
+            // Update the adventurer
             adventurerService.updateProfile(adventurer, sessionAdventurer);
-        // Redirect to profile page if exceptions are caught. Changes are not saved.
-            // TODO: Deal with errors/exceptions in adventurerService.updateProfile(..)
         } catch (DataIntegrityViolationException e) {
+            System.out.println("DataIntegrityViolationException");
+            model.addAttribute("adventurer", sessionAdventurer);
             return "editprofile";
         } catch (NullPointerException npe) { }
 
         return "redirect:/profile";
 
     }
+
 }

@@ -57,7 +57,7 @@ public class ReviewCreationController {
             return guideViewController.singleGuideView(id, model);
         }
         if (!reviewService.findByAdventurerAndGuide(sessionAdventurer, guideService.findById(id).get()).isEmpty()) {
-            model.addAttribute("error", "Adventurer (" + sessionAdventurer.getDisplayName() + ") has already reviewed this guide.");
+            model.addAttribute("error", "You have already reviewed this guide.");
             return guideViewController.singleGuideView(id, model);
         }
 

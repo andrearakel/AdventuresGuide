@@ -35,7 +35,17 @@
         </form>
 
 
-        <h3 class="h3 mb-3 font-weight-normal">Search Results</h3>
+        <div class="row">
+            <div class="col">
+                <h3 class="h3 mb-3 font-weight-normal">Search Results</h3>
+            </div>
+            <div class="col">
+                <p><a class="btn btn-primary" th:href="@{/createguide}">Create a new guide</a></p>
+            </div>
+
+        </div>
+
+
         <div th:switch="${guides}" class="row">
             <h4 class="h4 mb-4 font-weight-normal" th:case="null">No guides found</h4>
             <div th:case="*" class="col">
