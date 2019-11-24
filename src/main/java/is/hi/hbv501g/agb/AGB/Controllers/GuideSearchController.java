@@ -39,7 +39,12 @@ public class GuideSearchController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String SearchGet(Model model){
+    public String SearchGet(Model model, HttpSession session){
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if (sessionAdventurer != null) {
+            model.addAttribute("sessionAdventurer", sessionAdventurer);
+        }
+
         model.addAttribute("guides", guideService.findAll());
         return "home";
     }

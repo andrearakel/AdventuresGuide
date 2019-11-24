@@ -14,9 +14,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 3    jgs     231119  Connecting guides to its reviews
  * 4    eok     231119  Added adventurer to singleGuideView. This is the adventurer that created the guide.
  */
-import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
-import is.hi.hbv501g.agb.AGB.Entities.Review;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.ReviewService;
@@ -26,8 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
 
 @Controller
 public class GuideViewController {
@@ -49,21 +45,9 @@ public class GuideViewController {
     public String singleGuideView(@PathVariable("id") long id,  Model model) {
 
          // Find the guide and the reviews
-         Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
+         Guide guide = guideService.findById(id).orElseThrow(
+                 ()-> new IllegalArgumentException("Invalid guide ID"));
          model.addAttribute("guide", guide);
-
-         List<Review> reviews = reviewService.findByIdGuide(id);
-         model.addAttribute("reviews", reviews);
-
-        System.out.println("reviews length: " + reviews.size());
-
-
-         // eok - Get the adventurer that created this guide.
-         Adventurer adventurer = adventurerService.
-                 findById(guide.getIdAdventurer()).orElseThrow(
-                 () -> new IllegalArgumentException("Invalid adventurer ID"));
-         model.addAttribute("adventurer", adventurer);
-
 
          return "guide";
 

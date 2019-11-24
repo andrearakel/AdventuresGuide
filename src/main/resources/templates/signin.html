@@ -23,7 +23,7 @@
                 </dt>
                 <dd class="col-sm-9">
                     <input type="email" th:field="*{email}" id="email" class="form-control" placeholder="Email" required autofocus>
-                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    <span style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </dd>
 
                 <dt class="col-sm-3">
@@ -31,18 +31,25 @@
                 </dt>
                 <dd class="col-sm-9">
                     <input type="password" th:field="*{passwordHashed}" id="passwordHashed" class="form-control" placeholder="Password" required>
-                    <span th:if="${#fields.hasErrors('passwordHashed')}" th:errors="*{passwordHashed}"></span>
+                    <span style="color:red;" th:if="${#fields.hasErrors('passwordHashed')}" th:errors="*{passwordHashed}"></span>
                 </dd>
 
             </dl>
-            <p th:text="${error}"></p>
+            <p style="color:red;" th:text="${error}"></p>
 
-            <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+                </div>
+                <div class="col-sm-3">
+                    <p>Don't have an account yet?</p>
+                </div>
+                <div class="col-sm-3">
+                    <a class="btn btn-lg btn-primary" th:href="@{/signup}">Sign up instead</a>
+                </div>
+            </div>
+
         </form>
-    </div>
-    <div class="container">
-        <p>Don't have an account yet?</p>
-        <a class="btn btn-lg btn-primary" th:href="@{/signup}">Sign up</a>
     </div>
 
 </body>

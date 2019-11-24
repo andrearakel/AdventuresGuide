@@ -35,7 +35,17 @@
         </form>
 
 
-        <h3 class="h3 mb-3 font-weight-normal">Search Results</h3>
+        <div class="row">
+            <div class="col">
+                <h3 class="h3 mb-3 font-weight-normal">Search Results</h3>
+            </div>
+            <div class="col">
+                <p><a class="btn btn-primary" th:href="@{/createguide}">Create a new guide</a></p>
+            </div>
+
+        </div>
+
+
         <div th:switch="${guides}" class="row">
             <h4 class="h4 mb-4 font-weight-normal" th:case="null">No guides found</h4>
             <div th:case="*" class="col">
@@ -56,7 +66,7 @@
                             <td th:text="${guide.title}"></td>
                             <td th:text="${guide.country}"></td>
                             <td th:text="${guide.templates[0]}"></td>
-                            <td th:text="${guide.ratingAvg}"></td>
+                            <td th:text="${guide.ratingAvg} + ' out of 5'"></td>
                             <td><a class="btn btn-primary" role="button" th:href="@{/guide/{id} (id=${guide.id})}">View more info</a></td>
                         </tr>
                     </tbody>

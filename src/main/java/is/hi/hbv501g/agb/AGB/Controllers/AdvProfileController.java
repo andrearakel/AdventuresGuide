@@ -34,6 +34,9 @@ public class AdvProfileController {
     private AdventurerService adventurerService;
 
     @Autowired
+    AdvSignInController advSignInController;
+
+    @Autowired
     public AdvProfileController(AdventurerService adventurerService){ this.adventurerService = adventurerService; }
 
     /**
@@ -51,13 +54,13 @@ public class AdvProfileController {
         }
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
-        if(sessionAdventurer != null){
-            model.addAttribute("sessionAdventurer", sessionAdventurer); // Fyrir menubar
-            model.addAttribute("adventurer", sessionAdventurer);
-            return "profile";
+        if(sessionAdventurer == null){
+            model.addAttribute("error", "Please sign in to view your profile.");
+            return advSignInController.signInForm(adventurer, session);
         }
-
-        return "redirect:/signin";
+        model.addAttribute("sessionAdventurer", sessionAdventurer); // Fyrir menubar
+        model.addAttribute("adventurer", sessionAdventurer);
+        return "profile";
     }
 
 
@@ -70,15 +73,17 @@ public class AdvProfileController {
      * @return A page where the signed in adventurer can edit his profile. Redirects to signIn if no one is signed in.
      */
     @RequestMapping(value ="/editprofile", method = RequestMethod.GET)
-    public String editProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
-        if(result.hasErrors()){
-            return "redirect:/signin";
-        }
+    public String editProfileForm(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if(sessionAdventurer == null){
             return "redirect:/signin";
         }
+        if(result.hasErrors()){
+            // Do nothing, simply show the page which will reveal the errors.
+            model.addAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
+        }
+
         model.addAttribute("sessionAdventurer", sessionAdventurer);
         model.addAttribute("adventurer", sessionAdventurer);
         return "editprofile";
@@ -95,25 +100,32 @@ public class AdvProfileController {
      */
     @RequestMapping(value ="/updateprofile", method = RequestMethod.POST)
     public String updateProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
-        if(result.hasErrors()){
-            return "redirect:/signin";
-        }
+
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if(sessionAdventurer == null){
             return "redirect:/signin";
         }
+        model.addAttribute("sessionAdventurer", sessionAdventurer);
 
-        // Save the edited adventurer
-        try {
-            adventurerService.updateProfile(adventurer, sessionAdventurer);
-        // Redirect to profile page is exceptions are caught. Changes are not saved.
-            // TODO: Deal with errors/exceptions in adventurerService.updateProfile(..)
-        } catch (DataIntegrityViolationException e) {
-        } catch (NullPointerException npe) {
+        if(result.hasErrors()){
+            System.out.println("result.hasErrors()");
+            adventurer.setDisplayName(sessionAdventurer.getDisplayName());
+            adventurer.setEmail(sessionAdventurer.getEmail());
+            return "editprofile";
         }
+
+        try {
+            // Update the adventurer
+            adventurerService.updateProfile(adventurer, sessionAdventurer);
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("DataIntegrityViolationException");
+            model.addAttribute("adventurer", sessionAdventurer);
+            return "editprofile";
+        } catch (NullPointerException npe) { }
 
         return "redirect:/profile";
 
     }
+
 }
