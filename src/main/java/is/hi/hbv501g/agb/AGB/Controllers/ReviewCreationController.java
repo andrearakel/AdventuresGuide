@@ -36,11 +36,8 @@ import javax.validation.Valid;
 @Controller
 public class ReviewCreationController {
 
-    @Autowired
-    ReviewService reviewService;
-
-    @Autowired
-    GuideService guideService;
+    private ReviewService reviewService;
+    private GuideService guideService;
 
     @Autowired
     public ReviewCreationController(ReviewService reviewService, GuideService guideService) {
@@ -75,6 +72,6 @@ public class ReviewCreationController {
 
         reviewService.createReview(review, sessionAdventurer, id);
         String referer = request.getHeader("Referer");
-        return "redirect:"+ referer;
+        return "redirect:/guide/"+ id;
     }
 }

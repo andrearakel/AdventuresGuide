@@ -32,14 +32,17 @@ import java.util.List;
 @Controller
 public class GuideViewController {
 
-    @Autowired
-    GuideService guideService;
+    private GuideService guideService;
+    private AdventurerService adventurerService;
+    private ReviewService reviewService;
+
 
     @Autowired
-    AdventurerService adventurerService;
-
-    @Autowired
-    ReviewService reviewService;
+    public GuideViewController(ReviewService reviewService, AdventurerService adventurerService, GuideService guideService) {
+        this.reviewService = reviewService;
+        this.guideService = guideService;
+        this.adventurerService = adventurerService;
+    }
 
     //View a chosen guide from search results
     @RequestMapping(value = "/guide/{id}", method = RequestMethod.GET)
@@ -47,9 +50,12 @@ public class GuideViewController {
 
          // Find the guide and the reviews
          Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
-         List<Review> reviews = reviewService.findByIdGuide(id);
          model.addAttribute("guide", guide);
+
+         List<Review> reviews = reviewService.findByIdGuide(id);
          model.addAttribute("reviews", reviews);
+
+        System.out.println("reviews length: " + reviews.size());
 
 
          // eok - Get the adventurer that created this guide.
