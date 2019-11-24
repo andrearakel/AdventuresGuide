@@ -38,7 +38,11 @@ public class AgbController {
     }
 
     @RequestMapping(value = "/adventurers", method = RequestMethod.GET)
-    public String adventurers(Model model){
+    public String adventurers(Model model, HttpSession session){
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if (sessionAdventurer != null) {
+            model.addAttribute("sessionAdventurer", sessionAdventurer);
+        }
         model.addAttribute("adventurers", adventurerService.findAll());
         return "adventurers";
     }
@@ -77,7 +81,11 @@ public class AgbController {
 
 
     @RequestMapping(value = "/guides", method = RequestMethod.GET)
-    public String guides(Model model){
+    public String guides(Model model, HttpSession session){
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if (sessionAdventurer != null) {
+            model.addAttribute("sessionAdventurer", sessionAdventurer);
+        }
         model.addAttribute("guides", guideService.findAll());
         return "guides";
     }

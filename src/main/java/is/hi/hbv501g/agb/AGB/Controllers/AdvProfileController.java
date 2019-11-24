@@ -58,7 +58,7 @@ public class AdvProfileController {
             model.addAttribute("error", "Please sign in to view your profile.");
             return advSignInController.signInForm(adventurer, session);
         }
-
+        model.addAttribute("sessionAdventurer", sessionAdventurer); // Fyrir menubar
         model.addAttribute("adventurer", sessionAdventurer);
         return "profile";
     }
@@ -84,6 +84,7 @@ public class AdvProfileController {
             model.addAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
         }
 
+        model.addAttribute("sessionAdventurer", sessionAdventurer);
         model.addAttribute("adventurer", sessionAdventurer);
         return "editprofile";
     }
