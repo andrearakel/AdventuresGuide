@@ -20,6 +20,7 @@ import java.util.Optional;
  * Changes:
  * no.  idProg  date    description
  * 1.   jgs     221119  Made the class, connecting to the Repository
+ * 2    eok     241119  Moved business logic to createReview function. Added to it.
  */
 
 @Service
@@ -29,7 +30,9 @@ public class ReviewServiceImplementation implements ReviewService {
 
     // Constructor
     @Autowired
-    public ReviewServiceImplementation(ReviewRepository reviewRepository) { this.repository = reviewRepository; }
+    public ReviewServiceImplementation(ReviewRepository reviewRepository) {
+        this.repository = reviewRepository;
+    }
 
     @Override
     public Review save(Review review) { return repository.save(review); }
@@ -42,21 +45,28 @@ public class ReviewServiceImplementation implements ReviewService {
 
     /***
      *
-     * @param review The review being created
+     * @param review The review holding the user input
      * @param adventurer The adventurer who is making the review
      * @param guideId The id of the guide that the review belongs to
-     * @return the new review
+     * @return the new review with unique id
      */
     @Override
     public Review createReview(Review review, Adventurer adventurer, long guideId) {
 
-        review.setDateCreated(new Date(System.currentTimeMillis()));
+        Review newReview = new Review();
+        newReview.setTitle(review.getTitle());
+        newReview.setDescription(review.getDescription());
+        newReview.setRating(review.getRating());
 
-        review.setIdGuide(guideId);
-        review.setIdAdventurer(adventurer.getId());
-        review.setAdventurerDisplayName(adventurer.getDisplayName());
+        newReview.setDateCreated(new Date(System.currentTimeMillis()));
 
-        return save(review);
+        newReview.setIdGuide(guideId);
+        newReview.setIdAdventurer(adventurer.getId());
+        newReview.setAdventurerDisplayName(adventurer.getDisplayName());
+
+        return save(newReview);
+
+        // TODO: Invoke method to calculate and update guide.ratingAvg ?
     }
 
     @Override

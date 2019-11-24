@@ -60,8 +60,8 @@ public class Review {
         return idGuide;
     }
 
-    public void setIdGuide(long id) {
-        this.idGuide = id;
+    public void setIdGuide(long idGuide) {
+        this.idGuide = idGuide;
     }
 
     public long getIdAdventurer() {
@@ -79,7 +79,6 @@ public class Review {
     public void setAdventurerDisplayName(String adventurerDisplayName) {
         this.adventurerDisplayName = adventurerDisplayName;
     }
-
 
     public String getTitle() {
         return title;
@@ -105,7 +104,6 @@ public class Review {
         this.rating = rating;
     }
 
-
     public Date getDateCreated() {
         return dateCreated;
     }
@@ -122,23 +120,26 @@ public class Review {
         this.enabled = enabled;
     }
 
-
     public Review() { } // Java Beans: one constructor must be empty
 
     public Review(long id, String title, String description, int rating) {
         this.id = id;
 
-        long idG = 1;
-        this.idGuide = idG;
-        this.idAdventurer = idG;  // Bráðabyrgða, á meðan ég er að fá þetta til að virka
-        this.adventurerDisplayName = "Test";
+        this.title = title;
+        this.description = description;
+        this.rating = rating;
+    }
+
+    public Review(long id, long idAdventurer, long idGuide, String title, String description, int rating) {
+        this.id = id;
+        this.idAdventurer = idAdventurer;
+        this.idGuide = idGuide;
 
         this.title = title;
         this.description = description;
         this.rating = rating;
-
-        this.dateCreated = new Date();
     }
+
 
     @Override
     public String toString() { return this.title; }

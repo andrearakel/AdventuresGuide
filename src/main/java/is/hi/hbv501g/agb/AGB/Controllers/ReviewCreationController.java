@@ -3,8 +3,8 @@ package is.hi.hbv501g.agb.AGB.Controllers;
 import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
 import is.hi.hbv501g.agb.AGB.Entities.Review;
-import is.hi.hbv501g.agb.AGB.Services.Interfaces.ReviewService;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
+import is.hi.hbv501g.agb.AGB.Services.Interfaces.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -59,7 +58,7 @@ public class ReviewCreationController {
     }
 
     @RequestMapping(value = "/createreview/{id}", method = RequestMethod.POST)
-    public  String createReview(@PathVariable("id") long id, @Valid Review review, BindingResult result, Model model, HttpSession session, HttpServletRequest request) {
+    public  String createReview(@PathVariable("id") long id, @Valid Review review, BindingResult result, Model model, HttpSession session) {
 
         if (result.hasErrors()) {
             return "redirect:/signin";
@@ -71,7 +70,7 @@ public class ReviewCreationController {
         }
 
         reviewService.createReview(review, sessionAdventurer, id);
-        String referer = request.getHeader("Referer");
+
         return "redirect:/guide/"+ id;
     }
 }
