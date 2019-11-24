@@ -11,13 +11,14 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * 1    eok     171019  Created JavaBean entity. Contains fields from first ERD + rating.
  *                      Rating must be mandatory, but title and description optional.
  * 2    jgs     221119  Connecting to the Repository
- * 2    jgs     221119  Connecting to the Repository
+ * 3    eok     241119  Implemented foreign key relations to Guide and Adventurer
  */
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -35,14 +36,22 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long idGuide;
-    private long idAdventurer;
-    private String adventurerDisplayName;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "guide_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Guide guide;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "adventurer_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Adventurer adventurer;
 
     @Size(max=255)
-    private String title; // optional
+    private String title;
     @Size(max=255)
-    private String description; // mandatory if title is not empty?
+    private String description;
     private int rating = 3;
 
     private Date dateCreated;
@@ -54,30 +63,6 @@ public class Review {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getIdGuide() {
-        return idGuide;
-    }
-
-    public void setIdGuide(long idGuide) {
-        this.idGuide = idGuide;
-    }
-
-    public long getIdAdventurer() {
-        return idAdventurer;
-    }
-
-    public void setIdAdventurer(long idAdventurer) {
-        this.idAdventurer = idAdventurer;
-    }
-
-    public String getAdventurerDisplayName() {
-        return adventurerDisplayName;
-    }
-
-    public void setAdventurerDisplayName(String adventurerDisplayName) {
-        this.adventurerDisplayName = adventurerDisplayName;
     }
 
     public String getTitle() {
@@ -130,17 +115,23 @@ public class Review {
         this.rating = rating;
     }
 
-    public Review(long id, long idAdventurer, long idGuide, String title, String description, int rating) {
-        this.id = id;
-        this.idAdventurer = idAdventurer;
-        this.idGuide = idGuide;
-
-        this.title = title;
-        this.description = description;
-        this.rating = rating;
-    }
-
 
     @Override
     public String toString() { return this.title; }
+
+    public Guide getGuide() {
+        return guide;
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
+    }
+
+    public Adventurer getAdventurer() {
+        return adventurer;
+    }
+
+    public void setAdventurer(Adventurer adventurer) {
+        this.adventurer = adventurer;
+    }
 }

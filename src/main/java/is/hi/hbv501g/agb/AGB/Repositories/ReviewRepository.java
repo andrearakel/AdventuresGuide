@@ -1,5 +1,7 @@
 package is.hi.hbv501g.agb.AGB.Repositories;
 
+import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
+import is.hi.hbv501g.agb.AGB.Entities.Guide;
 import is.hi.hbv501g.agb.AGB.Entities.Review;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,6 +33,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Optional<Review> findById(long id);
 
-    List<Review> findByIdGuide(long idGuide);
+    List<Review> findByGuide(Guide guide);
 
+    List<Review> findByAdventurerAndGuide(Adventurer adventurer, Guide guide);
 }

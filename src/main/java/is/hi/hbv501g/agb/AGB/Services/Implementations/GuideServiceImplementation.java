@@ -52,7 +52,7 @@ public class GuideServiceImplementation implements GuideService {
 
         guide.setDateCreated(new Date(System.currentTimeMillis()));
 
-        guide.setIdAdventurer(adventurer.getId());
+        guide.setAdventurer(adventurer);
 
         // Set a default template
         if (guide.templates == null) {
@@ -86,8 +86,5 @@ public class GuideServiceImplementation implements GuideService {
     public List<Guide> findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining(String title, String country) {
         return repository.findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining(title, country);
     }
-
-
-
 
 }

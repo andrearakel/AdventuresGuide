@@ -23,26 +23,25 @@
                 </dt>
                 <dd class="col-sm-9">
                     <input type="text" th:field="*{displayName}" id="displayName" class="form-control" placeholder="Display Name" required autofocus>
-                    <span th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></span>
+                    <span style="color:red;" th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></span>
                 </dd>
                 <dt class="col-sm-3">
                     <label for="email">Email</label>
                 </dt>
                 <dd class="col-sm-9">
                     <input type="email" th:field="*{email}" id="email" class="form-control" placeholder="Email" required>
-                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    <span style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </dd>
                 <dt class="col-sm-3">
                     <label for="passwordHashed">Password</label>
                 </dt>
                 <dd class="col-sm-9">
                     <input type="password" th:field="*{passwordHashed}" id="passwordHashed" class="form-control" placeholder="Password" required>
-                    <span th:if="${#fields.hasErrors('passwordHashed')}" th:errors="*{passwordHashed}"></span>
+                    <span style="color:red;" th:if="${#fields.hasErrors('passwordHashed')}" th:errors="*{passwordHashed}"></span>
                 </dd>
             </dl>
 
-            <p th:text="${error}"></p>
-            <p th:text="${error1}"></p>
+            <p style="color:red;" th:text="${error}"></p>
 
             <button class="btn btn-lg btn-primary" type="submit">Sign up</button>
         </form>

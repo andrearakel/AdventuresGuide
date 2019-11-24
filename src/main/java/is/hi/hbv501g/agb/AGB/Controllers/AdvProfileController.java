@@ -34,6 +34,9 @@ public class AdvProfileController {
     private AdventurerService adventurerService;
 
     @Autowired
+    AdvSignInController advSignInController;
+
+    @Autowired
     public AdvProfileController(AdventurerService adventurerService){ this.adventurerService = adventurerService; }
 
     /**
@@ -51,12 +54,13 @@ public class AdvProfileController {
         }
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
-        if(sessionAdventurer != null){
-            model.addAttribute("adventurer", sessionAdventurer);
-            return "profile";
+        if(sessionAdventurer == null){
+            model.addAttribute("error", "Please sign in to view your profile.");
+            return advSignInController.signInForm(adventurer, session);
         }
 
-        return "redirect:/signin";
+        model.addAttribute("adventurer", sessionAdventurer);
+        return "profile";
     }
 
 
@@ -69,14 +73,15 @@ public class AdvProfileController {
      * @return A page where the signed in adventurer can edit his profile. Redirects to signIn if no one is signed in.
      */
     @RequestMapping(value ="/editprofile", method = RequestMethod.GET)
-    public String editProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
-        if(result.hasErrors()){
-            return "redirect:/signin";
-        }
+    public String editProfileForm(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if(sessionAdventurer == null){
             return "redirect:/signin";
+        }
+        if(result.hasErrors()){
+            // Do nothing, simply show the page which will reveal the errors.
+            model.addAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
         }
 
         model.addAttribute("adventurer", sessionAdventurer);
@@ -95,7 +100,8 @@ public class AdvProfileController {
     @RequestMapping(value ="/updateprofile", method = RequestMethod.POST)
     public String updateProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
         if(result.hasErrors()){
-            return "redirect:/signin";
+            System.out.println("error in updateProfile");
+            return "editprofile";
         }
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
@@ -106,11 +112,11 @@ public class AdvProfileController {
         // Save the edited adventurer
         try {
             adventurerService.updateProfile(adventurer, sessionAdventurer);
-        // Redirect to profile page is exceptions are caught. Changes are not saved.
+        // Redirect to profile page if exceptions are caught. Changes are not saved.
             // TODO: Deal with errors/exceptions in adventurerService.updateProfile(..)
         } catch (DataIntegrityViolationException e) {
-        } catch (NullPointerException npe) {
-        }
+            return "editprofile";
+        } catch (NullPointerException npe) { }
 
         return "redirect:/profile";
 

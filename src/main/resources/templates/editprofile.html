@@ -28,41 +28,42 @@
                 <dt class="col-sm-3"><label for="name">Name</label></dt>
                 <dd class="col-sm-9">
                     <input type="text" th:field="*{name}" id="name" th:placeholder="${name}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                 </dd>
-                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
                 <dt class="col-sm-3"><label for="dateOfBirth">Date Of Birth</label></dt>
                 <dd class="col-sm-9">
                     <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" th:placeholder="${dateOfBirth}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
                 </dd>
-                <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
 
                 <dt class="col-sm-3"><label for="biography">Biography</label></dt>
                 <dd class="col-sm-9">
                     <input type="text" th:field="*{biography}" id="biography" th:placeholder="${biography}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></span>
                 </dd>
-                <span th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></span>
 
                 <dt class="col-sm-3"><label for="country">Country</label></dt>
                 <dd class="col-sm-9">
                     <input type="text" th:field="*{country}" id="country" th:placeholder="${country}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
                 </dd>
-                <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
 
                 <dt class="col-sm-3"><label for="state">State</label></dt>
                 <dd class="col-sm-9">
                     <input type="text" th:field="*{state}" id="state" th:placeholder="${state}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
                 </dd>
-                <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
 
                 <dt class="col-sm-3"><label for="city">City</label></dt>
                 <dd class="col-sm-9">
                     <input type="text" th:field="*{city}" id="city" th:placeholder="${city}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
                 </dd>
-                <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
 
             </dl>
 
+            <p style="color:red;" th:text="${error}"></p>
 
             <button class="btn btn-lg btn-primary btn-lg" type="submit">Save Changes</button>
         </form>

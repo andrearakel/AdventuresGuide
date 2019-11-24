@@ -14,9 +14,15 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * 4    ars     221019  Added getters and setters, override toString (html).
  * 5    jgs     041119  Added a new constructor that takes in all arguments for guide creation
  * 6    eok     221119  Set default value for difficulty. Added length restrictions for strings.
+ * 7    eok     241119  Implemented many-to-one relation between guide and adventurer, one-to-many between guide and review. Calculate average rating on retrieval from DB.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
@@ -28,25 +34,34 @@ public class Guide {
      * Stores information about the Guide.
      * Contains fields from first ERD.
      * TODO: More fields may have to be added.
-     * TODO: Must add constructor and getters and setters.
      */
+
     @Id // Make the id unique
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // TODO: Must implement foreign key relation
-    private long idAdventurer; // creator
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "adventurer_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Adventurer adventurer;
+
+    @OneToMany(mappedBy = "guide",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<Review> reviews;
 
     @ElementCollection(targetClass=Template.class)
     @Column(name="template", nullable=false)
     @CollectionTable(name="guide_templates", joinColumns= {@JoinColumn(name="guide_id")})
-    public Set<Template> templates; // TODO: Set a default value?
+    public Set<Template> templates;
 
-    // TODO: Make title unique? Suggest alternative title?
-
+    @NotNull
     @Size(min=4, max=50)
+    @Column(unique = true)
     private String title;
-    @Size(max=255)
+    @Size(max=250)
     private String description;
 
     private boolean childFriendly;
@@ -60,14 +75,14 @@ public class Guide {
     @Size(max=50)
     private String city;
 
-    @Size(max=255)
+    @Size(max=250)
     private String directions; // how to get there
 
     // TODO: Could use some Location variable, but that's probably not supported by postgres.
     private double latitude;
     private double longitude;
 
-    private int ratingAvg; // TODO: Average rating, kept on scale 1-100
+    private int ratingAvg;
 
     public long getId() {
         return id;
@@ -75,14 +90,6 @@ public class Guide {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getIdAdventurer() {
-        return idAdventurer;
-    }
-
-    public void setIdAdventurer(long idAdventurer) {
-        this.idAdventurer = idAdventurer;
     }
 
     public Set<Template> getTemplates() {
@@ -182,11 +189,18 @@ public class Guide {
     }
 
     public int getRatingAvg() {
+        this.setRatingAvg();
         return ratingAvg;
     }
 
-    public void setRatingAvg(int ratingAvg) {
-        this.ratingAvg = ratingAvg;
+    public void setRatingAvg() {
+        float dRatingAvg = 0;
+        for(Review review : this.reviews) {
+            dRatingAvg += review.getRating();
+        }
+        dRatingAvg /= reviews.size();
+        this.ratingAvg = (Math.round(dRatingAvg));
+        if (this.ratingAvg == 0) this.ratingAvg = 3;
     }
 
     public Date getDateCreated() {
@@ -211,9 +225,8 @@ public class Guide {
     public Guide() { } // Java Beans: one constructor must be empty
 
     // TODO: Consider whether guide will be created and fields added in another request, or make a constructor with more params.
-    public Guide(long id, long idAdventurer, String title, HashSet<Template> templates) {
+    public Guide(long id, String title, HashSet<Template> templates) {
         this.id = id;
-        this.idAdventurer = idAdventurer;
         this.title = title;
         this.templates = templates;
     }
@@ -226,7 +239,7 @@ public class Guide {
     }
 
     // Hopefully the full constructor
-    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country,  String state,  String city, HashSet<Template> templates, long idAdventurer){
+    public Guide(long id, String title, String description, boolean childFriendly, boolean wheelchairAccessible, int difficulty, String directions,  String country,  String state,  String city, HashSet<Template> templates){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -239,11 +252,27 @@ public class Guide {
         this.state = state;
         this.city = city;
         this.templates = templates;
-        this.idAdventurer = idAdventurer;
     }
 
     @Override
     public String toString() {
         return this.title;
+    }
+
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Adventurer getAdventurer() {
+        return adventurer;
+    }
+
+    public void setAdventurer(Adventurer adventurer) {
+        this.adventurer = adventurer;
     }
 }
