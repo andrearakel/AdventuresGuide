@@ -15,20 +15,20 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+        <div class="navbar-nav w-100">
             <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> --> <!-- Getum bætt við class="active" kannski á þá síðu sem er active -->
-            <nobr><a class="nav-item nav-link" th:href="@{/signup}">Sign Up</a></nobr>
-            <nobr><a class="nav-item nav-link" th:href="@{/signin}">Sign In</a></nobr>
-            <a class="nav-item nav-link" th:href="@{/profile}">Profile</a>
-            <a class="nav-item nav-link" th:href="@{/createguide}">Create Guide</a>
-            <a class="nav-item nav-link" th:href="@{/guides}">List of Guides</a>
-            <a class="nav-item nav-link" th:href="@{/adventurers}">List of Adventurers</a>
+            <a class="nav-item nav-link" th:href="@{/guides}">Guides</a>
+            <a class="nav-item nav-link" th:href="@{/adventurers}">Adventurers</a>
             <!-- <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> --> <!-- Getum bætt við class="disabled" kannski á þær síður sem eru ekki aðgengilegar. -->
-            <form class="form-inline" th:action="@{/signout}" method="post">
-                <nobr><input class="btn nav-item nav-link" type="submit" value="Sign Out"></nobr>
-            </form>
             <form class="form-inline" th:action="@{/betasignin}" method="post">
                 <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
+            </form>
+            <nobr><a class="nav-item nav-link" th:unless="${sessionAdventurer}" th:href="@{/signin}">Sign In</a></nobr>
+            <div class="navbar-brand">
+            </div>
+            <a class="nav-item nav-link" th:if="${sessionAdventurer}" th:href="@{/profile}">Profile</a>
+            <form class="form-inline" th:if="${sessionAdventurer}" th:action="@{/signout}" method="post">
+                <nobr><input class="btn nav-item nav-link" type="submit" value="Sign Out"></nobr>
             </form>
         </div>
     </div>
@@ -57,30 +57,40 @@
     </div>
 </div>
 
-<!-- The old menu bar
-<div class="test" th:fragment="menubar">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="menubar2">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown link
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
 
-    <ul class="menu-bar" >
-        <li class="menu-item"><a th:href="@{/home}">Home</a></li>
-        <li class="menu-item"><a th:href="@{/signup}">Sign Up</a></li>
-        <li class="menu-item"><a th:href="@{/signin}">Sign In</a></li>
-        <li class="menu-item"><a th:href="@{/profile}">Profile</a></li>
-        <li class="menu-item"><a th:href="@{/createguide}">Create Guide</a></li>
-        <li class="menu-item"><a th:href="@{/guides}">List of Guides</a></li>
-        <li class="menu-item"><a th:href="@{/adventurers}">List of Adventurers</a></li>
-        <li class="menu-item">
-            <form class="menu-item" action="#" th:action="@{/signout}" method="post">
-                <input type="submit" value="Sign Out">
-            </form>
-        </li>
-        <li class="menu-item">
-            <form class="menu-item" action="#" th:action="@{/betasignin}" method="post">
-                <input type="submit" value="BETA Sign In">
-            </form>
-        </li>
-    </ul>
-</div>
--->
 
 </body>
 </html>

@@ -30,7 +30,7 @@
                     </tbody>
                 </table>
             </div>
-            <p><a href="/signup">Add a new adventurer</a></p>
+            <p th:unless="${sessionAdventurer}"><a class="btn btn-primary" href="/signup">Become a new adventurer!</a></p>
     </div>
 </body>
 </html>

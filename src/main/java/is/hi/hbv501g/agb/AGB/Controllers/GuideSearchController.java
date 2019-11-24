@@ -14,6 +14,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  */
 
 
+import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -53,21 +55,24 @@ public class GuideSearchController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String searchGuide(@RequestParam(value = "title") String title,
                               @RequestParam(value = "country") String country,
-                              Model model) {
-
-            List<Guide> searchList =
-                    guideService.findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining
-                            (title, country);
-
-            lastSearch = searchList;
-
-            model.addAttribute("guides", searchList);
-            return "home";
+                              Model model, HttpSession session) {
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if (sessionAdventurer != null) {
+            model.addAttribute("sessionAdventurer", sessionAdventurer);
+        }
+        List<Guide> searchList = guideService.findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining(title, country);
+        lastSearch = searchList;
+        model.addAttribute("guides", searchList);
+        return "home";
 
     }
 
     @RequestMapping(value = "/backToLastSearch", method = RequestMethod.GET)
-    public String backToLastSearch(Model model) {
+    public String backToLastSearch(Model model, HttpSession session) {
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if (sessionAdventurer != null) {
+            model.addAttribute("sessionAdventurer", sessionAdventurer);
+        }
         if ((lastSearch == null) || lastSearch.isEmpty()) {
             model.addAttribute("guides", guideService.findAll());
         }

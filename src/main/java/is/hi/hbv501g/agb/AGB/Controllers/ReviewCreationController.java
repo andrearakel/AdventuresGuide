@@ -52,6 +52,7 @@ public class ReviewCreationController {
             return "redirect:/signin";
         } else {
             Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
+            model.addAttribute("sessionAdventurer", sessionAdventurer);
             model.addAttribute("guide", guide);
             return "createreview";
         }

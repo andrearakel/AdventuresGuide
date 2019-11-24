@@ -52,6 +52,7 @@ public class AdvProfileController {
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if(sessionAdventurer != null){
+            model.addAttribute("sessionAdventurer", sessionAdventurer); // Fyrir menubar
             model.addAttribute("adventurer", sessionAdventurer);
             return "profile";
         }
@@ -78,7 +79,7 @@ public class AdvProfileController {
         if(sessionAdventurer == null){
             return "redirect:/signin";
         }
-
+        model.addAttribute("sessionAdventurer", sessionAdventurer);
         model.addAttribute("adventurer", sessionAdventurer);
         return "editprofile";
     }
