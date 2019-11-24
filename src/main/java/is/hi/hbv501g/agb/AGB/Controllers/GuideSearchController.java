@@ -72,6 +72,11 @@ public class GuideSearchController {
 
     }
 
+    /**
+    * Gets the last search results
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/backToLastSearch", method = RequestMethod.GET)
     public String backToLastSearch(Model model, HttpSession session) {
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");

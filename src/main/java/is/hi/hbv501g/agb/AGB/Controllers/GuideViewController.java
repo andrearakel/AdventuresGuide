@@ -40,7 +40,11 @@ public class GuideViewController {
         this.adventurerService = adventurerService;
     }
 
-    //View a chosen guide from search results
+    /**View a chosen guide from search results, and reviews.
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/guide/{id}", method = RequestMethod.GET)
     public String singleGuideView(@PathVariable("id") long id,  Model model) {
 
