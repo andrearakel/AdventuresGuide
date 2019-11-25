@@ -9,7 +9,7 @@
     <title>Users</title>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="menubar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="menubar2">
     <a class="navbar-brand" th:href="@{/}">Adventurer's Guidebook</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -26,11 +26,9 @@
             <form class="form-inline" th:if="${sessionAdventurer}" th:action="@{/signout}" method="post">
                 <nobr><input class="btn nav-item nav-link" type="submit" value="Sign Out"></nobr>
             </form>
-            <!--
             <form class="form-inline" th:action="@{/betasignin}" method="post">
                 <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
             </form>
-            -->
         </div>
     </div>
 </nav>
@@ -58,37 +56,31 @@
     </div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="menubar2">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="menubar">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">Hidden brand</a>
+        <a class="navbar-brand" th:href="@{/}">Adventurer's Guidebook</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
+            <form class="form-inline" th:action="@{/betasignin}" method="post">
+                <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
+            </form>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <div class="form-inline my-2 my-lg-0">
+            <nobr th:unless="${sessionAdventurer}"><a class="nav-item nav-link" style="color:rgba(255,255,255,.5);" th:href="@{/signin}">Sign In</a></nobr>
+            <li class="nav-item dropdown" style="list-style: none;" th:if="${sessionAdventurer}">
+                <div class="dropdown-menu" style="margin-left:-3.5em;" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="nav-item nav-link" th:if="${sessionAdventurer}" th:href="@{/profile}">My Profile</a>
+                    <form class="form-inline" th:if="${sessionAdventurer}" th:action="@{/signout}" method="post">
+                        <nobr><input class="btn nav-item nav-link" style="color:#007bff;" type="submit" value="Sign Out"></nobr>
+                    </form>
+                </div>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="/assets/profile.png" alt="Profile picture" width="42" height="42">
+                </a>
+            </li>
+        </div>
     </div>
 </nav>
 

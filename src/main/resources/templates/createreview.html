@@ -8,38 +8,53 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Adventurer's Guidebook - Create review</title>
 </head>
+<div th:replace="menubar :: menubar"></div>
+
 <body>
-    <div th:replace="menubar :: menubar"></div>
-    <div>
-        <h1>Create a new Review for [[${guide.title}]]!</h1>
+    <div class="container" th:object="${review}">
+
+        <div th:replace="menubar :: advert2"></div>
+
+        <h3 class="h3 mb-3 font-weight-normal">Create a new Review for [[${guide.title}]]!</h3>
 
         <p style="color:red;" th:text="${error}"></p>
 
-        <form action="#" th:action="@{'/createreview/'+${guide.id}}" th:object="${review}" method="post">
+        <form th:action="@{'/createreview/'+${guide.id}}" th:object="${review}" method="post">
 
-            <label for="title">Review title</label>
-            <input type="text" th:field="*{title}" id="title" placeholder="Title of your review">
-            <span style="color:red;" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            <dl class="row">
 
-            <br>
+                <dt class="col-sm-3">
+                    <label for="title">Review Title</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{title}" id="title" placeholder="Title of your review">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </dd>
 
-            <label for="description">Description</label>
-            <input type="text" th:field="*{description}" id="description" size="80" placeholder="Write a description for your review.">
-            <span style="color:red;" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                <dt class="col-sm-3">
+                    <label for="description">Description</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <textarea style="min-width: 100%" rows="3" th:field="*{description}" id="description" placeholder="Write a description for your review."></textarea>
+                    <span style="color:red;" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </dd>
 
-            <br>
+                <dt class="col-sm-3">
+                    <label for="rating">Rating</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="radio" th:field="*{rating}" id="rating" value=1>1
+                    <input type="radio" th:field="*{rating}" id="rating" value=2>2
+                    <input type="radio" th:field="*{rating}" id="rating" value=3>3
+                    <input type="radio" th:field="*{rating}" id="rating" value=4>4
+                    <input type="radio" th:field="*{rating}" id="rating" value=5>5
+                    <span style="color:red;" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+                </dd>
 
-            <label for="rating">Rating</label>
-            <input type="radio" th:field="*{rating}" id="rating" value=1>1
-            <input type="radio" th:field="*{rating}" id="rating" value=2>2
-            <input type="radio" th:field="*{rating}" id="rating" value=3>3
-            <input type="radio" th:field="*{rating}" id="rating" value=4>4
-            <input type="radio" th:field="*{rating}" id="rating" value=5>5
-            <span style="color:red;" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+            </dl>
 
-            <br>
+            <button class="btn btn-lg btn-primary btn-lg" type="submit">Post your Review</button>
 
-            <input type="submit" value="Create">
         </form>
     </div>
 </body>

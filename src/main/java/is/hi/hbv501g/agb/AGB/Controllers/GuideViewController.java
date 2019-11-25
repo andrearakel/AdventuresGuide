@@ -14,6 +14,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 3    jgs     231119  Connecting guides to its reviews
  * 4    eok     231119  Added adventurer to singleGuideView. This is the adventurer that created the guide.
  */
+import is.hi.hbv501g.agb.AGB.Entities.Adventurer;
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.AdventurerService;
 import is.hi.hbv501g.agb.AGB.Services.Interfaces.GuideService;
@@ -24,6 +25,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class GuideViewController {
@@ -40,10 +43,15 @@ public class GuideViewController {
         this.adventurerService = adventurerService;
     }
 
-    //View a chosen guide from search results
+    // View a chosen guide from search results
     @RequestMapping(value = "/guide/{id}", method = RequestMethod.GET)
-    public String singleGuideView(@PathVariable("id") long id,  Model model) {
+    public String singleGuideView(@PathVariable("id") long id, Model model, HttpSession session) {
 
+        // Giving the view access to the session
+        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
+        if (sessionAdventurer != null) {
+            model.addAttribute("sessionAdventurer", sessionAdventurer);
+        }
          // Find the guide and the reviews
          Guide guide = guideService.findById(id).orElseThrow(
                  ()-> new IllegalArgumentException("Invalid guide ID"));

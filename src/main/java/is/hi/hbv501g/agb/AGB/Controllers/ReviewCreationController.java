@@ -54,11 +54,11 @@ public class ReviewCreationController {
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if (sessionAdventurer == null) {
             model.addAttribute("error", "Must be signed in to create a review.");
-            return guideViewController.singleGuideView(id, model);
+            return guideViewController.singleGuideView(id, model, session);
         }
         if (!reviewService.findByAdventurerAndGuide(sessionAdventurer, guideService.findById(id).get()).isEmpty()) {
             model.addAttribute("error", "You have already reviewed this guide.");
-            return guideViewController.singleGuideView(id, model);
+            return guideViewController.singleGuideView(id, model, session);
         }
 
         Guide guide = guideService.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid guide ID"));
@@ -87,7 +87,7 @@ public class ReviewCreationController {
             reviewService.createReview(review, sessionAdventurer, guide);
         } catch (SQLIntegrityConstraintViolationException e1) {
             model.addAttribute("error", e1.getMessage());
-            return guideViewController.singleGuideView(id, model);
+            return guideViewController.singleGuideView(id, model, session);
         } catch (DataIntegrityViolationException e2) {
             model.addAttribute("error", e2.getMessage());
             return createReviewForm(id, review, model, session);

@@ -12,7 +12,7 @@
 <body>
 
     <div class="container">
-
+        <!-- Guide in list format
         <h3 class="h3 mb-3 font-weight-normal" th:text="${guide.title}"></h3>
 
         <dl class="row" th:object="${guide}">
@@ -48,58 +48,70 @@
             <dd class="col-sm-9" th:text="${#dates.format(guide.dateCreated, 'dd-MMM-yyyy')}"></dd>
 
             <!-- eok - Display Name retrieved from adventurer -->
-            <dt class="col-sm-3">Created by</dt>
+            <!--<dt class="col-sm-3">Created by</dt>
             <dd class="col-sm-9" th:text="${guide.adventurer.displayName}"></dd>
 
             <!-- eok - Average Rating calculated -->
-            <dt class="col-sm-3">Average rating</dt>
+            <!--<dt class="col-sm-3">Average rating</dt>
             <dd class="col-sm-9" th:text="${guide.ratingAvg} + ' out of 5'"></dd>
 
         </dl>
 
         <p><a class="btn btn-primary" role="button" th:href="@{/backToLastSearch}">Back to last search results</a></p>
 
-    <!-- old reviews
-    <div class="container" th:switch="${reviews}">
-        <h3 th:case="null">This Guide has not been reviewed yet!</h3>
-        <div th:case="*">
-            <h3 class="h3 mb-3 font-weight-normal">List of Reviews</h3>
-            <div class="row" th:each="review : ${reviews}">
-                <div class="form-group col-sm-2">
-                    <h5 th:text="${review.adventurerDisplayName}"></h5>
-                </div>
-                <div class="form-group col-sm-8">
-                    <h6 th:text="${review.title}"></h6>
-                    <p th:text="${review.description}"></p>
-                </div>
-                <div class="form-group col-sm-2">
-                    <h6 th:text="${review.rating}"></h6>
+        <br>-->
+        <br>
+        <br>
+
+        <h3 class="h3 mb-3 font-weight-normal" th:text="${guide.title}"></h3>
+
+        <div class="row" th:object="${guide}">
+
+            <div class="col-sm-8" >
+                <p th:text="*{description}"></p>
+                <div>
+                    <h5>How to get there</h5>
+                    <p th:text="*{directions}"></p>
                 </div>
             </div>
+
+            <div class="col-sm-4">
+                <h5>Key details</h5>
+                <p>This Guide has a difficulty of [[${guide.difficulty} + ' out of 5']]</p>
+                <p>Users have rated this Guide [[${guide.ratingAvg} + ' out of 5']]</p>
+                <p th:text="*{childFriendly} ? 'This Guide is child friendly' : 'This guide is not child friendly'"></p>
+                <p th:text="*{wheelchairAccessible} ? 'This Guide is wheelchair accessible' : 'This Guide is not wheelchair accessible'"></p>
+            </div>
+
+            <div class="col-sm-4">
+                <h5>Location</h5>
+                <p th:text="*{city}"></p>
+                <p th:text="*{country}"></p>
+            </div>
+
+            <div class="col-sm-4">
+                <h5>Other information</h5>
+                <p>This [[*{templates[0]}]] Guide was created by [[${guide.adventurer.displayName}]] on [[${#dates.format(guide.dateCreated, 'dd-MMM-yyyy')}]]</p>
+            </div>
+
         </div>
-    -->
 
-        <!-- eok - review -->
+        <br>
 
-
-
-        <div class="row"><!-- puts the review button inline with the review header -->
-            <div class="col">
-                <h3 class="h3 mb-3 font-weight-normal">Reviews</h3>
-            </div>
-            <div class="col">
-                <p style="color:red;" th:text="${error}"></p>
-            </div>
-            <div class="col">
-                <a class="btn btn-primary" role="button" th:href="@{'/createreview/'+${guide.id}}">Write a Review</a>
-            </div>
+        <div class="row">
+            <p class="col-sm 4"><a class="btn btn-primary" role="button" th:href="@{/backToLastSearch}">Back to last search results</a></p>
+            <p class="col-sm-4" style="color:red;" th:text="${error}"></p>
+            <p class="col-sm-4"><a class="btn btn-primary" role="button" th:href="@{'/createreview/'+${guide.id}}">Write a Review</a></p>
         </div>
 
-        <div th:switch="${guide.reviews}" class="row">
-            <div th:case="null" class="col">
+        <br>
+
+        <!-- Review in the table format
+        <div class="row">
+            <div th:if="*{guide.reviews == Null}" class="col">
                 <h4 class="h4 mb-4 font-weight-normal">There are no reviews for this guide. Be the first to add one!</h4>
             </div>
-            <div th:case="*" class="col">
+            <div th:unless="*{guide.reviews == Null}" class="col">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -125,8 +137,34 @@
             </div>
         </div>
 
+        <br>
+        <br>-->
+
+        <div th:switch="${guide.reviews}">
+            <h3 th:case="null">This Guide has not been reviewed yet!</h3>
+            <div th:case="*">
+                <h3 class="h3 mb-3 font-weight-normal">Reviews</h3>
+                <div class="row" th:each="review : ${guide.reviews}">
+                    <div class="form-group col-sm-2" style="border-right: solid 1px black">
+                        <img style="display: block;margin:0 auto;" src="/assets/profile.png" alt="Profile picture" width="55" height="55">
+                        <h5 style="text-align: center;" th:text="${review.adventurer.displayName}"></h5>
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <h5 th:text="${review.title}"></h5>
+                        <p th:text="${#dates.format(review.dateCreated, 'dd-MMM-yyyy')}"></p>
+                        <p th:text="${review.description}"></p>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <h6>[[${review.rating} + ' out of 5']]</h6>
+                    </div>
+                    <div class="col-sm-12">
+                        <br>
+                        <hr/>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
 </body>
 </html>
