@@ -15,6 +15,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * 5    jgs     041119  Added a new constructor that takes in all arguments for guide creation
  * 6    eok     221119  Set default value for difficulty. Added length restrictions for strings.
  * 7    eok     241119  Implemented many-to-one relation between guide and adventurer, one-to-many between guide and review. Calculate average rating on retrieval from DB.
+ * 8    eok     261119  Added comments and removed unused functions.
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,24 +29,28 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a guide, an adventure guide, created by an adventurer.
+ */
 @Entity
 public class Guide {
     /**
      * Stores information about the Guide.
      * Contains fields from first ERD.
-     * TODO: More fields may have to be added.
      */
 
-    @Id // Make the id unique
+    @Id // Unique Id, primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    // Each adventurer can have many guides.
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "adventurer_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Adventurer adventurer;
 
+    // Each review can belong to one guide.
     @OneToMany(mappedBy = "guide",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,

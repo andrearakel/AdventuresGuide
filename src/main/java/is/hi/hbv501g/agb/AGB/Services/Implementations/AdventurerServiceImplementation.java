@@ -24,8 +24,13 @@ import java.util.Optional;
  *                      Implemented findAll and signIn methods. SignIn may need some rework.
  * 3    eok     020119  Renamed save(..) to signUp(..), added default save(..) instead.
  *                      Implemented updateProfile(..)
+ * 4    eok     261119  Added comments and removed unused functions.
  */
 
+/**
+ * Invokes methods from the AdventurerRepository.
+ * Takes care of business logic and functionality which is not provided by the repository.
+ */
 @Service // Service is an extra layer between controller and repository(database) which can do more than the Repository itself.
 public class AdventurerServiceImplementation implements AdventurerService {
 
@@ -71,9 +76,7 @@ public class AdventurerServiceImplementation implements AdventurerService {
 
         // HTML id="email" verifies email format
         // Entity attribute: @Column(unique=true) verifies that the email is unique.
-
         // Entity attribute: @Column(unique=true) verifies that the displayName is unique.
-
         // Entity attribute: @Size(..) verifies lengths of displayName, email and password.
 
         adventurer.setPasswordHashed(passwordEncoder.encode(adventurer.getPasswordHashed()));

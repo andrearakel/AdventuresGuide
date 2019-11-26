@@ -26,8 +26,12 @@ import javax.validation.Valid;
  * 2    eok     311019  Caught DataIntegrityViolationException upon illegal signup. Added "redirect:/".
  * 3    boj     011119  Changed signUpForm method to redirect to profile if user is signed in.
  * 4    eok     021119  Improved error messages on failed signUp. Added javadoc.
+ * 5    eok     261119  Added comments and removed unused functions.
  */
 
+/**
+ * Controller that takes care of creating (and deleting) adventurers, allowing them to sign up for the platform.
+ */
 @Controller
 public class AdvSignUpController {
 
@@ -39,17 +43,15 @@ public class AdvSignUpController {
     /**
      * Displays a SignUp Form for the user.
      * @param adventurer
-     * @param session
-     * @return a SignUp Form for the platform. Redirects the user to their profile if they are already logged in.
+     * @param session The current session in process.
+     * @return a SignUp Form for the platform.
+     * Redirects the user to their profile if they are already logged in.
      */
     @RequestMapping(value ="/signup", method = RequestMethod.GET)
     public String signUpForm(Adventurer adventurer, HttpSession session){
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
-        if (sessionAdventurer == null) {
-            return "signup";
-        } else {
-            return "redirect:/profile";
-        }
+        if (sessionAdventurer == null) { return "signup"; }
+        else { return "redirect:/profile"; }
     }
 
 
@@ -58,13 +60,12 @@ public class AdvSignUpController {
      * @param adventurer being created from user supplied displayName, email and password.
      * @param result of model validation.
      * @param model
-     * @return Directs the user to the signin page if signUp is successful, otherwise refreshes this page.
+     * @return Directs the user to the signin page if signUp is successful,
+     * otherwise refreshes this page with appropriate error message.
      */
     @RequestMapping(value ="/signup", method = RequestMethod.POST)
     public String signUp(@Valid Adventurer adventurer, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "signup";
-        }
+        if (result.hasErrors()) { return "signup"; }
         try {
             // Save the new adventurer
             adventurerService.signUp(adventurer);

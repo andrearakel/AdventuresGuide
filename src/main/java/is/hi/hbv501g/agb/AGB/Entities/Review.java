@@ -12,6 +12,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
  *                      Rating must be mandatory, but title and description optional.
  * 2    jgs     221119  Connecting to the Repository
  * 3    eok     241119  Implemented foreign key relations to Guide and Adventurer
+ * 4    eok     261119  Added comments and removed unused functions.
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,26 +23,28 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+/**
+ * Represents a review, a review of a guide, created by an adventurer.
+ */
 @Entity
 public class Review {
-
     /**
-     * Stores information about the Adventurer.
+     * Stores information about the Review.
      * Contains fields from first ERD.
-     * TODO: More fields may have to be added.
-     * TODO: Must add constructor and getters and setters.
      */
 
-    @Id // Make the id unique
+    @Id // Unique Id, primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    // Each guide can have many reviews.
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "guide_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Guide guide;
 
+    // Each adventurer can have many reviews (but only one per guide, restricted in GuideService).
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "adventurer_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -52,7 +55,7 @@ public class Review {
     private String title;
     @Size(max=255)
     private String description;
-    private int rating = 3;
+    private int rating = 0;
 
     private Date dateCreated;
     private boolean enabled;

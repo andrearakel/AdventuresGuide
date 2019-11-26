@@ -1,16 +1,12 @@
 package is.hi.hbv501g.agb.AGB.Repositories;
 
 import is.hi.hbv501g.agb.AGB.Entities.Guide;
-
-import java.util.*;
-
 import is.hi.hbv501g.agb.AGB.Entities.Template;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Programmers:
@@ -31,19 +27,12 @@ import java.util.List;
 public interface GuideRepository extends JpaRepository<Guide, Long> {
 
     Guide save(Guide guide);
-
     void delete(Guide guide);
-
-    List<Guide> findAll();
-
-    List<Guide> findByTitleContainingIgnoreCase(String title);
-
     Optional<Guide> findById(long id);
-
+    List<Guide> findAll();
+    List<Guide> findByTitleContainingIgnoreCase(String title);
     List<Guide> findByTemplates(Set<Template> templates);
-
     List<Guide> findByCountryContainingIgnoreCase(String country);
-
     List<Guide> findByTitleIgnoreCaseContainingAndCountryIgnoreCaseContaining(String title, String country);
 
 

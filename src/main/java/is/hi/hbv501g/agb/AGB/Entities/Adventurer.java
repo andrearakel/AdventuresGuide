@@ -10,6 +10,7 @@ package is.hi.hbv501g.agb.AGB.Entities;
  * 1    eok     151019  Created javabean entity with fields from ERD.
  * 2    eok     171019  Added constructor, setters and getters.
  * 3    eok     311019  Removed passwordSalt. Set restrictions on input values.
+ * 4    eok     261119  Added comments and removed unused functions.
  */
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,16 +19,17 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+/**
+ * Represents an adventurer, a registered platform user, with access to some features of the platform.
+ */
 @Entity
 public class Adventurer {
     /**
      * Stores information about the Adventurer.
      * Contains fields from first ERD.
-     *
-     * TODO: More fields may have to be added.
      */
 
-    @Id // Make the id unique
+    @Id // Unique Id, primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

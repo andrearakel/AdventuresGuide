@@ -8,9 +8,10 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  *
  * Changes:
  * no.  idProg  date    description
- * 1     ars    021119  Added a search method for the search bar.
- * 2     ars    071119  More efficient way of search method
- * 3     ars    221119  Added back to last search
+ * 1    ars     021119  Added a search method for the search bar.
+ * 2    ars     071119  More efficient way of search method
+ * 3    ars     221119  Added back to last search
+ * 4    eok     261119  Added comments and removed unused functions.
  */
 
 
@@ -27,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Controller that takes care of displaying guides based on what the user searches for.
+ */
 @Controller
 public class GuideSearchController {
 
@@ -38,8 +42,13 @@ public class GuideSearchController {
     public GuideSearchController(GuideService guideService) { this.guideService = guideService; }
 
 
+    /**
+     * @param model
+     * @param session
+     * @return The landing page of the platform, where the adventurer can search for guides and view all of them.
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String SearchGet(Model model, HttpSession session){
+    public String SearchForm(Model model, HttpSession session){
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
         if (sessionAdventurer != null) {
             model.addAttribute("sessionAdventurer", sessionAdventurer);
@@ -55,7 +64,7 @@ public class GuideSearchController {
      * @param title
      * @param country
      * @param model
-     * @return
+     * @return The landing page of the platform, where the adventurer can search for guides and view the ones that appear as a result of their search.
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String searchGuide(@RequestParam(value = "title") String title,
@@ -69,13 +78,12 @@ public class GuideSearchController {
         lastSearch = searchList;
         model.addAttribute("guides", searchList);
         return "home";
-
     }
 
     /**
-    * Gets the last search results
+     * Gets the last search results
      * @param model
-     * @return
+     * @return The landing page of the platform, where the adventurer can search for guides and view the ones that appear as a result of their last search.
      */
     @RequestMapping(value = "/backToLastSearch", method = RequestMethod.GET)
     public String backToLastSearch(Model model, HttpSession session) {

@@ -26,14 +26,9 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     Review save(Review review);
-
     void delete(Review review);
-
-    List<Review> findAll();
-
     Optional<Review> findById(long id);
-
+    List<Review> findAll();
     List<Review> findByGuide(Guide guide);
-
     List<Review> findByAdventurerAndGuide(Adventurer adventurer, Guide guide);
 }

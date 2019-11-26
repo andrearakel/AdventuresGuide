@@ -17,6 +17,7 @@ import java.util.Optional;
  * Programmers:
  * id   name            email
  * jgs  Jónas G.        jgs7@hi.is
+ * eok  Erling Oskar    eok4@hi.is
  *
  *
  * Changes:
@@ -24,8 +25,13 @@ import java.util.Optional;
  * 1.   jgs     221119  Made the class, connecting to the Repository
  * 2    eok     241119  Moved business logic to createReview function. Added to it.
  * 3    eok     241119  Added constraint to createReview: Only one review per guide per user.
+ * 4    eok     261119  Added comments and removed unused functions.
  */
 
+/**
+ * Invokes methods from the ReviewRepository.
+ * Takes care of business logic and functionality which is not provided by the repository.
+ */
 @Service
 public class ReviewServiceImplementation implements ReviewService {
 

@@ -17,7 +17,6 @@ import java.util.Optional;
  * 1    eok     171019  Added save, delete and findByEmail methods.
  */
 
-
 public interface AdventurerRepository extends JpaRepository<Adventurer, Long> {
 
     Adventurer save(Adventurer adventurer);

@@ -26,9 +26,11 @@
             <form class="form-inline" th:if="${sessionAdventurer}" th:action="@{/signout}" method="post">
                 <nobr><input class="btn nav-item nav-link" type="submit" value="Sign Out"></nobr>
             </form>
+            <!--
             <form class="form-inline" th:action="@{/betasignin}" method="post">
                 <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
             </form>
+            -->
         </div>
     </div>
 </nav>
@@ -63,9 +65,11 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <a class="navbar-brand" th:href="@{/}">Adventurer's Guidebook</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <!--
             <form class="form-inline" th:action="@{/betasignin}" method="post">
                 <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
             </form>
+            -->
         </ul>
         <div class="form-inline my-2 my-lg-0">
             <nobr th:unless="${sessionAdventurer}"><a class="nav-item nav-link" style="color:rgba(255,255,255,.5);" th:href="@{/signin}">Sign In</a></nobr>

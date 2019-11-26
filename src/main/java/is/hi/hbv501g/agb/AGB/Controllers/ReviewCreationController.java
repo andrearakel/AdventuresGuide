@@ -30,10 +30,14 @@ import java.sql.SQLIntegrityConstraintViolationException;
  * 1    jgs     221119  Making the subsite "/createreview"
  * 2    jgs     231119  Adding "createreview/{id}", review goes to the database with a correct idGuide
  * 3    eok     231119  Moved createReview business logic to service.
+ * 4    eok     261119  Added comments and removed unused functions.
  */
 
 
 
+/**
+ * Controller that takes care of creating (and deleting) reviews.
+ */
 @Controller
 public class ReviewCreationController {
 
@@ -49,6 +53,14 @@ public class ReviewCreationController {
         this.guideService = guideService;
     }
 
+    /**
+     * @param id
+     * @param review
+     * @param model
+     * @param session
+     * @return Review creation form for the platform, for the guide with the param id.
+     * Redirects to singleGuideView if no one is signed in.
+     */
     @RequestMapping(value = "/createreview/{id}", method = RequestMethod.GET)
     public String createReviewForm(@PathVariable("id") long id, Review review, Model model, HttpSession session) {
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
@@ -68,7 +80,17 @@ public class ReviewCreationController {
     }
 
 
-
+    /**
+     * Creates a review for the guide with this id, based on the input from the adventurer in this session.
+     * @param id
+     * @param review
+     * @param result
+     * @param model
+     * @param session
+     * @return The single guide view for the guide.
+     * Redirects to signIn if no one is signed in.
+     * Refreshes this page if input was incorrect, displaying appropriate errors.
+     */
     @RequestMapping(value = "/createreview/{id}", method = RequestMethod.POST)
     public  String createReview(@PathVariable("id") long id, @Valid Review review, BindingResult result, Model model, HttpSession session) {
 

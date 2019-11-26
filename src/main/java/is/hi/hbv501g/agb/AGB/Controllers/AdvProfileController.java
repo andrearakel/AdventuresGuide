@@ -12,6 +12,7 @@ package is.hi.hbv501g.agb.AGB.Controllers;
  * 2    boj     011119  Changed viewProfile method to show the profile of the user that's signed in and added signout button
  * 3    eok     021119  Added editProfile and updateProfile methods.
  * 4    eok     031119  Moved signOut from here to AdvSignInController.
+ * 5    eok     261119  Added comments and removed unused functions.
  */
 
 
@@ -28,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+/**
+ * This controller takes care of anything to do with the Adventurer's Profile.
+ */
 @Controller
 public class AdvProfileController {
 
@@ -44,7 +48,8 @@ public class AdvProfileController {
      * @param result
      * @param model
      * @param session
-     * @return the profile page of the adventurer who is signed in. Redirects to signIn if no one is signed in.
+     * @return the profile page of the adventurer who is signed in.
+     * Redirects to signIn if no one is signed in.
      */
     @RequestMapping(value ="/profile", method = RequestMethod.GET)
     public String viewProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
@@ -70,7 +75,8 @@ public class AdvProfileController {
      * @param result
      * @param model
      * @param session
-     * @return A page where the signed in adventurer can edit his profile. Redirects to signIn if no one is signed in.
+     * @return A page where the signed in adventurer can edit his profile.
+     * Redirects to signIn if no one is signed in.
      */
     @RequestMapping(value ="/editprofile", method = RequestMethod.GET)
     public String editProfileForm(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
@@ -90,33 +96,32 @@ public class AdvProfileController {
     }
 
     /**
-     * @param adventurer
+     * @param adventurer holds the input from the adventurer, i.e. the fields that were just changed.
      * @param result
      * @param model
      * @param session
-     * @return A page where the signed in adventerer can edit his profile.
+     * @return the viewProfile page
      * Redirects to signIn if no one is signed in.
-     * Redirect to profile page is exceptions are caught.
+     * Redirect back to edit profile page is exceptions are caught or input is invalid; displays appropriate errors.
      */
     @RequestMapping(value ="/updateprofile", method = RequestMethod.POST)
     public String updateProfile(@Valid Adventurer adventurer, BindingResult result, Model model, HttpSession session){
 
         // Check that Adventurer is signed in
         Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
-        if(sessionAdventurer == null){
-            return "redirect:/signin";
-        }
+        if(sessionAdventurer == null){ return "redirect:/signin"; }
         model.addAttribute("sessionAdventurer", sessionAdventurer);
 
         if(result.hasErrors()){
             System.out.println("result.hasErrors()");
+            // add uneditable fields that were not on the form to the adventurer
             adventurer.setDisplayName(sessionAdventurer.getDisplayName());
             adventurer.setEmail(sessionAdventurer.getEmail());
             return "editprofile";
         }
 
         try {
-            // Update the adventurer
+            // Update the old adventurer with input from the form
             adventurerService.updateProfile(adventurer, sessionAdventurer);
         } catch (DataIntegrityViolationException e) {
             System.out.println("DataIntegrityViolationException");
