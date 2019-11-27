@@ -32,6 +32,28 @@ import java.util.*;
 @Service // Service is an extra layer between controller and repository(database) which can do more than the Repository itself.
 public class GuideServiceImplementation implements GuideService {
 
+    /**
+     * Verifies the user input, sets dateCreated and invokes a method
+     * to save the new guide to the database
+     * @param guide
+     * @return the guide, having been saved to the database
+     */
+    @Override
+    public Guide createGuide(Guide guide, Adventurer adventurer) {
+
+        guide.setDateCreated(new Date(System.currentTimeMillis()));
+        guide.setAdventurer(adventurer);
+
+        // Set a default template
+        if (guide.getTemplates() == null) {
+            Set<Template> tempTemplates = new HashSet<Template>();
+            tempTemplates.add(Template.NONE);
+            guide.setTemplates(tempTemplates);
+        }
+
+        return save(guide);
+    }
+
     GuideRepository repository;
 
     // Constructor
@@ -47,27 +69,6 @@ public class GuideServiceImplementation implements GuideService {
     @Override
     public List<Guide> findAll() { return repository.findAll(); }
 
-    /**
-     * Verifies the user input, sets dateCreated and invokes a method
-     * to save the new guide to the database
-     * @param guide
-     * @return the guide, having been saved to the database
-     */
-    @Override
-    public Guide createGuide(Guide guide, Adventurer adventurer) {
-
-        guide.setDateCreated(new Date(System.currentTimeMillis()));
-
-        guide.setAdventurer(adventurer);
-
-        // Set a default template
-        if (guide.templates == null) {
-            guide.templates = new HashSet<Template>();
-            guide.templates.add(Template.NONE);
-        }
-
-        return save(guide);
-    }
 
 
     @Override

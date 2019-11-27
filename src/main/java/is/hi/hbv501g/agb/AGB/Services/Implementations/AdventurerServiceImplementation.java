@@ -34,8 +34,25 @@ import java.util.Optional;
 @Service // Service is an extra layer between controller and repository(database) which can do more than the Repository itself.
 public class AdventurerServiceImplementation implements AdventurerService {
 
-    AdventurerRepository repository;
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    /**
+     * Verifies the user input, hashes the password, sets dateCreated and invokes a method to save the new adventurer to the database.
+     * @param adventurer to be saved in the system.
+     * @return the adventurer, having been saved to the database.
+     */
+    @Override
+    public Adventurer signUp(Adventurer adventurer) {
+        // HTML id="email" verifies email format
+        // Entity attribute: @Column(unique=true) verifies that the email and displayName are unique.
+        // Entity attribute: @Size(..) verifies lengths of displayName, email and password.
+
+        adventurer.setPasswordHashed(passwordEncoder.encode(adventurer.getPasswordHashed()));
+        adventurer.setDateCreated(new Date(System.currentTimeMillis()));
+        return save(adventurer);
+    }
+
+    AdventurerRepository repository;
 
     // Constructor
     @Autowired
@@ -66,25 +83,6 @@ public class AdventurerServiceImplementation implements AdventurerService {
         return repository.findById(id);
     }
 
-    /**
-     * Verifies the user input, hashes the password, sets dateCreated and invokes a method to save the new adventurer to the database.
-     * @param adventurer
-     * @return the adventurer, having been saved to the database.
-     */
-    @Override
-    public Adventurer signUp(Adventurer adventurer) {
-
-        // HTML id="email" verifies email format
-        // Entity attribute: @Column(unique=true) verifies that the email is unique.
-        // Entity attribute: @Column(unique=true) verifies that the displayName is unique.
-        // Entity attribute: @Size(..) verifies lengths of displayName, email and password.
-
-        adventurer.setPasswordHashed(passwordEncoder.encode(adventurer.getPasswordHashed()));
-
-        adventurer.setDateCreated(new Date(System.currentTimeMillis()));
-
-        return save(adventurer);
-    }
 
     @Override
     public Adventurer signIn(Adventurer adventurer) {

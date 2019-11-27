@@ -55,7 +55,7 @@ public class Review {
     private String title;
     @Size(max=255)
     private String description;
-    private int rating = 0;
+    private int rating = 3;
 
     private Date dateCreated;
     private boolean enabled;
