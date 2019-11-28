@@ -60,7 +60,7 @@ public class Guide {
     @ElementCollection(targetClass=Template.class)
     @Column(name="template", nullable=false)
     @CollectionTable(name="guide_templates", joinColumns= {@JoinColumn(name="guide_id")})
-    public Set<Template> templates;
+    private Set<Template> templates;
 
     @NotNull
     @Size(min=4, max=50)

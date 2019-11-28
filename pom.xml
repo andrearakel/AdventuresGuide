@@ -11,11 +11,13 @@
 	<groupId>is.hi.hbv501g.agb</groupId>
 	<artifactId>AGB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>AGB</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<start-class>is.hi.hbv501g.agb.AGB.Application</start-class>
 	</properties>
 
 	<dependencies>
@@ -94,17 +96,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
-
 	</dependencies>
-
-
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+					<mainClass>is.hi.hbv501g.agb.AGB.Application</mainClass>
+                    <layout>ZIP</layout>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>

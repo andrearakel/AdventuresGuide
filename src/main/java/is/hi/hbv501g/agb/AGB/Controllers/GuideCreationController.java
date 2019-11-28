@@ -33,6 +33,42 @@ import javax.validation.Valid;
  */
 @Controller
 public class GuideCreationController {
+    /**
+     * Creates a guide based on the user input
+     * @param guide to be created
+     * @param result
+     * @param model
+     * @param session The session in progress
+     * @return The single guide view for the newly created guide.
+     * Redirects to signIn if no one is signed in.
+     * Refreshes this page if input was incorrect.
+     */
+    @RequestMapping(value = "/createguide", method = RequestMethod.POST)
+    public String createGuide(@Valid Guide guide, BindingResult result,
+                              Model model, HttpSession session) {
+        if (result.hasErrors()) {
+            // Refresh the page with error messages.
+            return "createguide";
+        }
+        Adventurer sessionAdventurer =
+                (Adventurer) session.getAttribute("SignedInAdventurer");
+        if (sessionAdventurer == null) {
+            model.addAttribute("error", "Must be signed in to create a guide.");
+            return "redirect:/signin";
+        }
+
+        try {
+            // Save the new guide
+            guideService.createGuide(guide, sessionAdventurer);
+
+        } catch (DataIntegrityViolationException e) {
+            // Check what constraint was violated, display error message.
+            return "createguide";
+        }
+
+        // Reveal the page with the newly saved guide
+        return "redirect:/guide/" + guide.getId();
+    }
 
     private GuideService guideService;
 
@@ -58,37 +94,4 @@ public class GuideCreationController {
         }
     }
 
-    /**
-     * Creates a guide based on the input
-     * @param guide to be created
-     * @param result
-     * @param model
-     * @param session
-     * @return The single guide view for the newly created guide.
-     * Redirects to signIn if no one is signed in.
-     * Refreshes this page if input was incorrect.
-     *
-     */
-    @RequestMapping(value = "/createguide", method = RequestMethod.POST)
-    public String createGuide(@Valid Guide guide, BindingResult result, Model model, HttpSession session) {
-        if (result.hasErrors()) {
-            return "createguide";
-        }
-        Adventurer sessionAdventurer = (Adventurer) session.getAttribute("SignedInAdventurer");
-        if (sessionAdventurer == null) {
-            model.addAttribute("error", "Must be signed in to create a guide.");
-            return "redirect:/signin";
-        }
-
-        try {
-            // Save the new guide
-            guideService.createGuide(guide, sessionAdventurer);
-
-        } catch (DataIntegrityViolationException e) {
-            // Check what constraint was violated, display error message.
-            return "createguide";
-        }
-
-        return "redirect:/guide/" + guide.getId();
-    }
 }
