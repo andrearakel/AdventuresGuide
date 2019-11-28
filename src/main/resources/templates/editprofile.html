@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Adventurer's Guidebook - Edit Profile</title>
+</head>
+<nav th:replace="menubar :: menubar"></nav>
+
+<body>
+    <div class="container">
+        <div th:replace="menubar :: advert2"></div>
+
+        <h3 class="h3 mb-3 font-weight-normal">Adventurer Profile</h3>
+
+        <form th:action="@{/updateprofile}" th:object="${adventurer}" method="post">
+
+            <dl class="row">
+                <dt class="col-sm-3">Display Name</dt>
+                <dd class="col-sm-9" th:text="${adventurer.displayName}"></dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9" th:text="${adventurer.email}"></dd>
+
+                <dt class="col-sm-3"><label for="name">Name</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{name}" id="name" th:placeholder="${name}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </dd>
+
+                <dt class="col-sm-3"><label for="dateOfBirth">Date Of Birth</label></dt>
+                <dd class="col-sm-9">
+                    <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" th:placeholder="${dateOfBirth}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+                </dd>
+
+                <dt class="col-sm-3"><label for="biography">Biography</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{biography}" id="biography" th:placeholder="${biography}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></span>
+                </dd>
+
+                <dt class="col-sm-3"><label for="country">Country</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{country}" id="country" th:placeholder="${country}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
+                </dd>
+
+                <dt class="col-sm-3"><label for="state">State</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{state}" id="state" th:placeholder="${state}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
+                </dd>
+
+                <dt class="col-sm-3"><label for="city">City</label></dt>
+                <dd class="col-sm-9">
+                    <input type="text" th:field="*{city}" id="city" th:placeholder="${city}">
+                    <span style="color:red;" class="col-md-auto" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+                </dd>
+
+            </dl>
+
+            <p style="color:red;" th:text="${error}"></p>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-lg btn-primary btn-lg" type="submit">Save Changes</button>
+                </div>
+                <div class="col">
+                    <p><a class="btn btn-primary btn-secondary btn-sm" th:href="@{/profile}">Cancel Changes</a></p>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>

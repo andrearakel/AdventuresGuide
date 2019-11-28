@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Adventurer's Guidebook - Sign In</title>
+</head>
+<nav th:replace="menubar :: menubar"></nav>
+
+<body>
+    <div class="container">
+        <div th:replace="menubar :: advert2"></div>
+
+        <h3 class="h3 mb-3 font-weight-normal">Please sign in</h3>
+        <form class="form-signin" th:action="@{/signin}" th:object="${adventurer}" method="post">
+
+            <dl class="row">
+                <dt class="col-sm-3">
+                    <label for="email">Email</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="email" th:field="*{email}" id="email" class="form-control" placeholder="Email" required autofocus>
+                    <span style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </dd>
+
+                <dt class="col-sm-3">
+                    <label for="passwordHashed">Password</label>
+                </dt>
+                <dd class="col-sm-9">
+                    <input type="password" th:field="*{passwordHashed}" id="passwordHashed" class="form-control" placeholder="Password" required>
+                    <span style="color:red;" th:if="${#fields.hasErrors('passwordHashed')}" th:errors="*{passwordHashed}"></span>
+                </dd>
+
+            </dl>
+            <p style="color:red;" th:text="${error}"></p>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+                </div>
+                <div class="col-sm-3">
+                    <p>Don't have an account yet?</p>
+                </div>
+                <div class="col-sm-3">
+                    <a class="btn btn-lg btn-primary" th:href="@{/signup}">Sign up instead</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

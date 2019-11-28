@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Adventure's Guidebook - Home</title>
+</head>
+
+<nav th:replace="menubar :: menubar"></nav>
+
+<body>
+    <div class="container">
+
+        <div th:replace="menubar :: advert1"></div>
+
+        <h3 class="h3 mb-3 font-weight-normal">Search for Adventure Guides</h3>
+        <form th:action="@{/}" th:object="${guide}" method="post">
+            <div class="row">
+                <div class="form-group col-sm">
+                    <label for="title">Title:</label>
+                    <input type="text" class="form-control" name="title" id="title" th:value="${title}" placeholder="Title"/>
+                </div>
+                <div class="form-group col-sm">
+                    <label for="country">Country:</label>
+                    <input type="text" class="form-control" name="country" id="country" th:value="${country}" placeholder="Country"/>
+                </div>
+                <div class="form-group col-sm">
+                    <br> <!-- Ljótt skítmix svo search sé í sömu línu og input reitirnir (eok) -->
+                    <input style="margin-top:0.5em;" class="btn btn-primary" type="submit" value="Search"/>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="row">
+            <div class="col">
+                <h3 class="h3 mb-3 font-weight-normal">Search Results</h3>
+            </div>
+            <div class="col">
+                <p><a class="btn btn-primary" th:href="@{/createguide}">Create a new guide</a></p>
+            </div>
+
+        </div>
+
+
+        <div th:switch="${guides}" class="row">
+            <h4 class="h4 mb-4 font-weight-normal" th:case="null">No guides found</h4>
+            <div th:case="*" class="col">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">More info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="guide : ${guides}">
+                            <th scope="row"></th>
+                            <td th:text="${guide.title}"></td>
+                            <td th:text="${guide.country}"></td>
+                            <td th:text="${guide.templates[0]}"></td>
+                            <td th:text="${guide.ratingAvg} + ' out of 5'"></td>
+                            <td><a class="btn btn-primary" role="button" th:href="@{/guide/{id} (id=${guide.id})}">View more info</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

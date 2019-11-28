@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Single Guide View</title>
+</head>
+<nav th:replace="menubar :: menubar"></nav>
+<body>
+
+    <div class="container">
+        <!-- Guide in list format
+        <h3 class="h3 mb-3 font-weight-normal" th:text="${guide.title}"></h3>
+
+        <dl class="row" th:object="${guide}">
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9" th:text="*{description}"></dd>
+
+            <dt class="col-sm-3">Child Friendly</dt>
+            <dd class="col-sm-9" th:text="*{childFriendly} ? 'Yes' : 'No'"></dd>
+
+            <dt class="col-sm-3">Wheelchair Accessible</dt>
+            <dd class="col-sm-9" th:text="*{wheelchairAccessible} ? 'Yes' : 'No'"></dd>
+
+            <dt class="col-sm-3">Difficulty</dt>
+            <dd class="col-sm-9" th:text="*{difficulty} + ' out of 5'"></dd>
+
+            <dt class="col-sm-3">Directions</dt>
+            <dd class="col-sm-9" th:text="*{directions}"></dd>
+
+            <dt class="col-sm-3">Country</dt>
+            <dd class="col-sm-9" th:text="*{country}"></dd>
+
+            <dt class="col-sm-3">State</dt>
+            <dd class="col-sm-9" th:text="*{state}"></dd>
+
+            <dt class="col-sm-3">City</dt>
+            <dd class="col-sm-9" th:text="*{city}"></dd>
+
+            <dt class="col-sm-3">Type of adventure</dt>
+            <dd class="col-sm-9" th:text="*{templates[0]}"></dd>
+
+            <dt class="col-sm-3">Date created</dt>
+            <dd class="col-sm-9" th:text="${#dates.format(guide.dateCreated, 'dd-MMM-yyyy')}"></dd>
+
+            <!-- eok - Display Name retrieved from adventurer -->
+            <!--<dt class="col-sm-3">Created by</dt>
+            <dd class="col-sm-9" th:text="${guide.adventurer.displayName}"></dd>
+
+            <!-- eok - Average Rating calculated -->
+            <!--<dt class="col-sm-3">Average rating</dt>
+            <dd class="col-sm-9" th:text="${guide.ratingAvg} + ' out of 5'"></dd>
+
+        </dl>
+
+        <p><a class="btn btn-primary" role="button" th:href="@{/backToLastSearch}">Back to last search results</a></p>
+
+        <br>-->
+        <br>
+        <br>
+
+        <h3 class="h3 mb-3 font-weight-normal" th:text="${guide.title}"></h3>
+
+        <div class="row" th:object="${guide}">
+
+            <div class="col-sm-8" >
+                <p th:text="*{description}"></p>
+                <div>
+                    <h5>How to get there</h5>
+                    <p th:text="*{directions}"></p>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <h5>Key details</h5>
+                <p>This Guide has a difficulty of [[${guide.difficulty} + ' out of 5']]</p>
+                <p>Users have rated this Guide [[${guide.ratingAvg} + ' out of 5']]</p>
+                <p th:text="*{childFriendly} ? 'This Guide is child friendly' : 'This guide is not child friendly'"></p>
+                <p th:text="*{wheelchairAccessible} ? 'This Guide is wheelchair accessible' : 'This Guide is not wheelchair accessible'"></p>
+            </div>
+
+            <div class="col-sm-4">
+                <h5>Location</h5>
+                <p th:text="*{city}"></p>
+                <p th:text="*{country}"></p>
+            </div>
+
+            <div class="col-sm-4">
+                <h5>Other information</h5>
+                <p>This [[*{templates[0]}]] Guide was created by [[${guide.adventurer.displayName}]] on [[${#dates.format(guide.dateCreated, 'dd-MMM-yyyy')}]]</p>
+            </div>
+
+        </div>
+
+        <br>
+
+        <div class="row">
+            <p class="col-sm 4"><a class="btn btn-primary" role="button" th:href="@{/backToLastSearch}">Back to last search results</a></p>
+            <p class="col-sm-4" style="color:red;" th:text="${error}"></p>
+            <p class="col-sm-4"><a class="btn btn-primary" role="button" th:href="@{'/createreview/'+${guide.id}}">Write a Review</a></p>
+        </div>
+
+        <br>
+
+        <!-- Review in the table format
+        <div class="row">
+            <div th:if="*{guide.reviews == Null}" class="col">
+                <h4 class="h4 mb-4 font-weight-normal">There are no reviews for this guide. Be the first to add one!</h4>
+            </div>
+            <div th:unless="*{guide.reviews == Null}" class="col">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Created by</th>
+                        <th scope="col">Date of review</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="review : ${guide.reviews}">
+                        <th scope="row"></th>
+                        <td th:text="${review.rating}"></td>
+                        <td th:text="${review.title}"></td>
+                        <td th:text="${review.description}"></td>
+                        <td th:text="${review.adventurer.displayName}"></td>
+                        <td th:text="${#dates.format(review.dateCreated, 'dd-MMM-yyyy')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <br>
+        <br>-->
+
+        <div th:switch="${guide.reviews}">
+            <h3 th:case="null">This Guide has not been reviewed yet!</h3>
+            <div th:case="*">
+                <h3 class="h3 mb-3 font-weight-normal">Reviews</h3>
+                <div class="row" th:each="review : ${guide.reviews}">
+                    <div class="form-group col-sm-2" style="border-right: solid 1px black">
+                        <img style="display: block;margin:0 auto;" src="/assets/profile.png" alt="Profile picture" width="55" height="55">
+                        <h5 style="text-align: center;" th:text="${review.adventurer.displayName}"></h5>
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <h5 th:text="${review.title}"></h5>
+                        <p th:text="${#dates.format(review.dateCreated, 'dd-MMM-yyyy')}"></p>
+                        <p th:text="${review.description}"></p>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <h6>[[${review.rating} + ' out of 5']]</h6>
+                    </div>
+                    <div class="col-sm-12">
+                        <br>
+                        <hr/>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Adventurer's Guidebook - Create Guide</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Adventure's Guidebook - Profile</title>
+</head>
+<nav th:replace="menubar :: menubar"></nav>
+
+<body>
+     <div class="container" th:object="${adventurer}">
+         <div th:replace="menubar :: advert1"></div>
+         <h3 class="h3 mb-3 font-weight-normal">Adventurer Profile</h3>
+
+         <dl class="row">
+            <dt class="col-sm-3">Display Name</dt>
+            <dd class="col-sm-9" th:text="${adventurer.displayName}"></dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9" th:text="${adventurer.email}"></dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9" th:text="${adventurer.name}"></dd>
+
+            <dt class="col-sm-3">Date of Birth</dt>
+            <dd class="col-sm-9" th:text="${#dates.format(adventurer.dateOfBirth, 'dd-MMM-yyyy')}"></dd>
+
+            <dt class="col-sm-3">Biography</dt>
+            <dd class="col-sm-9" th:text="${adventurer.biography}"></dd>
+
+            <dt class="col-sm-3">Country</dt>
+            <dd class="col-sm-9" th:text="${adventurer.country}"></dd>
+
+            <dt class="col-sm-3">State</dt>
+            <dd class="col-sm-9" th:text="${adventurer.state}"></dd>
+
+            <dt class="col-sm-3">City</dt>
+            <dd class="col-sm-9" th:text="${adventurer.city}"></dd>
+
+            <dt class="col-sm-3">Registration Date</dt>
+            <dd class="col-sm-9" th:text="${#dates.format(adventurer.dateCreated, 'dd-MMM-yyyy')}"></dd>
+
+                    <!-- Not wise to display
+                    <dt>PasswordHashed</dt>
+                    <dd th:text="${adventurer.passwordHashed}"></dd>
+                    -->
+                    <!-- TODO: add more tags
+                    <dt></dt>
+                    <dd th:text="${adventurer.}"></dd>
+                    -->
+         </dl>
+
+
+         <div class="row">
+             <div class="col">
+                 <form action="#" th:action="@{/editprofile}" method="get">
+                     <button class="btn btn-lg btn-primary btn-lg" type="submit">Edit Profile</button>
+                 </form>
+             </div>
+             <div class="col">
+                 <form action="#" th:action="@{/signout}" method="post">
+                     <button class="btn btn-lg btn-secondary btn-sm" type="submit">Sign Out</button>
+                 </form>
+             </div>
+         </div>
+
+
+
+
+     </div>
+
+</body>
+</html>

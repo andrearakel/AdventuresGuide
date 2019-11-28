@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Users</title>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="menubar2">
+    <a class="navbar-brand" th:href="@{/}">Adventurer's Guidebook</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav w-100">
+            <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> --> <!-- Getum bætt við class="active", kannski á þá síðu sem er active -->
+            <!-- <a class="nav-item nav-link" th:href="@{/guides}">Guides</a> -->
+            <!-- <a class="nav-item nav-link" th:href="@{/adventurers}">Adventurers</a> -->
+            <!-- <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> --> <!-- Getum bætt við class="disabled", kannski á þær síður sem eru ekki aðgengilegar. -->
+            <!-- <nobr><a class="nav-item nav-link" th:unless="${sessionAdventurer}" th:href="@{/signup}">Sign Up</a></nobr> -->
+            <nobr><a class="nav-item nav-link" th:unless="${sessionAdventurer}" th:href="@{/signin}">Sign In</a></nobr>
+            <a class="nav-item nav-link" th:if="${sessionAdventurer}" th:href="@{/profile}">Profile</a>
+            <form class="form-inline" th:if="${sessionAdventurer}" th:action="@{/signout}" method="post">
+                <nobr><input class="btn nav-item nav-link" type="submit" value="Sign Out"></nobr>
+            </form>
+            <!--
+            <form class="form-inline" th:action="@{/betasignin}" method="post">
+                <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
+            </form>
+            -->
+        </div>
+    </div>
+</nav>
+
+<body>
+<div class="container">
+    <div style="width:100%;" th:fragment="advert1">
+        <a style="width:100%;"  target="_blank" href="https://www.ggsport.is/">
+            <img style="width:100%;"  src="https://www.ggsport.is/images/logos/nr%20banner%20gg%20sport.jpg" class="img-fluid" alt="Responsive image">
+        </a>
+    </div>
+
+
+    <div class="row" th:fragment="advert2">
+        <div class="col-sm-5">
+            <a target="_blank" href="https://www.flyplay.com/">
+                <img src="https://aeronauticsonline.com/wp-content/uploads/2019/11/74612490_117867269648515_2451478134675996672_o-1170x530.png" class="img-fluid" alt="Responsive image">
+            </a>
+        </div>
+        <div class="col-sm-7">
+            <a target="_blank" href="https://www.icelandair.com/">
+                <img src="https://keldan.is/themes/keldanpremium/images/augl/iceair/des2018/1018x360gold.jpg" class="img-fluid" alt="Responsive image">
+            </a>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="menubar">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" th:href="@{/}">Adventurer's Guidebook</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <!--
+            <form class="form-inline" th:action="@{/betasignin}" method="post">
+                <button class="btn nav-item nav-link" type="submit">BETA Sign In</button>
+            </form>
+            -->
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <nobr th:unless="${sessionAdventurer}"><a class="nav-item nav-link" style="color:rgba(255,255,255,.5);" th:href="@{/signin}">Sign In</a></nobr>
+            <li class="nav-item dropdown" style="list-style: none;" th:if="${sessionAdventurer}">
+                <div class="dropdown-menu" style="margin-left:-3.5em;" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="nav-item nav-link" th:if="${sessionAdventurer}" th:href="@{/profile}">My Profile</a>
+                    <form class="form-inline" th:if="${sessionAdventurer}" th:action="@{/signout}" method="post">
+                        <nobr><input class="btn nav-item nav-link" style="color:#007bff;" type="submit" value="Sign Out"></nobr>
+                    </form>
+                </div>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="/assets/profile.png" alt="Profile picture" width="42" height="42">
+                </a>
+            </li>
+        </div>
+    </div>
+</nav>
+
+
+
+</body>
+</html>
