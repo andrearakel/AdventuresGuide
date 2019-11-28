@@ -1,4 +1,4 @@
-localhost:8080# Adventurer's Guidebook
+# Adventurer's Guidebook
 ## HBV501G - Háskóli Íslands
 ### Team 9
 Andrea, ars59@hi.is
