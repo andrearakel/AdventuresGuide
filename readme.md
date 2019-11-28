@@ -1,13 +1,13 @@
 # Adventurer's Guidebook
 ## HBV501G - Háskóli Íslands
 ### Team 9
-Andrea, ars59@hi.is
+Andrea Rakel Sigurðardóttir, ars59@hi.is
 
-Bjartur, boj8@hi.is
+Bjartur Örn Jónsson, boj8@hi.is
 
 Erling Óskar Kristjánsson, eok4@hi.is
 
-Jónas, jgs7@hi.is
+Jónas G. Sigurðsson, jgs7@hi.is
 
 #### Fall 2019
 
