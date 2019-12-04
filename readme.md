@@ -15,7 +15,7 @@ Jónas G. Sigurðsson, jgs7@hi.is
 
 Clone or download the git repository to your computer. Open the application in IntelliJ and run the application. The main function which runs the application is in `AdventuresGuide/src/main/java/is/hi/hbv501g/agb/AGB/Application.java`.
 
-Alternative you should be able to run `mvn clean build` and run the generated Fat JAR. This Fat JAR should also be built when you run the application with the current settings from ´pom.xml´, and it contains all necessary dependencies. You can also download this Fat JAR from [this link](https://drive.google.com/file/d/1b8bwxiqH8pe5Je-PH0DOwRpfeuKEvu4P/view?usp=sharing) and run it on your machine with the command ´java -jar AGB-0.0.1-SNAPSHOT.jar´. When the application is running, go to [localhost:8080](localhost:8080) in your browser and the web application should be running.
+Alternative you should be able to run `mvn clean build` and run the generated Fat JAR. This Fat JAR should also be built when you run the application with the current settings from ´pom.xml´, and it contains all necessary dependencies. You can also download this Fat JAR from [this link](https://drive.google.com/file/d/1b8bwxiqH8pe5Je-PH0DOwRpfeuKEvu4P/view?usp=sharing) and run it on your machine with the command `java -jar AGB-0.0.1-SNAPSHOT.jar`. When the application is running, go to [localhost:8080](localhost:8080) in your browser and the web application should be running.
 
 ## Notes for users (adventurers)
 To SignUp for the Adventurer's Guidebook you need to enter a username and password, both of which must be longer than 2 characters. You also need to enter a valid email address.
